@@ -1,0 +1,6 @@
+{
+  "name": "Sistem Pendataan Relawan",
+  "description": "Sistem Pendataan Relawan berbasis OCR KTP dengan Gemini Vision, validasi hierarki wilayah, rekapitulasi real-time, dan export data.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
