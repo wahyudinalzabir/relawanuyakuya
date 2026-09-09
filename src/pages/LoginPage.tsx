@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { PanLogo } from '../components/PanLogo';
-import { Shield, Lock, User as UserIcon, Eye, EyeOff, CheckCircle2, ArrowRight, AlertCircle, Sparkles } from 'lucide-react';
+import { Shield, Lock, User as UserIcon, Eye, EyeOff, ArrowRight, AlertCircle, Sparkles } from 'lucide-react';
 
 interface LoginPageProps {
   onLoginSuccess?: () => void;
@@ -33,12 +33,6 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
     } else {
       setErrorMessage(res.error || 'Username atau kata sandi tidak cocok.');
     }
-  };
-
-  const handleQuickFill = (u: string, p: string) => {
-    setUsername(u);
-    setPassword(p);
-    setErrorMessage('');
   };
 
   return (
@@ -95,7 +89,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
                   required
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  placeholder="Contoh: fitrinurbaiti atau wahyudin"
+                  placeholder="Masukkan username Anda"
                   className="block w-full pl-10 pr-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium text-slate-900 placeholder:text-slate-400 focus:outline-hidden focus:ring-2 focus:ring-blue-600 focus:border-blue-600 focus:bg-white transition-all"
                 />
               </div>
@@ -146,69 +140,10 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
             </button>
           </form>
 
-          {/* Quick Access Selector for convenience */}
           <div className="mt-6 pt-5 border-t border-slate-100">
-            <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2.5 text-center">
-              Pilihan Akun Resmi Jagakarsa
-            </p>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-              {/* Korcam Button */}
-              <button
-                type="button"
-                onClick={() => handleQuickFill('fitrinurbaiti', 'jagakarsajaya')}
-                className={`p-3 rounded-xl border text-left transition-all flex flex-col justify-between ${
-                  username === 'fitrinurbaiti'
-                    ? 'border-blue-600 bg-blue-50/70 ring-1 ring-blue-600'
-                    : 'border-slate-200 hover:border-blue-300 hover:bg-slate-50'
-                }`}
-              >
-                <div className="flex items-center justify-between mb-1">
-                  <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-blue-100 text-blue-800">
-                    1. Korcam
-                  </span>
-                  {username === 'fitrinurbaiti' && (
-                    <CheckCircle2 className="w-3.5 h-3.5 text-blue-600" />
-                  )}
-                </div>
-                <p className="text-xs font-bold text-slate-800">Fitri Nurbaiti</p>
-                <p className="text-[11px] text-slate-500 font-mono mt-0.5">user: fitrinurbaiti</p>
-                <p className="text-[10px] text-emerald-600 font-medium mt-1">
-                  Semua Wilayah + Kelola Korkel/KorWe
-                </p>
-              </button>
-
-              {/* Ketua DPC Button */}
-              <button
-                type="button"
-                onClick={() => handleQuickFill('wahyudin', 'dpcjagakarsa1')}
-                className={`p-3 rounded-xl border text-left transition-all flex flex-col justify-between ${
-                  username === 'wahyudin'
-                    ? 'border-blue-600 bg-blue-50/70 ring-1 ring-blue-600'
-                    : 'border-slate-200 hover:border-blue-300 hover:bg-slate-50'
-                }`}
-              >
-                <div className="flex items-center justify-between mb-1">
-                  <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-indigo-100 text-indigo-800">
-                    2. Ketua DPC
-                  </span>
-                  {username === 'wahyudin' && (
-                    <CheckCircle2 className="w-3.5 h-3.5 text-indigo-600" />
-                  )}
-                </div>
-                <p className="text-xs font-bold text-slate-800">Wahyudin</p>
-                <p className="text-[11px] text-slate-500 font-mono mt-0.5">user: wahyudin</p>
-                <p className="text-[10px] text-emerald-600 font-medium mt-1">
-                  Semua Wilayah + Kelola Korkel/KorWe
-                </p>
-              </button>
-            </div>
-
-            <div className="mt-3 p-2.5 rounded-lg bg-slate-50 border border-slate-100 text-[11px] text-slate-500 flex items-start gap-2">
-              <Shield className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
-              <span>
-                Akun admin <strong>Korkel (Kelurahan)</strong> dan <strong>KorWe (RW)</strong> yang ditambahkan oleh Korcam / Ketua DPC dapat langsung masuk melalui halaman ini.
-              </span>
+            <div className="p-3 rounded-xl bg-slate-50 border border-slate-100 text-xs text-slate-500 flex items-center justify-center gap-2 text-center">
+              <Shield className="w-4 h-4 text-blue-600 shrink-0" />
+              <span>Portal Khusus Pengurus &amp; Koordinator Terdaftar</span>
             </div>
           </div>
         </div>

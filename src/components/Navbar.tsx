@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { Shield, Sparkles, Menu, LogOut, ChevronDown, User, Check, RefreshCw } from 'lucide-react';
+import { Shield, Sparkles, Menu, LogOut, ChevronDown, User, RefreshCw } from 'lucide-react';
 import { PanLogo } from './PanLogo';
 
 interface NavbarProps {
@@ -8,7 +8,7 @@ interface NavbarProps {
 }
 
 export const Navbar: React.FC<NavbarProps> = ({ onToggleSidebar }) => {
-  const { currentUser, switchAccount, logout, canManageAdmins } = useAuth();
+  const { currentUser, logout, canManageAdmins } = useAuth();
   const [showAccountMenu, setShowAccountMenu] = useState(false);
 
   const getRoleBadge = () => {
@@ -115,49 +115,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onToggleSidebar }) => {
                 <p className="text-xs font-bold text-gray-900 mt-0.5">{currentUser?.name}</p>
                 <p className="text-[11px] text-gray-500 font-mono">@{currentUser?.username || currentUser?.email}</p>
                 <div className="mt-1.5">{getRoleBadge()}</div>
-              </div>
-
-              {/* Quick switch between official accounts for test convenience */}
-              <div className="p-2 border-b border-gray-100">
-                <p className="px-2 py-1 text-[10px] font-bold text-gray-400 uppercase tracking-wider">
-                  Ganti Akun Cepat
-                </p>
-
-                <button
-                  onClick={() => {
-                    switchAccount('fitrinurbaiti', 'jagakarsajaya');
-                    setShowAccountMenu(false);
-                  }}
-                  className={`w-full text-left p-2 rounded-xl text-xs flex items-center justify-between transition-colors ${
-                    currentUser?.username === 'fitrinurbaiti'
-                      ? 'bg-blue-50 text-blue-900 font-bold'
-                      : 'hover:bg-gray-50 text-gray-700'
-                  }`}
-                >
-                  <div>
-                    <p className="text-xs font-semibold">Fitri Nurbaiti</p>
-                    <p className="text-[10px] text-gray-500">Korcam (jagakarsajaya)</p>
-                  </div>
-                  {currentUser?.username === 'fitrinurbaiti' && <Check className="w-4 h-4 text-blue-600" />}
-                </button>
-
-                <button
-                  onClick={() => {
-                    switchAccount('wahyudin', 'dpcjagakarsa1');
-                    setShowAccountMenu(false);
-                  }}
-                  className={`w-full text-left p-2 rounded-xl text-xs flex items-center justify-between transition-colors ${
-                    currentUser?.username === 'wahyudin'
-                      ? 'bg-blue-50 text-blue-900 font-bold'
-                      : 'hover:bg-gray-50 text-gray-700'
-                  }`}
-                >
-                  <div>
-                    <p className="text-xs font-semibold">Wahyudin</p>
-                    <p className="text-[10px] text-gray-500">Ketua DPC (dpcjagakarsa1)</p>
-                  </div>
-                  {currentUser?.username === 'wahyudin' && <Check className="w-4 h-4 text-blue-600" />}
-                </button>
               </div>
 
               <div className="p-2">

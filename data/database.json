@@ -1,0 +1,5818 @@
+{
+  "users": [
+    {
+      "id": "USR-KORCAM-01",
+      "username": "fitrinurbaiti",
+      "password": "jagakarsajaya",
+      "name": "Fitri Nurbaiti",
+      "email": "fitrinurbaiti@pan-jagakarsa.id",
+      "role": "Korcam",
+      "kecamatan_assigned": "Jagakarsa",
+      "phone": "081312345678",
+      "created_at": "2025-01-01T08:00:00.000Z"
+    },
+    {
+      "id": "USR-DPC-01",
+      "username": "wahyudin",
+      "password": "dpcjagakarsa1",
+      "name": "Wahyudin",
+      "email": "wahyudin@pan-jagakarsa.id",
+      "role": "Ketua DPC",
+      "kecamatan_assigned": "Jagakarsa",
+      "phone": "081298765432",
+      "created_at": "2025-01-01T08:00:00.000Z"
+    }
+  ],
+  "wilayah": [
+    {
+      "id": "WIL-1",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "001",
+      "rt": "001",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-2",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "001",
+      "rt": "001",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-3",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "001",
+      "rt": "001",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-4",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "001",
+      "rt": "001",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-5",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "001",
+      "rt": "002",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-6",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "001",
+      "rt": "002",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-7",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "001",
+      "rt": "002",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-8",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "001",
+      "rt": "002",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-9",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "001",
+      "rt": "003",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-10",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "001",
+      "rt": "003",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-11",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "001",
+      "rt": "003",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-12",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "001",
+      "rt": "003",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-13",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "001",
+      "rt": "004",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-14",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "001",
+      "rt": "004",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-15",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "001",
+      "rt": "004",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-16",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "001",
+      "rt": "004",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-17",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "002",
+      "rt": "001",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-18",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "002",
+      "rt": "001",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-19",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "002",
+      "rt": "001",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-20",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "002",
+      "rt": "001",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-21",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "002",
+      "rt": "002",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-22",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "002",
+      "rt": "002",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-23",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "002",
+      "rt": "002",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-24",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "002",
+      "rt": "002",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-25",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "002",
+      "rt": "003",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-26",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "002",
+      "rt": "003",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-27",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "002",
+      "rt": "003",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-28",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "002",
+      "rt": "003",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-29",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "002",
+      "rt": "004",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-30",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "002",
+      "rt": "004",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-31",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "002",
+      "rt": "004",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-32",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "002",
+      "rt": "004",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-33",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "003",
+      "rt": "001",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-34",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "003",
+      "rt": "001",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-35",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "003",
+      "rt": "001",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-36",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "003",
+      "rt": "001",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-37",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "003",
+      "rt": "002",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-38",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "003",
+      "rt": "002",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-39",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "003",
+      "rt": "002",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-40",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "003",
+      "rt": "002",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-41",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "003",
+      "rt": "003",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-42",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "003",
+      "rt": "003",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-43",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "003",
+      "rt": "003",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-44",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "003",
+      "rt": "003",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-45",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "003",
+      "rt": "004",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-46",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "003",
+      "rt": "004",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-47",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "003",
+      "rt": "004",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-48",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "003",
+      "rt": "004",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-49",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "004",
+      "rt": "001",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-50",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "004",
+      "rt": "001",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-51",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "004",
+      "rt": "001",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-52",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "004",
+      "rt": "001",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-53",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "004",
+      "rt": "002",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-54",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "004",
+      "rt": "002",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-55",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "004",
+      "rt": "002",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-56",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "004",
+      "rt": "002",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-57",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "004",
+      "rt": "003",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-58",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "004",
+      "rt": "003",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-59",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "004",
+      "rt": "003",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-60",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "004",
+      "rt": "003",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-61",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "004",
+      "rt": "004",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-62",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "004",
+      "rt": "004",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-63",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "004",
+      "rt": "004",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-64",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "004",
+      "rt": "004",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-65",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "005",
+      "rt": "001",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-66",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "005",
+      "rt": "001",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-67",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "005",
+      "rt": "001",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-68",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "005",
+      "rt": "001",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-69",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "005",
+      "rt": "002",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-70",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "005",
+      "rt": "002",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-71",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "005",
+      "rt": "002",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-72",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "005",
+      "rt": "002",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-73",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "005",
+      "rt": "003",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-74",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "005",
+      "rt": "003",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-75",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "005",
+      "rt": "003",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-76",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "005",
+      "rt": "003",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-77",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "005",
+      "rt": "004",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-78",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "005",
+      "rt": "004",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-79",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "005",
+      "rt": "004",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-80",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "005",
+      "rt": "004",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-81",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "006",
+      "rt": "001",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-82",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "006",
+      "rt": "001",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-83",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "006",
+      "rt": "001",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-84",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "006",
+      "rt": "001",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-85",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "006",
+      "rt": "002",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-86",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "006",
+      "rt": "002",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-87",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "006",
+      "rt": "002",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-88",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "006",
+      "rt": "002",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-89",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "006",
+      "rt": "003",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-90",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "006",
+      "rt": "003",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-91",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "006",
+      "rt": "003",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-92",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "006",
+      "rt": "003",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-93",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "006",
+      "rt": "004",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-94",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "006",
+      "rt": "004",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-95",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "006",
+      "rt": "004",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-96",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Tanjung Barat",
+      "rw": "006",
+      "rt": "004",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-97",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "001",
+      "rt": "001",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-98",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "001",
+      "rt": "001",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-99",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "001",
+      "rt": "001",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-100",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "001",
+      "rt": "001",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-101",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "001",
+      "rt": "002",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-102",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "001",
+      "rt": "002",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-103",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "001",
+      "rt": "002",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-104",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "001",
+      "rt": "002",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-105",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "001",
+      "rt": "003",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-106",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "001",
+      "rt": "003",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-107",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "001",
+      "rt": "003",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-108",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "001",
+      "rt": "003",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-109",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "001",
+      "rt": "004",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-110",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "001",
+      "rt": "004",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-111",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "001",
+      "rt": "004",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-112",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "001",
+      "rt": "004",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-113",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "002",
+      "rt": "001",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-114",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "002",
+      "rt": "001",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-115",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "002",
+      "rt": "001",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-116",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "002",
+      "rt": "001",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-117",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "002",
+      "rt": "002",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-118",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "002",
+      "rt": "002",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-119",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "002",
+      "rt": "002",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-120",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "002",
+      "rt": "002",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-121",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "002",
+      "rt": "003",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-122",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "002",
+      "rt": "003",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-123",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "002",
+      "rt": "003",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-124",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "002",
+      "rt": "003",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-125",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "002",
+      "rt": "004",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-126",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "002",
+      "rt": "004",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-127",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "002",
+      "rt": "004",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-128",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "002",
+      "rt": "004",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-129",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "003",
+      "rt": "001",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-130",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "003",
+      "rt": "001",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-131",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "003",
+      "rt": "001",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-132",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "003",
+      "rt": "001",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-133",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "003",
+      "rt": "002",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-134",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "003",
+      "rt": "002",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-135",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "003",
+      "rt": "002",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-136",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "003",
+      "rt": "002",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-137",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "003",
+      "rt": "003",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-138",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "003",
+      "rt": "003",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-139",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "003",
+      "rt": "003",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-140",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "003",
+      "rt": "003",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-141",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "003",
+      "rt": "004",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-142",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "003",
+      "rt": "004",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-143",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "003",
+      "rt": "004",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-144",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "003",
+      "rt": "004",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-145",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "004",
+      "rt": "001",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-146",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "004",
+      "rt": "001",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-147",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "004",
+      "rt": "001",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-148",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "004",
+      "rt": "001",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-149",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "004",
+      "rt": "002",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-150",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "004",
+      "rt": "002",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-151",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "004",
+      "rt": "002",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-152",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "004",
+      "rt": "002",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-153",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "004",
+      "rt": "003",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-154",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "004",
+      "rt": "003",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-155",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "004",
+      "rt": "003",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-156",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "004",
+      "rt": "003",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-157",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "004",
+      "rt": "004",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-158",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "004",
+      "rt": "004",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-159",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "004",
+      "rt": "004",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-160",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "004",
+      "rt": "004",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-161",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "005",
+      "rt": "001",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-162",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "005",
+      "rt": "001",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-163",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "005",
+      "rt": "001",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-164",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "005",
+      "rt": "001",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-165",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "005",
+      "rt": "002",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-166",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "005",
+      "rt": "002",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-167",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "005",
+      "rt": "002",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-168",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "005",
+      "rt": "002",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-169",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "005",
+      "rt": "003",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-170",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "005",
+      "rt": "003",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-171",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "005",
+      "rt": "003",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-172",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "005",
+      "rt": "003",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-173",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "005",
+      "rt": "004",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-174",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "005",
+      "rt": "004",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-175",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "005",
+      "rt": "004",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-176",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "005",
+      "rt": "004",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-177",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "006",
+      "rt": "001",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-178",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "006",
+      "rt": "001",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-179",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "006",
+      "rt": "001",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-180",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "006",
+      "rt": "001",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-181",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "006",
+      "rt": "002",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-182",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "006",
+      "rt": "002",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-183",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "006",
+      "rt": "002",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-184",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "006",
+      "rt": "002",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-185",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "006",
+      "rt": "003",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-186",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "006",
+      "rt": "003",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-187",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "006",
+      "rt": "003",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-188",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "006",
+      "rt": "003",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-189",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "006",
+      "rt": "004",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-190",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "006",
+      "rt": "004",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-191",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "006",
+      "rt": "004",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-192",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Lenteng Agung",
+      "rw": "006",
+      "rt": "004",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-193",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "001",
+      "rt": "001",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-194",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "001",
+      "rt": "001",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-195",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "001",
+      "rt": "001",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-196",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "001",
+      "rt": "001",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-197",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "001",
+      "rt": "002",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-198",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "001",
+      "rt": "002",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-199",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "001",
+      "rt": "002",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-200",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "001",
+      "rt": "002",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-201",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "001",
+      "rt": "003",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-202",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "001",
+      "rt": "003",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-203",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "001",
+      "rt": "003",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-204",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "001",
+      "rt": "003",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-205",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "001",
+      "rt": "004",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-206",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "001",
+      "rt": "004",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-207",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "001",
+      "rt": "004",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-208",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "001",
+      "rt": "004",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-209",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "002",
+      "rt": "001",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-210",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "002",
+      "rt": "001",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-211",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "002",
+      "rt": "001",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-212",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "002",
+      "rt": "001",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-213",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "002",
+      "rt": "002",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-214",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "002",
+      "rt": "002",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-215",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "002",
+      "rt": "002",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-216",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "002",
+      "rt": "002",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-217",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "002",
+      "rt": "003",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-218",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "002",
+      "rt": "003",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-219",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "002",
+      "rt": "003",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-220",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "002",
+      "rt": "003",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-221",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "002",
+      "rt": "004",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-222",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "002",
+      "rt": "004",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-223",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "002",
+      "rt": "004",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-224",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "002",
+      "rt": "004",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-225",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "003",
+      "rt": "001",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-226",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "003",
+      "rt": "001",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-227",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "003",
+      "rt": "001",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-228",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "003",
+      "rt": "001",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-229",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "003",
+      "rt": "002",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-230",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "003",
+      "rt": "002",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-231",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "003",
+      "rt": "002",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-232",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "003",
+      "rt": "002",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-233",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "003",
+      "rt": "003",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-234",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "003",
+      "rt": "003",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-235",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "003",
+      "rt": "003",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-236",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "003",
+      "rt": "003",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-237",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "003",
+      "rt": "004",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-238",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "003",
+      "rt": "004",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-239",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "003",
+      "rt": "004",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-240",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "003",
+      "rt": "004",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-241",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "004",
+      "rt": "001",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-242",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "004",
+      "rt": "001",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-243",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "004",
+      "rt": "001",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-244",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "004",
+      "rt": "001",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-245",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "004",
+      "rt": "002",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-246",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "004",
+      "rt": "002",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-247",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "004",
+      "rt": "002",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-248",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "004",
+      "rt": "002",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-249",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "004",
+      "rt": "003",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-250",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "004",
+      "rt": "003",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-251",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "004",
+      "rt": "003",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-252",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "004",
+      "rt": "003",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-253",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "004",
+      "rt": "004",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-254",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "004",
+      "rt": "004",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-255",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "004",
+      "rt": "004",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-256",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "004",
+      "rt": "004",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-257",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "005",
+      "rt": "001",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-258",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "005",
+      "rt": "001",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-259",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "005",
+      "rt": "001",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-260",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "005",
+      "rt": "001",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-261",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "005",
+      "rt": "002",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-262",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "005",
+      "rt": "002",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-263",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "005",
+      "rt": "002",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-264",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "005",
+      "rt": "002",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-265",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "005",
+      "rt": "003",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-266",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "005",
+      "rt": "003",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-267",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "005",
+      "rt": "003",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-268",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "005",
+      "rt": "003",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-269",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "005",
+      "rt": "004",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-270",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "005",
+      "rt": "004",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-271",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "005",
+      "rt": "004",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-272",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "005",
+      "rt": "004",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-273",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "006",
+      "rt": "001",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-274",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "006",
+      "rt": "001",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-275",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "006",
+      "rt": "001",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-276",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "006",
+      "rt": "001",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-277",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "006",
+      "rt": "002",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-278",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "006",
+      "rt": "002",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-279",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "006",
+      "rt": "002",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-280",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "006",
+      "rt": "002",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-281",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "006",
+      "rt": "003",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-282",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "006",
+      "rt": "003",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-283",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "006",
+      "rt": "003",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-284",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "006",
+      "rt": "003",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-285",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "006",
+      "rt": "004",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-286",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "006",
+      "rt": "004",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-287",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "006",
+      "rt": "004",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-288",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Jagakarsa",
+      "rw": "006",
+      "rt": "004",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-289",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "001",
+      "rt": "001",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-290",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "001",
+      "rt": "001",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-291",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "001",
+      "rt": "001",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-292",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "001",
+      "rt": "001",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-293",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "001",
+      "rt": "002",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-294",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "001",
+      "rt": "002",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-295",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "001",
+      "rt": "002",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-296",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "001",
+      "rt": "002",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-297",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "001",
+      "rt": "003",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-298",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "001",
+      "rt": "003",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-299",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "001",
+      "rt": "003",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-300",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "001",
+      "rt": "003",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-301",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "001",
+      "rt": "004",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-302",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "001",
+      "rt": "004",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-303",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "001",
+      "rt": "004",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-304",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "001",
+      "rt": "004",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-305",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "002",
+      "rt": "001",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-306",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "002",
+      "rt": "001",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-307",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "002",
+      "rt": "001",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-308",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "002",
+      "rt": "001",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-309",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "002",
+      "rt": "002",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-310",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "002",
+      "rt": "002",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-311",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "002",
+      "rt": "002",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-312",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "002",
+      "rt": "002",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-313",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "002",
+      "rt": "003",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-314",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "002",
+      "rt": "003",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-315",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "002",
+      "rt": "003",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-316",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "002",
+      "rt": "003",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-317",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "002",
+      "rt": "004",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-318",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "002",
+      "rt": "004",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-319",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "002",
+      "rt": "004",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-320",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "002",
+      "rt": "004",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-321",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "003",
+      "rt": "001",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-322",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "003",
+      "rt": "001",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-323",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "003",
+      "rt": "001",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-324",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "003",
+      "rt": "001",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-325",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "003",
+      "rt": "002",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-326",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "003",
+      "rt": "002",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-327",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "003",
+      "rt": "002",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-328",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "003",
+      "rt": "002",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-329",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "003",
+      "rt": "003",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-330",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "003",
+      "rt": "003",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-331",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "003",
+      "rt": "003",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-332",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "003",
+      "rt": "003",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-333",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "003",
+      "rt": "004",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-334",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "003",
+      "rt": "004",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-335",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "003",
+      "rt": "004",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-336",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "003",
+      "rt": "004",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-337",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "004",
+      "rt": "001",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-338",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "004",
+      "rt": "001",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-339",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "004",
+      "rt": "001",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-340",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "004",
+      "rt": "001",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-341",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "004",
+      "rt": "002",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-342",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "004",
+      "rt": "002",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-343",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "004",
+      "rt": "002",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-344",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "004",
+      "rt": "002",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-345",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "004",
+      "rt": "003",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-346",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "004",
+      "rt": "003",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-347",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "004",
+      "rt": "003",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-348",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "004",
+      "rt": "003",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-349",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "004",
+      "rt": "004",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-350",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "004",
+      "rt": "004",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-351",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "004",
+      "rt": "004",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-352",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "004",
+      "rt": "004",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-353",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "005",
+      "rt": "001",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-354",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "005",
+      "rt": "001",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-355",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "005",
+      "rt": "001",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-356",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "005",
+      "rt": "001",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-357",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "005",
+      "rt": "002",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-358",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "005",
+      "rt": "002",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-359",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "005",
+      "rt": "002",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-360",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "005",
+      "rt": "002",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-361",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "005",
+      "rt": "003",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-362",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "005",
+      "rt": "003",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-363",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "005",
+      "rt": "003",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-364",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "005",
+      "rt": "003",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-365",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "005",
+      "rt": "004",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-366",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "005",
+      "rt": "004",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-367",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "005",
+      "rt": "004",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-368",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "005",
+      "rt": "004",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-369",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "006",
+      "rt": "001",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-370",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "006",
+      "rt": "001",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-371",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "006",
+      "rt": "001",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-372",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "006",
+      "rt": "001",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-373",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "006",
+      "rt": "002",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-374",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "006",
+      "rt": "002",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-375",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "006",
+      "rt": "002",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-376",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "006",
+      "rt": "002",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-377",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "006",
+      "rt": "003",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-378",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "006",
+      "rt": "003",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-379",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "006",
+      "rt": "003",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-380",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "006",
+      "rt": "003",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-381",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "006",
+      "rt": "004",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-382",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "006",
+      "rt": "004",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-383",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "006",
+      "rt": "004",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-384",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Ciganjur",
+      "rw": "006",
+      "rt": "004",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-385",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "001",
+      "rt": "001",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-386",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "001",
+      "rt": "001",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-387",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "001",
+      "rt": "001",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-388",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "001",
+      "rt": "001",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-389",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "001",
+      "rt": "002",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-390",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "001",
+      "rt": "002",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-391",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "001",
+      "rt": "002",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-392",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "001",
+      "rt": "002",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-393",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "001",
+      "rt": "003",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-394",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "001",
+      "rt": "003",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-395",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "001",
+      "rt": "003",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-396",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "001",
+      "rt": "003",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-397",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "001",
+      "rt": "004",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-398",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "001",
+      "rt": "004",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-399",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "001",
+      "rt": "004",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-400",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "001",
+      "rt": "004",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-401",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "002",
+      "rt": "001",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-402",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "002",
+      "rt": "001",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-403",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "002",
+      "rt": "001",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-404",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "002",
+      "rt": "001",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-405",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "002",
+      "rt": "002",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-406",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "002",
+      "rt": "002",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-407",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "002",
+      "rt": "002",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-408",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "002",
+      "rt": "002",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-409",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "002",
+      "rt": "003",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-410",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "002",
+      "rt": "003",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-411",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "002",
+      "rt": "003",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-412",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "002",
+      "rt": "003",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-413",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "002",
+      "rt": "004",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-414",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "002",
+      "rt": "004",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-415",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "002",
+      "rt": "004",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-416",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "002",
+      "rt": "004",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-417",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "003",
+      "rt": "001",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-418",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "003",
+      "rt": "001",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-419",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "003",
+      "rt": "001",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-420",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "003",
+      "rt": "001",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-421",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "003",
+      "rt": "002",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-422",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "003",
+      "rt": "002",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-423",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "003",
+      "rt": "002",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-424",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "003",
+      "rt": "002",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-425",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "003",
+      "rt": "003",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-426",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "003",
+      "rt": "003",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-427",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "003",
+      "rt": "003",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-428",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "003",
+      "rt": "003",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-429",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "003",
+      "rt": "004",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-430",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "003",
+      "rt": "004",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-431",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "003",
+      "rt": "004",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-432",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "003",
+      "rt": "004",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-433",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "004",
+      "rt": "001",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-434",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "004",
+      "rt": "001",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-435",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "004",
+      "rt": "001",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-436",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "004",
+      "rt": "001",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-437",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "004",
+      "rt": "002",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-438",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "004",
+      "rt": "002",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-439",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "004",
+      "rt": "002",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-440",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "004",
+      "rt": "002",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-441",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "004",
+      "rt": "003",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-442",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "004",
+      "rt": "003",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-443",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "004",
+      "rt": "003",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-444",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "004",
+      "rt": "003",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-445",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "004",
+      "rt": "004",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-446",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "004",
+      "rt": "004",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-447",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "004",
+      "rt": "004",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-448",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "004",
+      "rt": "004",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-449",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "005",
+      "rt": "001",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-450",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "005",
+      "rt": "001",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-451",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "005",
+      "rt": "001",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-452",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "005",
+      "rt": "001",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-453",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "005",
+      "rt": "002",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-454",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "005",
+      "rt": "002",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-455",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "005",
+      "rt": "002",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-456",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "005",
+      "rt": "002",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-457",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "005",
+      "rt": "003",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-458",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "005",
+      "rt": "003",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-459",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "005",
+      "rt": "003",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-460",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "005",
+      "rt": "003",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-461",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "005",
+      "rt": "004",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-462",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "005",
+      "rt": "004",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-463",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "005",
+      "rt": "004",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-464",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "005",
+      "rt": "004",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-465",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "006",
+      "rt": "001",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-466",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "006",
+      "rt": "001",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-467",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "006",
+      "rt": "001",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-468",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "006",
+      "rt": "001",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-469",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "006",
+      "rt": "002",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-470",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "006",
+      "rt": "002",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-471",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "006",
+      "rt": "002",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-472",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "006",
+      "rt": "002",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-473",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "006",
+      "rt": "003",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-474",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "006",
+      "rt": "003",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-475",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "006",
+      "rt": "003",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-476",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "006",
+      "rt": "003",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-477",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "006",
+      "rt": "004",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-478",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "006",
+      "rt": "004",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-479",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "006",
+      "rt": "004",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-480",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Srengseng Sawah",
+      "rw": "006",
+      "rt": "004",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-481",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "001",
+      "rt": "001",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-482",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "001",
+      "rt": "001",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-483",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "001",
+      "rt": "001",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-484",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "001",
+      "rt": "001",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-485",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "001",
+      "rt": "002",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-486",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "001",
+      "rt": "002",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-487",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "001",
+      "rt": "002",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-488",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "001",
+      "rt": "002",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-489",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "001",
+      "rt": "003",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-490",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "001",
+      "rt": "003",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-491",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "001",
+      "rt": "003",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-492",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "001",
+      "rt": "003",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-493",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "001",
+      "rt": "004",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-494",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "001",
+      "rt": "004",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-495",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "001",
+      "rt": "004",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-496",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "001",
+      "rt": "004",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-497",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "002",
+      "rt": "001",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-498",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "002",
+      "rt": "001",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-499",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "002",
+      "rt": "001",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-500",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "002",
+      "rt": "001",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-501",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "002",
+      "rt": "002",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-502",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "002",
+      "rt": "002",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-503",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "002",
+      "rt": "002",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-504",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "002",
+      "rt": "002",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-505",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "002",
+      "rt": "003",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-506",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "002",
+      "rt": "003",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-507",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "002",
+      "rt": "003",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-508",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "002",
+      "rt": "003",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-509",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "002",
+      "rt": "004",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-510",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "002",
+      "rt": "004",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-511",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "002",
+      "rt": "004",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-512",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "002",
+      "rt": "004",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-513",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "003",
+      "rt": "001",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-514",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "003",
+      "rt": "001",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-515",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "003",
+      "rt": "001",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-516",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "003",
+      "rt": "001",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-517",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "003",
+      "rt": "002",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-518",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "003",
+      "rt": "002",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-519",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "003",
+      "rt": "002",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-520",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "003",
+      "rt": "002",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-521",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "003",
+      "rt": "003",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-522",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "003",
+      "rt": "003",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-523",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "003",
+      "rt": "003",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-524",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "003",
+      "rt": "003",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-525",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "003",
+      "rt": "004",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-526",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "003",
+      "rt": "004",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-527",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "003",
+      "rt": "004",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-528",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "003",
+      "rt": "004",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-529",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "004",
+      "rt": "001",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-530",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "004",
+      "rt": "001",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-531",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "004",
+      "rt": "001",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-532",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "004",
+      "rt": "001",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-533",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "004",
+      "rt": "002",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-534",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "004",
+      "rt": "002",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-535",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "004",
+      "rt": "002",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-536",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "004",
+      "rt": "002",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-537",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "004",
+      "rt": "003",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-538",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "004",
+      "rt": "003",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-539",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "004",
+      "rt": "003",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-540",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "004",
+      "rt": "003",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-541",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "004",
+      "rt": "004",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-542",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "004",
+      "rt": "004",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-543",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "004",
+      "rt": "004",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-544",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "004",
+      "rt": "004",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-545",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "005",
+      "rt": "001",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-546",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "005",
+      "rt": "001",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-547",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "005",
+      "rt": "001",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-548",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "005",
+      "rt": "001",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-549",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "005",
+      "rt": "002",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-550",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "005",
+      "rt": "002",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-551",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "005",
+      "rt": "002",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-552",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "005",
+      "rt": "002",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-553",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "005",
+      "rt": "003",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-554",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "005",
+      "rt": "003",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-555",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "005",
+      "rt": "003",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-556",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "005",
+      "rt": "003",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-557",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "005",
+      "rt": "004",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-558",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "005",
+      "rt": "004",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-559",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "005",
+      "rt": "004",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-560",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "005",
+      "rt": "004",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-561",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "006",
+      "rt": "001",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-562",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "006",
+      "rt": "001",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-563",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "006",
+      "rt": "001",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-564",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "006",
+      "rt": "001",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-565",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "006",
+      "rt": "002",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-566",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "006",
+      "rt": "002",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-567",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "006",
+      "rt": "002",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-568",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "006",
+      "rt": "002",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-569",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "006",
+      "rt": "003",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-570",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "006",
+      "rt": "003",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-571",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "006",
+      "rt": "003",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-572",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "006",
+      "rt": "003",
+      "tps": "TPS 004"
+    },
+    {
+      "id": "WIL-573",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "006",
+      "rt": "004",
+      "tps": "TPS 001"
+    },
+    {
+      "id": "WIL-574",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "006",
+      "rt": "004",
+      "tps": "TPS 002"
+    },
+    {
+      "id": "WIL-575",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "006",
+      "rt": "004",
+      "tps": "TPS 003"
+    },
+    {
+      "id": "WIL-576",
+      "provinsi": "DKI Jakarta",
+      "kabupaten_kota": "Kota Jakarta Selatan",
+      "kecamatan": "Jagakarsa",
+      "kelurahan": "Cipedak",
+      "rw": "006",
+      "rt": "004",
+      "tps": "TPS 004"
+    }
+  ],
+  "relawan": [],
+  "audit_logs": [
+    {
+      "id": "LOG-1788949162638-548",
+      "user_id": "USR-DPC-01",
+      "user_name": "Wahyudin",
+      "user_role": "Ketua DPC",
+      "action": "LOGIN",
+      "details": "Pengguna 'Wahyudin' (Ketua DPC) berhasil masuk ke sistem.",
+      "timestamp": "2026-09-09T10:19:22.638Z"
+    },
+    {
+      "id": "LOG-1788946488888-703",
+      "user_id": "USR-DPC-01",
+      "user_name": "Wahyudin",
+      "user_role": "Ketua DPC",
+      "action": "LOGIN",
+      "details": "Pengguna 'Wahyudin' (Ketua DPC) berhasil masuk ke sistem.",
+      "timestamp": "2026-09-09T09:34:48.888Z"
+    },
+    {
+      "id": "LOG-INIT-01",
+      "user_id": "USR-DPC-01",
+      "user_name": "Wahyudin",
+      "user_role": "Ketua DPC",
+      "action": "LOGIN",
+      "details": "Sistem Pendataan Relawan Kecamatan Jagakarsa (Partai PAN) resmi diaktifkan.",
+      "timestamp": "2026-09-09T09:33:33.991Z"
+    }
+  ]
+}
