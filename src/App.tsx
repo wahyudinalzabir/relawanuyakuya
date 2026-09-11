@@ -15,6 +15,7 @@ import { UserManagementPage } from './pages/UserManagementPage';
 import { AuditLogPage } from './pages/AuditLogPage';
 import { SettingsPage } from './pages/SettingsPage';
 import { LoginPage } from './pages/LoginPage';
+import { EventCheckInPage } from './pages/EventCheckInPage';
 import { Relawan } from './types';
 import { PanLogo } from './components/PanLogo';
 
@@ -103,7 +104,12 @@ function AppContent() {
               onNavigateToRelawanWithFilter={(kecamatan) => {
                 setCurrentPage('relawan');
               }}
+              onNavigateToCheckIn={() => setCurrentPage('checkin-event')}
             />
+          )}
+
+          {currentPage === 'checkin-event' && (
+            <EventCheckInPage addToast={addToast} />
           )}
 
           {currentPage === 'scan-ktp' && (

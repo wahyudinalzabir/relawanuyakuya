@@ -1,4 +1,4 @@
-import { Relawan, User, DashboardStats, AuditLog, KtpOcrData } from '../types';
+import { Relawan, User, DashboardStats, AuditLog, KtpOcrData, EventItem, KehadiranEvent, EventStats } from '../types';
 
 let currentAuthToken = localStorage.getItem('auth_token') || '';
 
@@ -221,6 +221,58 @@ export const api = {
     }>('/api/export/sheets', {
       method: 'POST',
       body: JSON.stringify({ filterType, filterValue, format }),
+    });
+  },
+
+  // Events & Kehadiran
+  async getEvents() {
+    return request<{ success: boolean; events: (EventItem & { stats: EventStats })[] }>('/api/events');
+  },
+
+  async getEventById(id: string) {
+    return request<{ success: boolean; event: EventItem }>(`/api/events/${id}`);
+  },
+
+  async getEventKehadiran(eventId: string, params: Record<string, string | undefined> = {}) {
+    const q = new URLSearchParams();
+    Object.entries(params).forEach(([k, v]) => {
+      if (v !== undefined && v !== null && v !== '') q.append(k, String(v));
+    });
+    return request<{
+      success: boolean;
+      event: EventItem;
+      items: KehadiranEvent[];
+      stats: EventStats;
+    }>(`/api/events/${eventId}/kehadiran?${q.toString()}`);
+  },
+
+  async checkInEvent(
+    eventId: string,
+    data: {
+      nik: string;
+      nama: string;
+      kecamatan?: string;
+      kelurahan?: string;
+      rw?: string;
+      rt?: string;
+      status_kehadiran: 'HADIR' | 'PESERTA TAMU';
+      relawan_id?: string;
+      id_relawan?: string;
+      tps?: string;
+      ktp_image_url?: string;
+      catatan?: string;
+    }
+  ) {
+    return request<{
+      success: boolean;
+      data?: KehadiranEvent;
+      isDuplicate?: boolean;
+      firstCheckIn?: KehadiranEvent;
+      message?: string;
+      error?: string;
+    }>(`/api/events/${eventId}/checkin`, {
+      method: 'POST',
+      body: JSON.stringify(data),
     });
   },
 };

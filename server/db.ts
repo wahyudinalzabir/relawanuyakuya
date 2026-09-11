@@ -1,6 +1,16 @@
 import fs from 'fs';
 import path from 'path';
-import { User, WilayahItem, Relawan, AuditLog, DashboardStats } from '../src/types';
+import {
+  User,
+  WilayahItem,
+  Relawan,
+  AuditLog,
+  DashboardStats,
+  EventItem,
+  KehadiranEvent,
+  EventStats,
+  StatusKehadiran,
+} from '../src/types';
 
 const DATA_DIR = path.join(process.cwd(), 'data');
 const DB_FILE = path.join(DATA_DIR, 'database.json');
@@ -10,6 +20,8 @@ interface DatabaseSchema {
   wilayah: WilayahItem[];
   relawan: Relawan[];
   audit_logs: AuditLog[];
+  events?: EventItem[];
+  kehadiran?: KehadiranEvent[];
 }
 
 function ensureDataDirectory() {
@@ -139,6 +151,21 @@ class Database {
         if (!parsed.relawan) parsed.relawan = [];
         if (!parsed.users) parsed.users = [];
         if (!parsed.audit_logs) parsed.audit_logs = [];
+        if (!parsed.events || parsed.events.length === 0) {
+          parsed.events = [
+            {
+              id: 'EVT-BPJS-2026',
+              nama: 'GIAT SOSIALISASI BPJS KESEHATAN',
+              tanggal: '2026-09-12',
+              tanggal_display: 'Sabtu, 12 September 2026',
+              lokasi: 'Kecamatan Jagakarsa, Kota Jakarta Selatan',
+              deskripsi: 'Sosialisasi Program Jaminan Kesehatan Nasional BPJS bersama Relawan Jagakarsa',
+              status: 'Berlangsung',
+              created_at: new Date('2026-09-01T08:00:00Z').toISOString(),
+            },
+          ];
+        }
+        if (!parsed.kehadiran) parsed.kehadiran = [];
 
         // Check if wilayah is the official Jagakarsa 54 RW structure (54 RW, 6 Kelurahan)
         const distinctRW = new Set((parsed.wilayah || []).map((w: WilayahItem) => `${w.kelurahan}-${w.rw}`));
@@ -897,6 +924,202 @@ class Database {
 
     return { level: 'kelurahan', data: [] };
   }
+
+  // --- Event & Kehadiran Methods ---
+
+  public getEvents(): (EventItem & { stats: EventStats })[] {
+    const events = this.data.events || [];
+    const totalRelawanTerdaftar = this.data.relawan.filter(
+      (r) => !r.is_deleted && r.status_relawan === 'Aktif'
+    ).length;
+
+    return events.map((event) => {
+      const eventAttendance = (this.data.kehadiran || []).filter((k) => k.event_id === event.id);
+      const totalSudahHadir = eventAttendance.filter((k) => k.status_kehadiran === 'HADIR').length;
+      const totalPesertaTamu = eventAttendance.filter((k) => k.status_kehadiran === 'PESERTA TAMU').length;
+      const totalBelumHadir = Math.max(0, totalRelawanTerdaftar - totalSudahHadir);
+
+      return {
+        ...event,
+        stats: {
+          totalRelawanTerdaftar,
+          totalSudahHadir,
+          totalBelumHadir,
+          totalPesertaTamu,
+        },
+      };
+    });
+  }
+
+  public getEventById(id: string): EventItem | undefined {
+    return (this.data.events || []).find((e) => e.id === id);
+  }
+
+  public checkExistingKehadiran(eventId: string, nik: string): KehadiranEvent | undefined {
+    const cleanNik = nik.trim().replace(/\D/g, '');
+    return (this.data.kehadiran || []).find(
+      (k) => k.event_id === eventId && k.nik.replace(/\D/g, '') === cleanNik
+    );
+  }
+
+  public getKehadiranByEvent(
+    eventId: string,
+    options: {
+      kelurahan?: string;
+      rw?: string;
+      rt?: string;
+      status?: string;
+      search?: string;
+    } = {}
+  ): { items: KehadiranEvent[]; stats: EventStats } {
+    const allAttendance = (this.data.kehadiran || []).filter((k) => k.event_id === eventId);
+    const totalRelawanTerdaftar = this.data.relawan.filter(
+      (r) => !r.is_deleted && r.status_relawan === 'Aktif'
+    ).length;
+    const totalSudahHadir = allAttendance.filter((k) => k.status_kehadiran === 'HADIR').length;
+    const totalPesertaTamu = allAttendance.filter((k) => k.status_kehadiran === 'PESERTA TAMU').length;
+    const totalBelumHadir = Math.max(0, totalRelawanTerdaftar - totalSudahHadir);
+
+    let filtered = [...allAttendance];
+
+    if (options.kelurahan) {
+      filtered = filtered.filter(
+        (k) => k.kelurahan.toLowerCase() === options.kelurahan!.toLowerCase()
+      );
+    }
+    if (options.rw) {
+      const cleanRw = options.rw.replace(/\D/g, '').padStart(3, '0');
+      filtered = filtered.filter((k) => k.rw === cleanRw);
+    }
+    if (options.rt) {
+      const cleanRt = options.rt.replace(/\D/g, '').padStart(3, '0');
+      filtered = filtered.filter((k) => k.rt === cleanRt);
+    }
+    if (options.status) {
+      filtered = filtered.filter((k) => k.status_kehadiran === options.status);
+    }
+    if (options.search && options.search.trim()) {
+      const q = options.search.trim().toLowerCase();
+      filtered = filtered.filter(
+        (k) =>
+          k.nama.toLowerCase().includes(q) ||
+          k.nik.includes(q) ||
+          (k.id_relawan && k.id_relawan.toLowerCase().includes(q))
+      );
+    }
+
+    // Sort by latest check-in first
+    filtered.sort((a, b) => new Date(b.checkin_timestamp).getTime() - new Date(a.checkin_timestamp).getTime());
+
+    return {
+      items: filtered,
+      stats: {
+        totalRelawanTerdaftar,
+        totalSudahHadir,
+        totalBelumHadir,
+        totalPesertaTamu,
+      },
+    };
+  }
+
+  public recordCheckIn(
+    eventId: string,
+    data: {
+      nik: string;
+      nama: string;
+      kecamatan?: string;
+      kelurahan?: string;
+      rw?: string;
+      rt?: string;
+      status_kehadiran: StatusKehadiran;
+      relawan_id?: string;
+      id_relawan?: string;
+      tps?: string;
+      ktp_image_url?: string;
+      catatan?: string;
+    },
+    actor: User
+  ): { success: boolean; data?: KehadiranEvent; isDuplicate: boolean; firstCheckIn?: KehadiranEvent; message?: string } {
+    const event = this.getEventById(eventId);
+    if (!event) {
+      return { success: false, isDuplicate: false, message: 'Event tidak ditemukan.' };
+    }
+
+    const cleanNik = data.nik.trim().replace(/\D/g, '');
+    if (!cleanNik || cleanNik.length < 16) {
+      return { success: false, isDuplicate: false, message: 'NIK wajib 16 digit angka kependudukan.' };
+    }
+
+    // CEGAH CHECK-IN GANDA:
+    // Jika NIK yang sama discan kembali untuk event yang sama, JANGAN membuat record kehadiran baru.
+    const existing = this.checkExistingKehadiran(eventId, cleanNik);
+    if (existing) {
+      return {
+        success: false,
+        isDuplicate: true,
+        firstCheckIn: existing,
+        message: `Relawan atas nama ${existing.nama} SUDAH CHECK-IN pada ${existing.tanggal_checkin} pukul ${existingCheckInTimeFormat(existing.waktu_checkin)}.`,
+      };
+    }
+
+    if (!this.data.kehadiran) {
+      this.data.kehadiran = [];
+    }
+
+    const now = new Date();
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    const waktu_checkin = `${hours}:${minutes}:${seconds} WIB`;
+    const tanggal_checkin = event.tanggal_display || 'Sabtu, 12 September 2026';
+
+    const cleanRw = data.rw ? data.rw.replace(/\D/g, '').padStart(3, '0') : '-';
+    const cleanRt = data.rt ? data.rt.replace(/\D/g, '').padStart(3, '0') : '-';
+
+    const newAttendance: KehadiranEvent = {
+      id: `ATT-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
+      event_id: eventId,
+      event_name: event.nama,
+      event_tanggal: event.tanggal_display,
+      relawan_id: data.relawan_id,
+      id_relawan: data.id_relawan,
+      nik: cleanNik,
+      nama: data.nama.trim().toUpperCase(),
+      kecamatan: data.kecamatan || 'Jagakarsa',
+      kelurahan: data.kelurahan || '-',
+      rw: cleanRw,
+      rt: cleanRt,
+      tps: data.tps,
+      status_kehadiran: data.status_kehadiran,
+      waktu_checkin,
+      tanggal_checkin,
+      checkin_timestamp: now.toISOString(),
+      operator_id: actor.id,
+      operator_name: actor.name,
+      ktp_image_url: data.ktp_image_url,
+      catatan: data.catatan,
+    };
+
+    this.data.kehadiran.unshift(newAttendance);
+    this.saveData();
+
+    this.addAuditLog(
+      'CHECKIN_EVENT',
+      `Check-in [${newAttendance.status_kehadiran}] event '${event.nama}': ${newAttendance.nama} (NIK: ${newAttendance.nik.slice(0, 4)}************) pada ${waktu_checkin}.`,
+      actor,
+      newAttendance.id
+    );
+
+    return {
+      success: true,
+      data: newAttendance,
+      isDuplicate: false,
+    };
+  }
+}
+
+function existingCheckInTimeFormat(timeStr: string): string {
+  return timeStr || '';
 }
 
 export const db = new Database();

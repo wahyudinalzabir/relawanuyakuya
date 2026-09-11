@@ -15,6 +15,8 @@ import {
   RotateCcw,
   ScanLine,
   FileEdit,
+  CalendarCheck,
+  ArrowRight,
 } from 'lucide-react';
 import {
   BarChart,
@@ -31,12 +33,14 @@ interface DashboardPageProps {
   onNavigateToScan: () => void;
   onNavigateToManualInput?: () => void;
   onNavigateToRelawanWithFilter?: (kecamatan?: string) => void;
+  onNavigateToCheckIn?: () => void;
 }
 
 export const DashboardPage: React.FC<DashboardPageProps> = ({
   onNavigateToScan,
   onNavigateToManualInput,
   onNavigateToRelawanWithFilter,
+  onNavigateToCheckIn,
 }) => {
   const { currentUser, isSuperAdmin } = useAuth();
 
@@ -159,6 +163,39 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
           </button>
         </div>
       </div>
+
+      {/* Featured Event Callout Banner */}
+      {onNavigateToCheckIn && (
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-blue-900 to-indigo-900 text-white shadow-sm border border-blue-800">
+          <div className="flex items-start gap-3.5">
+            <div className="p-2.5 rounded-xl bg-blue-500/20 text-blue-300 border border-blue-400/30 shrink-0 mt-0.5">
+              <CalendarCheck className="w-6 h-6 text-emerald-400" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-amber-400 text-slate-950 uppercase">
+                  EVENT AKTIF
+                </span>
+                <span className="text-xs text-blue-200">Sabtu, 12 September 2026</span>
+              </div>
+              <h3 className="text-base font-bold text-white mt-1">GIAT SOSIALISASI BPJS KESEHATAN</h3>
+              <p className="text-xs text-blue-200/80 mt-0.5">
+                Pencatatan kehadiran relawan &amp; peserta dengan scan KTP otomatis.
+              </p>
+            </div>
+          </div>
+
+          <button
+            type="button"
+            id="btn-goto-checkin-banner"
+            onClick={onNavigateToCheckIn}
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-extrabold shadow-md transition-all shrink-0 cursor-pointer"
+          >
+            <span>Buka Check-in Event</span>
+            <ArrowRight className="w-4 h-4" />
+          </button>
+        </div>
+      )}
 
       {/* Wilayah & Status Filter Bar */}
       <div className="bg-white p-4 sm:p-5 rounded-2xl border border-gray-200/80 shadow-xs space-y-3">

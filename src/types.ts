@@ -91,10 +91,54 @@ export interface AuditLog {
   user_id: string;
   user_name: string;
   user_role: string;
-  action: 'UPLOAD_KTP' | 'CREATE_RELAWAN' | 'UPDATE_RELAWAN' | 'DELETE_RELAWAN' | 'EXPORT_DATA' | 'IMPORT_DATA' | 'RESTORE_RELAWAN' | 'LOGIN' | 'LOGOUT' | 'UPDATE_USER';
+  action: 'UPLOAD_KTP' | 'CREATE_RELAWAN' | 'UPDATE_RELAWAN' | 'DELETE_RELAWAN' | 'EXPORT_DATA' | 'IMPORT_DATA' | 'RESTORE_RELAWAN' | 'LOGIN' | 'LOGOUT' | 'UPDATE_USER' | 'CHECKIN_EVENT';
   details: string;
   timestamp: string;
   target_id?: string;
+}
+
+export interface EventItem {
+  id: string;
+  nama: string;
+  tanggal: string;
+  tanggal_display: string;
+  lokasi?: string;
+  deskripsi?: string;
+  status: 'Akan Datang' | 'Berlangsung' | 'Selesai';
+  created_at: string;
+}
+
+export type StatusKehadiran = 'HADIR' | 'PESERTA TAMU';
+
+export interface KehadiranEvent {
+  id: string;
+  event_id: string;
+  event_name: string;
+  event_tanggal: string;
+  relawan_id?: string;
+  id_relawan?: string;
+  nik: string;
+  nama: string;
+  kecamatan: string;
+  kelurahan: string;
+  rw: string;
+  rt: string;
+  tps?: string;
+  status_kehadiran: StatusKehadiran;
+  waktu_checkin: string; // e.g. "09:42:15"
+  tanggal_checkin: string; // e.g. "12 September 2026"
+  checkin_timestamp: string; // ISO string
+  operator_id: string;
+  operator_name: string;
+  ktp_image_url?: string;
+  catatan?: string;
+}
+
+export interface EventStats {
+  totalRelawanTerdaftar: number;
+  totalSudahHadir: number;
+  totalBelumHadir: number;
+  totalPesertaTamu: number;
 }
 
 export interface DashboardStats {

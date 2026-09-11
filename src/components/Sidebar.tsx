@@ -13,11 +13,13 @@ import {
   Settings,
   X,
   ShieldCheck,
+  CalendarCheck,
 } from 'lucide-react';
 import { PanLogo } from './PanLogo';
 
 export type PageId =
   | 'dashboard'
+  | 'checkin-event'
   | 'relawan'
   | 'scan-ktp'
   | 'input-manual'
@@ -38,8 +40,14 @@ interface SidebarProps {
 export const Sidebar: React.FC<SidebarProps> = ({ currentPage, onSelectPage, isOpen, onClose }) => {
   const { canManageAdmins, currentUser } = useAuth();
 
-  const navItems: { id: PageId; label: string; icon: React.ReactNode; requiresAdmin?: boolean }[] = [
+  const navItems: { id: PageId; label: string; icon: React.ReactNode; requiresAdmin?: boolean; badge?: string }[] = [
     { id: 'dashboard', label: 'Dashboard', icon: <LayoutDashboard className="w-5 h-5" /> },
+    {
+      id: 'checkin-event',
+      label: 'Check-in Event',
+      icon: <CalendarCheck className="w-5 h-5" />,
+      badge: 'BPJS 12 Sep',
+    },
     { id: 'relawan', label: 'Data Relawan', icon: <Users className="w-5 h-5" /> },
     { id: 'scan-ktp', label: 'Scan KTP (AI)', icon: <ScanLine className="w-5 h-5" /> },
     { id: 'input-manual', label: 'Input Manual', icon: <FileEdit className="w-5 h-5" /> },
@@ -153,14 +161,21 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentPage, onSelectPage, isO
                 key={item.id}
                 id={`nav-link-${item.id}`}
                 onClick={() => handleNavClick(item.id)}
-                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-semibold transition-colors ${
+                className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-xs font-semibold transition-colors ${
                   isActive
                     ? 'bg-blue-600 text-white shadow-xs'
                     : 'text-slate-300 hover:text-white hover:bg-slate-800/70'
                 }`}
               >
-                {item.icon}
-                <span>{item.label}</span>
+                <div className="flex items-center gap-3">
+                  {item.icon}
+                  <span>{item.label}</span>
+                </div>
+                {item.badge && (
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                    {item.badge}
+                  </span>
+                )}
               </button>
             );
           })}

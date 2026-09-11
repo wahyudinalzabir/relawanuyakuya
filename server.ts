@@ -490,6 +490,124 @@ async function startServer() {
     }
   });
 
+  // --- Events & Attendance API Routes ---
+
+  // Get all events with summary stats
+  app.get('/api/events', (_req: Request, res: Response) => {
+    try {
+      const events = db.getEvents();
+      res.json({ success: true, events });
+    } catch (err: any) {
+      res.status(500).json({ error: err.message });
+    }
+  });
+
+  // Get event by ID
+  app.get('/api/events/:id', (req: Request, res: Response) => {
+    try {
+      const event = db.getEventById(req.params.id);
+      if (!event) return res.status(404).json({ error: 'Event tidak ditemukan.' });
+      res.json({ success: true, event });
+    } catch (err: any) {
+      res.status(500).json({ error: err.message });
+    }
+  });
+
+  // Get attendance list for specific event
+  app.get('/api/events/:id/kehadiran', (req: Request, res: Response) => {
+    try {
+      const event = db.getEventById(req.params.id);
+      if (!event) return res.status(404).json({ error: 'Event tidak ditemukan.' });
+
+      const { kelurahan, rw, rt, status, search } = req.query as Record<string, string>;
+      const result = db.getKehadiranByEvent(req.params.id, {
+        kelurahan,
+        rw,
+        rt,
+        status,
+        search,
+      });
+
+      res.json({
+        success: true,
+        event,
+        items: result.items,
+        stats: result.stats,
+      });
+    } catch (err: any) {
+      res.status(500).json({ error: err.message });
+    }
+  });
+
+  // Record attendance check-in for event (volunteer or guest)
+  app.post('/api/events/:id/checkin', (req: Request, res: Response) => {
+    const user = requireAuthUser(req, res);
+    if (!user) return;
+
+    try {
+      const {
+        nik,
+        nama,
+        kecamatan,
+        kelurahan,
+        rw,
+        rt,
+        status_kehadiran,
+        relawan_id,
+        id_relawan,
+        tps,
+        ktp_image_url,
+        catatan,
+      } = req.body;
+
+      if (!nik || !nama) {
+        return res.status(400).json({ error: 'NIK dan Nama wajib diisi untuk check-in.' });
+      }
+
+      const checkInResult = db.recordCheckIn(
+        req.params.id,
+        {
+          nik,
+          nama,
+          kecamatan,
+          kelurahan,
+          rw,
+          rt,
+          status_kehadiran: status_kehadiran || 'HADIR',
+          relawan_id,
+          id_relawan,
+          tps,
+          ktp_image_url,
+          catatan,
+        },
+        user
+      );
+
+      if (checkInResult.isDuplicate) {
+        return res.status(409).json({
+          success: false,
+          isDuplicate: true,
+          message: checkInResult.message,
+          firstCheckIn: checkInResult.firstCheckIn,
+        });
+      }
+
+      if (!checkInResult.success) {
+        return res.status(400).json({
+          success: false,
+          error: checkInResult.message || 'Gagal melakukan check-in.',
+        });
+      }
+
+      res.status(201).json({
+        success: true,
+        data: checkInResult.data,
+      });
+    } catch (err: any) {
+      res.status(500).json({ error: err.message });
+    }
+  });
+
   // Vite middleware for development
   if (process.env.NODE_ENV !== 'production') {
     const vite = await createViteServer({
