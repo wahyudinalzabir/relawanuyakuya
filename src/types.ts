@@ -55,6 +55,12 @@ export interface Relawan {
   operator_id: string;
   operator_name?: string;
   ktp_image_url?: string;
+  no_hp?: string;
+  email?: string;
+  sumber_data?: string;
+  is_deleted?: boolean;
+  deleted_at?: string;
+  deleted_by?: string;
   created_at: string;
   updated_at: string;
 }
@@ -85,7 +91,7 @@ export interface AuditLog {
   user_id: string;
   user_name: string;
   user_role: string;
-  action: 'UPLOAD_KTP' | 'CREATE_RELAWAN' | 'UPDATE_RELAWAN' | 'DELETE_RELAWAN' | 'EXPORT_DATA' | 'LOGIN' | 'LOGOUT' | 'UPDATE_USER';
+  action: 'UPLOAD_KTP' | 'CREATE_RELAWAN' | 'UPDATE_RELAWAN' | 'DELETE_RELAWAN' | 'EXPORT_DATA' | 'IMPORT_DATA' | 'RESTORE_RELAWAN' | 'LOGIN' | 'LOGOUT' | 'UPDATE_USER';
   details: string;
   timestamp: string;
   target_id?: string;

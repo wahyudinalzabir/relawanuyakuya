@@ -18,40 +18,61 @@ function ensureDataDirectory() {
   }
 }
 
-export const KELURAHAN_JAGAKARSA = [
-  'Tanjung Barat',
-  'Lenteng Agung',
-  'Jagakarsa',
-  'Ciganjur',
-  'Srengseng Sawah',
-  'Cipedak',
+export interface KelurahanWilayahConfig {
+  name: string;
+  totalRw: number;
+  totalRt: number;
+}
+
+export const WILAYAH_CONFIG: KelurahanWilayahConfig[] = [
+  { name: 'Jagakarsa', totalRw: 7, totalRt: 52 },
+  { name: 'Cipedak', totalRw: 6, totalRt: 61 },
+  { name: 'Lenteng Agung', totalRw: 10, totalRt: 114 },
+  { name: 'Ciganjur', totalRw: 6, totalRt: 63 },
+  { name: 'Srengseng Sawah', totalRw: 19, totalRt: 156 },
+  { name: 'Tanjung Barat', totalRw: 6, totalRt: 66 },
 ];
 
-function getInitialData(): DatabaseSchema {
+export const KELURAHAN_JAGAKARSA = WILAYAH_CONFIG.map((w) => w.name);
+
+export function generateWilayahJagakarsa(): WilayahItem[] {
   const wilayahList: WilayahItem[] = [];
   let wId = 1;
 
-  for (const kel of KELURAHAN_JAGAKARSA) {
-    for (let rwNum = 1; rwNum <= 6; rwNum++) {
+  for (const config of WILAYAH_CONFIG) {
+    const kel = config.name;
+    const totalRw = config.totalRw;
+    const totalRt = config.totalRt;
+
+    const baseRt = Math.floor(totalRt / totalRw);
+    const remainderRt = totalRt % totalRw;
+
+    for (let rwNum = 1; rwNum <= totalRw; rwNum++) {
       const rw = String(rwNum).padStart(3, '0');
-      for (let rtNum = 1; rtNum <= 4; rtNum++) {
+      const rtCountForThisRw = rwNum <= remainderRt ? baseRt + 1 : baseRt;
+
+      for (let rtNum = 1; rtNum <= rtCountForThisRw; rtNum++) {
         const rt = String(rtNum).padStart(3, '0');
-        for (let tpsNum = 1; tpsNum <= 4; tpsNum++) {
-          const tps = `TPS ${String(tpsNum).padStart(3, '0')}`;
-          wilayahList.push({
-            id: `WIL-${wId++}`,
-            provinsi: 'DKI Jakarta',
-            kabupaten_kota: 'Kota Jakarta Selatan',
-            kecamatan: 'Jagakarsa',
-            kelurahan: kel,
-            rw,
-            rt,
-            tps,
-          });
-        }
+        const tps = `TPS ${String(rtNum).padStart(3, '0')}`;
+        wilayahList.push({
+          id: `WIL-${wId++}`,
+          provinsi: 'DKI Jakarta',
+          kabupaten_kota: 'Kota Jakarta Selatan',
+          kecamatan: 'Jagakarsa',
+          kelurahan: kel,
+          rw,
+          rt,
+          tps,
+        });
       }
     }
   }
+
+  return wilayahList;
+}
+
+function getInitialData(): DatabaseSchema {
+  const wilayahList = generateWilayahJagakarsa();
 
   const users: User[] = [
     {
@@ -112,21 +133,22 @@ class Database {
     try {
       if (fs.existsSync(DB_FILE)) {
         const content = fs.readFileSync(DB_FILE, 'utf-8');
-        const parsed = JSON.parse(content);
-        // Ensure that if database was from previous multi-district version, reset it cleanly
-        const hasOnlyJagakarsa =
-          parsed.wilayah &&
-          parsed.wilayah.length > 0 &&
-          parsed.wilayah.every((w: WilayahItem) => w.kecamatan === 'Jagakarsa');
-        const hasNewUsers =
-          parsed.users &&
-          parsed.users.some(
-            (u: User) => u.username === 'fitrinurbaiti' || u.username === 'wahyudin'
-          );
+        const parsed: DatabaseSchema = JSON.parse(content);
 
-        if (hasOnlyJagakarsa && hasNewUsers) {
-          return parsed;
+        // Ensure collections exist
+        if (!parsed.relawan) parsed.relawan = [];
+        if (!parsed.users) parsed.users = [];
+        if (!parsed.audit_logs) parsed.audit_logs = [];
+
+        // Check if wilayah is the official Jagakarsa 54 RW structure (54 RW, 6 Kelurahan)
+        const distinctRW = new Set((parsed.wilayah || []).map((w: WilayahItem) => `${w.kelurahan}-${w.rw}`));
+        if (distinctRW.size !== 54) {
+          console.log(`[Database Migration] Safely updating wilayah structure to official Jagakarsa structure (54 RW, 6 Kelurahan)...`);
+          parsed.wilayah = generateWilayahJagakarsa();
+          this.saveData(parsed);
         }
+
+        return parsed;
       }
     } catch (err) {
       console.error('Error loading database, resetting to clean Jagakarsa data:', err);
@@ -307,7 +329,7 @@ class Database {
   public checkNikExists(nik: string, excludeId?: string): Relawan | undefined {
     const cleanNik = nik.trim().replace(/\D/g, '');
     return this.data.relawan.find(
-      (r) => r.nik.replace(/\D/g, '') === cleanNik && (!excludeId || r.id !== excludeId)
+      (r) => !r.is_deleted && r.nik.replace(/\D/g, '') === cleanNik && (!excludeId || r.id !== excludeId)
     );
   }
 
@@ -330,8 +352,14 @@ class Database {
     limit?: number;
     sortBy?: keyof Relawan;
     sortOrder?: 'asc' | 'desc';
+    includeDeleted?: boolean;
   }): { items: Relawan[]; total: number; page: number; totalPages: number } {
     let list = [...this.data.relawan];
+
+    // Filter out soft-deleted records unless explicitly requested
+    if (!options.includeDeleted) {
+      list = list.filter((r) => !r.is_deleted);
+    }
 
     // Restrict strictly to Jagakarsa
     list = list.filter((r) => r.kecamatan.toLowerCase() === 'jagakarsa');
@@ -520,17 +548,123 @@ class Database {
       }
     }
 
-    const deleted = this.data.relawan.splice(idx, 1)[0];
+    const target = this.data.relawan[idx];
+    target.is_deleted = true;
+    target.deleted_at = new Date().toISOString();
+    target.deleted_by = actor.name;
     this.saveData();
 
     this.addAuditLog(
       'DELETE_RELAWAN',
-      `Menghapus relawan '${deleted.nama}' (NIK: ${deleted.nik}, ID: ${deleted.id_relawan}).`,
+      `Menghapus relawan '${target.nama}' (NIK: ${target.nik}, ID: ${target.id_relawan}) [Soft Delete].`,
       actor,
       id
     );
 
     return true;
+  }
+
+  public restoreRelawan(id: string, actor: User): boolean {
+    const target = this.data.relawan.find((r) => r.id === id);
+    if (!target) {
+      throw new Error('Data relawan tidak ditemukan.');
+    }
+
+    target.is_deleted = false;
+    delete target.deleted_at;
+    delete target.deleted_by;
+    this.saveData();
+
+    this.addAuditLog(
+      'RESTORE_RELAWAN',
+      `Memulihkan kembali data relawan '${target.nama}' (NIK: ${target.nik}, ID: ${target.id_relawan}).`,
+      actor,
+      id
+    );
+
+    return true;
+  }
+
+  public bulkImportRelawan(
+    items: Array<Omit<Relawan, 'id' | 'id_relawan' | 'created_at' | 'updated_at'>>,
+    actor: User
+  ): {
+    importedCount: number;
+    duplicateCount: number;
+    failedCount: number;
+    importedItems: Relawan[];
+  } {
+    let importedCount = 0;
+    let duplicateCount = 0;
+    let failedCount = 0;
+    const importedItems: Relawan[] = [];
+    const now = new Date().toISOString();
+
+    for (const item of items) {
+      if (!item.nik || !item.nama) {
+        failedCount++;
+        continue;
+      }
+
+      const cleanNik = item.nik.trim().replace(/\D/g, '');
+      const existing = this.checkNikExists(cleanNik);
+      if (existing) {
+        duplicateCount++;
+        continue;
+      }
+
+      const id = `REL-ID-${Date.now()}-${Math.floor(Math.random() * 100000)}`;
+      const id_relawan = this.getNextRelawanId();
+
+      const newRelawan: Relawan = {
+        id,
+        id_relawan,
+        nik: cleanNik,
+        nama: item.nama.trim().toUpperCase(),
+        tempat_lahir: item.tempat_lahir || '',
+        tanggal_lahir: item.tanggal_lahir || '',
+        jenis_kelamin: item.jenis_kelamin || 'LAKI-LAKI',
+        golongan_darah: item.golongan_darah || '-',
+        alamat: item.alamat || '',
+        rt: item.rt ? String(item.rt).replace(/\D/g, '').padStart(3, '0') : '001',
+        rw: item.rw ? String(item.rw).replace(/\D/g, '').padStart(3, '0') : '001',
+        kelurahan: item.kelurahan || 'Jagakarsa',
+        kecamatan: 'Jagakarsa',
+        kabupaten_kota: 'Kota Jakarta Selatan',
+        provinsi: 'DKI Jakarta',
+        agama: item.agama || 'ISLAM',
+        status_perkawinan: item.status_perkawinan || '-',
+        pekerjaan: item.pekerjaan || '-',
+        kewarganegaraan: item.kewarganegaraan || 'WNI',
+        tps: item.tps || 'TPS 001',
+        status_relawan: item.status_relawan || 'Aktif',
+        koordinator: item.koordinator || actor.name,
+        keterangan: item.keterangan || 'Diimpor dari file Excel',
+        tanggal_input: now.slice(0, 10),
+        operator_id: actor.id,
+        operator_name: actor.name,
+        no_hp: item.no_hp || '',
+        email: item.email || '',
+        sumber_data: 'Import Excel',
+        created_at: now,
+        updated_at: now,
+      };
+
+      this.data.relawan.unshift(newRelawan);
+      importedItems.push(newRelawan);
+      importedCount++;
+    }
+
+    if (importedCount > 0) {
+      this.saveData();
+      this.addAuditLog(
+        'IMPORT_DATA',
+        `Berhasil mengimpor ${importedCount} data relawan dari file Excel (${duplicateCount} duplikat dilewati, ${failedCount} bermasalah).`,
+        actor
+      );
+    }
+
+    return { importedCount, duplicateCount, failedCount, importedItems };
   }
 
   // --- Dashboard Stats ---
@@ -542,7 +676,9 @@ class Database {
     status_relawan?: string;
     currentUser?: User;
   }): DashboardStats {
-    let list = [...this.data.relawan].filter((r) => r.kecamatan.toLowerCase() === 'jagakarsa');
+    let list = [...this.data.relawan].filter(
+      (r) => !r.is_deleted && r.kecamatan.toLowerCase() === 'jagakarsa'
+    );
 
     if (filters.currentUser) {
       if (filters.currentUser.role === 'Korkel' && filters.currentUser.kelurahan_assigned) {
@@ -629,7 +765,9 @@ class Database {
     tps?: string;
     currentUser?: User;
   }) {
-    let list = [...this.data.relawan].filter((r) => r.kecamatan.toLowerCase() === 'jagakarsa');
+    let list = [...this.data.relawan].filter(
+      (r) => !r.is_deleted && r.kecamatan.toLowerCase() === 'jagakarsa'
+    );
 
     if (params.currentUser) {
       if (params.currentUser.role === 'Korkel' && params.currentUser.kelurahan_assigned) {
@@ -646,7 +784,7 @@ class Database {
     }
 
     // Top Level: Show 6 Kelurahans of Jagakarsa
-    if (params.level === 'kecamatan' || params.level === 'kelurahan' && !params.kelurahan) {
+    if (params.level === 'kecamatan' || (params.level === 'kelurahan' && !params.kelurahan)) {
       const data = KELURAHAN_JAGAKARSA.map((kel) => {
         const kelList = list.filter((r) => r.kelurahan.toLowerCase() === kel.toLowerCase());
         return {
@@ -663,10 +801,18 @@ class Database {
     if (params.level === 'rw' && params.kelurahan) {
       const filtered = list.filter((r) => r.kelurahan.toLowerCase() === params.kelurahan!.toLowerCase());
       const map: Record<string, { name: string; total: number; aktif: number; tidakAktif: number; pending: number }> = {};
-      
-      // Seed default RWs
-      for (let i = 1; i <= 6; i++) {
-        const rwKey = `RW ${String(i).padStart(3, '0')}`;
+
+      // Seed RWs dynamically from official wilayah definition
+      const officialRws = Array.from(
+        new Set(
+          this.data.wilayah
+            .filter((w) => w.kelurahan.toLowerCase() === params.kelurahan!.toLowerCase())
+            .map((w) => w.rw)
+        )
+      ).sort();
+
+      for (const rw of officialRws) {
+        const rwKey = `RW ${rw}`;
         map[rwKey] = { name: rwKey, total: 0, aktif: 0, tidakAktif: 0, pending: 0 };
       }
 
@@ -689,9 +835,22 @@ class Database {
         (r) => r.kelurahan.toLowerCase() === params.kelurahan!.toLowerCase() && r.rw === cleanRw
       );
       const map: Record<string, { name: string; total: number; aktif: number; tidakAktif: number; pending: number }> = {};
-      
-      for (let i = 1; i <= 4; i++) {
-        const rtKey = `RT ${String(i).padStart(3, '0')}`;
+
+      // Seed RTs dynamically from official wilayah definition
+      const officialRts = Array.from(
+        new Set(
+          this.data.wilayah
+            .filter(
+              (w) =>
+                w.kelurahan.toLowerCase() === params.kelurahan!.toLowerCase() &&
+                w.rw === cleanRw
+            )
+            .map((w) => w.rt)
+        )
+      ).sort();
+
+      for (const rt of officialRts) {
+        const rtKey = `RT ${rt}`;
         map[rtKey] = { name: rtKey, total: 0, aktif: 0, tidakAktif: 0, pending: 0 };
       }
 

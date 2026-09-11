@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import * as XLSX from 'xlsx';
 import { api } from '../lib/api';
 import { useAuth } from '../context/AuthContext';
 import {
@@ -92,6 +93,27 @@ export const ExportPage: React.FC<ExportPageProps> = ({ addToast }) => {
     );
   };
 
+  // Handle Download Excel (.xlsx)
+  const handleDownloadExcel = () => {
+    if (!previewData || previewData.rows.length === 0) {
+      addToast('warning', 'Tidak Ada Data', 'Tidak ada baris data relawan untuk diekspor.');
+      return;
+    }
+
+    const aoa = [previewData.headers, ...previewData.rows];
+    const worksheet = XLSX.utils.aoa_to_sheet(aoa);
+    worksheet['!cols'] = previewData.headers.map(() => ({ wch: 18 }));
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Data Relawan');
+    XLSX.writeFile(workbook, `DATA_RELAWAN_${filterType.toUpperCase()}_${new Date().toISOString().slice(0, 10)}.xlsx`);
+
+    addToast(
+      'success',
+      'Unduhan Excel Berhasil',
+      `File Excel (.xlsx) berisi ${previewData.totalExported} data relawan berhasil diunduh.`
+    );
+  };
+
   const handleCopyGoogleSheetsAppScript = () => {
     const script = `
 // Google Apps Script untuk menerima data dari Sistem Pendataan Relawan
@@ -116,24 +138,33 @@ function doPost(e) {
       <div className="bg-white p-5 rounded-2xl border border-gray-200/80 shadow-xs flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <h2 className="text-xl font-bold text-gray-900 tracking-tight">Ekspor ke Google Sheets</h2>
+            <h2 className="text-xl font-bold text-gray-900 tracking-tight">Ekspor Data Relawan</h2>
             <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
               Format 24 Kolom Standar
             </span>
           </div>
           <p className="text-xs text-gray-500 mt-1">
-            Ekspor seluruh atau sebagian data relawan dalam struktur tabel standar Google Sheets &amp; Microsoft Excel.
+            Ekspor seluruh atau sebagian data relawan dalam format Microsoft Excel (.xlsx) atau CSV Google Sheets.
           </p>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <button
-            id="btn-download-csv"
-            onClick={handleDownloadCsv}
+            id="btn-download-excel"
+            onClick={handleDownloadExcel}
             disabled={loadingExport || !previewData?.totalExported}
             className="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white rounded-xl text-xs font-bold flex items-center gap-2 shadow-xs transition-colors cursor-pointer"
           >
             <Download className="w-4 h-4" />
-            <span>Unduh CSV untuk Google Sheets</span>
+            <span>Unduh Excel (.xlsx)</span>
+          </button>
+          <button
+            id="btn-download-csv"
+            onClick={handleDownloadCsv}
+            disabled={loadingExport || !previewData?.totalExported}
+            className="px-3.5 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 disabled:opacity-50 rounded-xl text-xs font-semibold flex items-center gap-2 transition-colors cursor-pointer border border-gray-200"
+          >
+            <FileSpreadsheet className="w-4 h-4 text-emerald-600" />
+            <span>Unduh CSV</span>
           </button>
         </div>
       </div>

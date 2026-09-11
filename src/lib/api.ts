@@ -175,6 +175,35 @@ export const api = {
     });
   },
 
+  async restoreRelawan(id: string) {
+    return request<{ success: boolean; message: string }>(`/api/relawan/${id}/restore`, {
+      method: 'POST',
+    });
+  },
+
+  async checkBulkNik(niks: string[]) {
+    return request<{
+      success: boolean;
+      existingMap: Record<string, { id: string; nama: string; id_relawan: string }>;
+    }>('/api/relawan/check-bulk-nik', {
+      method: 'POST',
+      body: JSON.stringify({ niks }),
+    });
+  },
+
+  async bulkImportRelawan(items: Partial<Relawan>[]) {
+    return request<{
+      success: boolean;
+      importedCount: number;
+      duplicateCount: number;
+      failedCount: number;
+      importedItems: Relawan[];
+    }>('/api/relawan/bulk-import', {
+      method: 'POST',
+      body: JSON.stringify({ items }),
+    });
+  },
+
   // Audit Logs
   async getAuditLogs() {
     return request<{ logs: AuditLog[] }>('/api/audit-logs');

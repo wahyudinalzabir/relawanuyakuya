@@ -2,6 +2,9 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { api } from '../lib/api';
 import { Relawan, StatusRelawan } from '../types';
 import { useAuth } from '../context/AuthContext';
+import { exportRelawanToExcel } from '../lib/excelHelper';
+import { ImportExcelModal } from '../components/ImportExcelModal';
+import { RelawanDetailModal } from '../components/RelawanDetailModal';
 import {
   Search,
   Filter,
@@ -21,6 +24,10 @@ import {
   FileText,
   Lock,
   FileEdit,
+  Download,
+  Upload,
+  FileSpreadsheet,
+  Loader2,
 } from 'lucide-react';
 
 interface RelawanListPageProps {
@@ -44,6 +51,7 @@ export const RelawanListPage: React.FC<RelawanListPageProps> = ({
   const [page, setPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(false);
+  const [exporting, setExporting] = useState<boolean>(false);
 
   // Search & Filter states
   const [search, setSearch] = useState<string>('');
@@ -73,6 +81,7 @@ export const RelawanListPage: React.FC<RelawanListPageProps> = ({
   const [detailModalItem, setDetailModalItem] = useState<Relawan | null>(null);
   const [editModalItem, setEditModalItem] = useState<Relawan | null>(null);
   const [deleteConfirmItem, setDeleteConfirmItem] = useState<Relawan | null>(null);
+  const [isImportModalOpen, setIsImportModalOpen] = useState<boolean>(false);
   const [showNikFull, setShowNikFull] = useState<boolean>(false);
 
   // Open detail if passed via props
@@ -88,6 +97,48 @@ export const RelawanListPage: React.FC<RelawanListPageProps> = ({
       setHierarchy(res.hierarchy || {});
     }).catch(console.error);
   }, []);
+
+  // Export Excel matching active filters
+  const handleExportExcel = async () => {
+    setExporting(true);
+    try {
+      // Fetch all items matching the current filter (limit 10000)
+      const res = await api.getRelawan({
+        search,
+        kecamatan: filterKecamatan || undefined,
+        kelurahan: filterKelurahan || undefined,
+        rw: filterRw || undefined,
+        rt: filterRt || undefined,
+        tps: filterTps || undefined,
+        status_relawan: filterStatus || undefined,
+        page: 1,
+        limit: 10000,
+        sortBy,
+        sortOrder,
+      });
+
+      if (!res.items || res.items.length === 0) {
+        addToast('warning', 'Tidak Ada Data', 'Tidak ada data relawan yang cocok dengan filter untuk diekspor.');
+        return;
+      }
+
+      const cleanKel = filterKelurahan ? `_${filterKelurahan.replace(/\s+/g, '_')}` : '';
+      const cleanRw = filterRw ? `_RW${filterRw}` : '';
+      const filename = `DATA_RELAWAN_JAGAKARSA${cleanKel}${cleanRw}_${new Date().toISOString().slice(0, 10)}.xlsx`;
+
+      exportRelawanToExcel(res.items, filename);
+      addToast(
+        'success',
+        'Export Excel Berhasil',
+        `${res.items.length} data relawan berhasil diexport ke file Excel (.xlsx).`
+      );
+    } catch (err: any) {
+      console.error(err);
+      addToast('error', 'Gagal Ekspor Excel', err.message || 'Terjadi kesalahan saat mengunduh file Excel.');
+    } finally {
+      setExporting(false);
+    }
+  };
 
   // Fetch volunteers
   const loadData = async () => {
@@ -196,37 +247,69 @@ export const RelawanListPage: React.FC<RelawanListPageProps> = ({
   return (
     <div className="space-y-6">
       {/* Top Header */}
-      <div className="bg-white p-5 rounded-2xl border border-gray-200/80 shadow-xs flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div className="bg-white p-5 rounded-2xl border border-gray-200/80 shadow-xs flex flex-col xl:flex-row xl:items-center xl:justify-between gap-4">
         <div>
-          <h2 className="text-xl font-bold text-gray-900 tracking-tight">Data Relawan</h2>
+          <h2 className="text-xl font-bold text-gray-900 tracking-tight">Data Relawan Jagakarsa</h2>
           <p className="text-xs text-gray-500 mt-1">
-            Daftar lengkap relawan terverifikasi. Gunakan filter wilayah dan pencarian NIK/Nama untuk navigasi cepat.
+            Daftar lengkap relawan terverifikasi. Dilengkapi fitur Export/Import Excel, edit profil, dan filter wilayah bertingkat.
           </p>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
+          {/* NIK Masking Toggle */}
           <button
             onClick={() => setShowNikFull(!showNikFull)}
-            className="px-3.5 py-2.5 rounded-xl border border-gray-200 hover:bg-gray-50 text-xs font-semibold text-gray-700 flex items-center gap-1.5 transition-colors cursor-pointer"
+            className="px-3 py-2 rounded-xl border border-gray-200 hover:bg-gray-50 text-xs font-semibold text-gray-700 flex items-center gap-1.5 transition-colors cursor-pointer"
             title="Sembunyikan / Tampilkan NIK Lengkap"
           >
             {showNikFull ? <Lock className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
-            <span>{showNikFull ? 'Masking NIK' : 'Tampilkan NIK Lengkap'}</span>
+            <span>{showNikFull ? 'Masking NIK' : 'NIK Lengkap'}</span>
           </button>
+
+          {/* Export to Excel Button */}
+          <button
+            id="btn-export-excel"
+            onClick={handleExportExcel}
+            disabled={exporting}
+            className="px-3.5 py-2 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-300 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-colors shadow-2xs cursor-pointer"
+            title="Ekspor data relawan aktif ke format file Microsoft Excel (.xlsx)"
+          >
+            {exporting ? (
+              <Loader2 className="w-3.5 h-3.5 animate-spin text-emerald-700" />
+            ) : (
+              <Download className="w-3.5 h-3.5 text-emerald-700" />
+            )}
+            <span>{exporting ? 'Mengekspor...' : 'Export Excel (.xlsx)'}</span>
+          </button>
+
+          {/* Import from Excel Button */}
+          <button
+            id="btn-import-excel"
+            onClick={() => setIsImportModalOpen(true)}
+            className="px-3.5 py-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-800 border border-indigo-200 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-colors shadow-2xs cursor-pointer"
+            title="Impor data relawan dari file Excel (.xlsx / .xls)"
+          >
+            <Upload className="w-3.5 h-3.5 text-indigo-700" />
+            <span>Import Excel</span>
+          </button>
+
+          {/* Input Manual */}
           <button
             id="btn-add-relawan-manual"
             onClick={() => onNavigateToManualInput ? onNavigateToManualInput() : onNavigateToScan()}
-            className="px-3.5 py-2.5 bg-white hover:bg-blue-50 text-blue-700 border border-blue-200 rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-2xs transition-colors cursor-pointer"
+            className="px-3.5 py-2 bg-white hover:bg-blue-50 text-blue-700 border border-blue-200 rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-2xs transition-colors cursor-pointer"
           >
             <FileEdit className="w-4 h-4 text-blue-600" />
             <span>Input Manual</span>
           </button>
+
+          {/* Scan KTP */}
           <button
             id="btn-add-relawan-scan"
             onClick={onNavigateToScan}
-            className="px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-xs transition-colors cursor-pointer"
+            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-xs transition-colors cursor-pointer"
           >
             <ScanLine className="w-4 h-4" />
-            <span>Scan KTP Relawan</span>
+            <span>Scan KTP</span>
           </button>
         </div>
       </div>
@@ -439,7 +522,20 @@ export const RelawanListPage: React.FC<RelawanListPageProps> = ({
                     <tr key={row.id} className="hover:bg-gray-50/80 transition-colors">
                       <td className="p-3.5 font-mono font-bold text-gray-900">{row.id_relawan}</td>
                       <td className="p-3.5 font-mono text-gray-700 font-semibold">{formatNik(row.nik)}</td>
-                      <td className="p-3.5 font-bold text-gray-900">{row.nama}</td>
+                      <td className="p-3.5">
+                        <button
+                          onClick={() => setDetailModalItem(row)}
+                          className="text-left font-bold text-gray-900 hover:text-blue-600 hover:underline cursor-pointer transition-colors block"
+                          title="Klik untuk melihat profil detail relawan"
+                        >
+                          {row.nama}
+                        </button>
+                        {row.no_hp && (
+                          <span className="text-[10px] text-gray-400 font-mono block mt-0.5">
+                            WA/HP: {row.no_hp}
+                          </span>
+                        )}
+                      </td>
                       <td className="p-3.5 text-gray-700">{row.kecamatan}</td>
                       <td className="p-3.5 text-gray-600">{row.kelurahan}</td>
                       <td className="p-3.5 text-gray-600 font-mono">
@@ -526,159 +622,31 @@ export const RelawanListPage: React.FC<RelawanListPageProps> = ({
         </div>
       </div>
 
-      {/* MODAL 1: DETAIL RELAWAN (24 Fields) */}
-      {detailModalItem && (
-        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] flex flex-col shadow-2xl overflow-hidden animate-in fade-in zoom-in-95">
-            <div className="p-5 border-b border-gray-100 flex items-center justify-between">
-              <div>
-                <h3 className="font-bold text-base text-gray-900">Detail Lengkap Relawan</h3>
-                <p className="text-xs text-gray-500">
-                  ID: <span className="font-mono font-bold text-blue-600">{detailModalItem.id_relawan}</span>
-                </p>
-              </div>
-              <button
-                onClick={() => setDetailModalItem(null)}
-                className="p-1.5 text-gray-400 hover:text-gray-700 hover:bg-gray-100 rounded-lg"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
+      {/* MODAL 1: DETAIL RELAWAN (High Quality Modal with Print & Full Profile) */}
+      <RelawanDetailModal
+        isOpen={!!detailModalItem}
+        relawan={detailModalItem}
+        onClose={() => setDetailModalItem(null)}
+        onEdit={(r) => {
+          setDetailModalItem(null);
+          setEditModalItem({ ...r });
+        }}
+      />
 
-            <div className="p-6 overflow-y-auto space-y-6 text-xs">
-              {/* KTP Data Grid */}
-              <div>
-                <h4 className="font-bold text-gray-800 uppercase tracking-wider text-[11px] pb-1 border-b border-gray-100 mb-3">
-                  Data Kependudukan (KTP)
-                </h4>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                  <div>
-                    <span className="text-gray-400 block text-[10px]">NIK</span>
-                    <span className="font-mono font-bold text-gray-900">{detailModalItem.nik}</span>
-                  </div>
-                  <div>
-                    <span className="text-gray-400 block text-[10px]">Nama Lengkap</span>
-                    <span className="font-bold text-gray-900">{detailModalItem.nama}</span>
-                  </div>
-                  <div>
-                    <span className="text-gray-400 block text-[10px]">Tempat / Tanggal Lahir</span>
-                    <span className="text-gray-800">
-                      {detailModalItem.tempat_lahir}, {detailModalItem.tanggal_lahir}
-                    </span>
-                  </div>
-                  <div>
-                    <span className="text-gray-400 block text-[10px]">Jenis Kelamin</span>
-                    <span className="text-gray-800">{detailModalItem.jenis_kelamin}</span>
-                  </div>
-                  <div>
-                    <span className="text-gray-400 block text-[10px]">Golongan Darah</span>
-                    <span className="text-gray-800 font-bold">{detailModalItem.golongan_darah || '-'}</span>
-                  </div>
-                  <div>
-                    <span className="text-gray-400 block text-[10px]">Agama</span>
-                    <span className="text-gray-800">{detailModalItem.agama}</span>
-                  </div>
-                  <div className="col-span-2">
-                    <span className="text-gray-400 block text-[10px]">Alamat</span>
-                    <span className="text-gray-800">{detailModalItem.alamat}</span>
-                  </div>
-                  <div>
-                    <span className="text-gray-400 block text-[10px]">RT / RW</span>
-                    <span className="font-mono text-gray-800">
-                      RT {detailModalItem.rt} / RW {detailModalItem.rw}
-                    </span>
-                  </div>
-                  <div>
-                    <span className="text-gray-400 block text-[10px]">Kelurahan</span>
-                    <span className="text-gray-800">{detailModalItem.kelurahan}</span>
-                  </div>
-                  <div>
-                    <span className="text-gray-400 block text-[10px]">Kecamatan</span>
-                    <span className="text-gray-800">{detailModalItem.kecamatan}</span>
-                  </div>
-                  <div>
-                    <span className="text-gray-400 block text-[10px]">Kabupaten / Kota</span>
-                    <span className="text-gray-800">{detailModalItem.kabupaten_kota}</span>
-                  </div>
-                  <div>
-                    <span className="text-gray-400 block text-[10px]">Provinsi</span>
-                    <span className="text-gray-800">{detailModalItem.provinsi}</span>
-                  </div>
-                  <div>
-                    <span className="text-gray-400 block text-[10px]">Status Perkawinan</span>
-                    <span className="text-gray-800">{detailModalItem.status_perkawinan}</span>
-                  </div>
-                  <div>
-                    <span className="text-gray-400 block text-[10px]">Pekerjaan</span>
-                    <span className="text-gray-800">{detailModalItem.pekerjaan}</span>
-                  </div>
-                  <div>
-                    <span className="text-gray-400 block text-[10px]">Kewarganegaraan</span>
-                    <span className="text-gray-800">{detailModalItem.kewarganegaraan}</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Assignment & Volunteer Data */}
-              <div>
-                <h4 className="font-bold text-gray-800 uppercase tracking-wider text-[11px] pb-1 border-b border-gray-100 mb-3">
-                  Penugasan &amp; Status Relawan
-                </h4>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                  <div>
-                    <span className="text-gray-400 block text-[10px]">TPS</span>
-                    <span className="font-bold text-blue-600 text-sm">{detailModalItem.tps}</span>
-                  </div>
-                  <div>
-                    <span className="text-gray-400 block text-[10px]">Status Relawan</span>
-                    <span className="font-semibold text-emerald-700">{detailModalItem.status_relawan}</span>
-                  </div>
-                  <div>
-                    <span className="text-gray-400 block text-[10px]">Koordinator</span>
-                    <span className="text-gray-800">{detailModalItem.koordinator || '-'}</span>
-                  </div>
-                  <div>
-                    <span className="text-gray-400 block text-[10px]">Tanggal Input</span>
-                    <span className="text-gray-800">{detailModalItem.tanggal_input}</span>
-                  </div>
-                  <div>
-                    <span className="text-gray-400 block text-[10px]">Operator Input</span>
-                    <span className="text-gray-800">{detailModalItem.operator_name || detailModalItem.operator_id}</span>
-                  </div>
-                  <div className="col-span-2 sm:col-span-3">
-                    <span className="text-gray-400 block text-[10px]">Keterangan</span>
-                    <p className="text-gray-700 bg-gray-50 p-2.5 rounded-xl mt-0.5">
-                      {detailModalItem.keterangan || 'Tidak ada keterangan tambahan.'}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="p-4 border-t border-gray-100 text-right bg-gray-50">
-              <button
-                onClick={() => setDetailModalItem(null)}
-                className="px-4 py-2 bg-gray-800 hover:bg-gray-900 text-white rounded-xl text-xs font-semibold cursor-pointer"
-              >
-                Tutup
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* MODAL 2: EDIT RELAWAN */}
+      {/* MODAL 2: EDIT RELAWAN (Lengkap KTP & Kontak) */}
       {editModalItem && (
         <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
           <div className="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] flex flex-col shadow-2xl overflow-hidden animate-in fade-in zoom-in-95">
             <div className="p-5 border-b border-gray-100 flex items-center justify-between">
               <div>
                 <h3 className="font-bold text-base text-gray-900">Edit Data Relawan</h3>
-                <p className="text-xs text-gray-500 font-mono">{editModalItem.id_relawan}</p>
+                <p className="text-xs text-gray-500 font-mono">
+                  ID: <span className="font-bold text-blue-600">{editModalItem.id_relawan}</span>
+                </p>
               </div>
               <button
                 onClick={() => setEditModalItem(null)}
-                className="p-1.5 text-gray-400 hover:text-gray-700 rounded-lg"
+                className="p-1.5 text-gray-400 hover:text-gray-700 hover:bg-gray-100 rounded-lg"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -690,27 +658,86 @@ export const RelawanListPage: React.FC<RelawanListPageProps> = ({
                   <label className="block font-semibold text-gray-700 mb-1">Nama Lengkap</label>
                   <input
                     type="text"
+                    required
                     value={editModalItem.nama}
                     onChange={(e) => setEditModalItem({ ...editModalItem, nama: e.target.value.toUpperCase() })}
                     className="w-full p-2.5 border border-gray-300 rounded-xl font-bold"
                   />
                 </div>
                 <div>
-                  <label className="block font-semibold text-gray-700 mb-1">NIK</label>
+                  <label className="block font-semibold text-gray-700 mb-1">NIK (16 Digit)</label>
                   <input
                     type="text"
+                    required
+                    maxLength={16}
                     value={editModalItem.nik}
-                    onChange={(e) => setEditModalItem({ ...editModalItem, nik: e.target.value })}
+                    onChange={(e) => setEditModalItem({ ...editModalItem, nik: e.target.value.replace(/\D/g, '') })}
+                    className="w-full p-2.5 border border-gray-300 rounded-xl font-mono font-bold"
+                  />
+                </div>
+                <div>
+                  <label className="block font-semibold text-gray-700 mb-1">No. WhatsApp / HP</label>
+                  <input
+                    type="text"
+                    placeholder="Contoh: 081234567890"
+                    value={editModalItem.no_hp || ''}
+                    onChange={(e) => setEditModalItem({ ...editModalItem, no_hp: e.target.value })}
                     className="w-full p-2.5 border border-gray-300 rounded-xl font-mono"
                   />
                 </div>
                 <div>
-                  <label className="block font-semibold text-gray-700 mb-1">TPS</label>
+                  <label className="block font-semibold text-gray-700 mb-1">Kelurahan</label>
+                  <select
+                    value={editModalItem.kelurahan}
+                    onChange={(e) => setEditModalItem({ ...editModalItem, kelurahan: e.target.value })}
+                    className="w-full p-2.5 border border-gray-300 rounded-xl font-semibold bg-white"
+                  >
+                    {['Jagakarsa', 'Cipedak', 'Lenteng Agung', 'Ciganjur', 'Srengseng Sawah', 'Tanjung Barat'].map((kel) => (
+                      <option key={kel} value={kel}>{kel}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className="block font-semibold text-gray-700 mb-1">Kecamatan</label>
                   <input
                     type="text"
+                    readOnly
+                    value={editModalItem.kecamatan || 'Jagakarsa'}
+                    className="w-full p-2.5 border border-gray-200 bg-gray-50 rounded-xl text-gray-600 font-semibold cursor-not-allowed"
+                  />
+                </div>
+                <div className="grid grid-cols-2 gap-2">
+                  <div>
+                    <label className="block font-semibold text-gray-700 mb-1">RW (3 Digit)</label>
+                    <input
+                      type="text"
+                      maxLength={3}
+                      value={editModalItem.rw}
+                      onChange={(e) => setEditModalItem({ ...editModalItem, rw: e.target.value })}
+                      className="w-full p-2.5 border border-gray-300 rounded-xl font-mono"
+                      placeholder="001"
+                    />
+                  </div>
+                  <div>
+                    <label className="block font-semibold text-gray-700 mb-1">RT (3 Digit)</label>
+                    <input
+                      type="text"
+                      maxLength={3}
+                      value={editModalItem.rt}
+                      onChange={(e) => setEditModalItem({ ...editModalItem, rt: e.target.value })}
+                      className="w-full p-2.5 border border-gray-300 rounded-xl font-mono"
+                      placeholder="001"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label className="block font-semibold text-gray-700 mb-1">TPS (Contoh: 001)</label>
+                  <input
+                    type="text"
+                    maxLength={3}
                     value={editModalItem.tps}
                     onChange={(e) => setEditModalItem({ ...editModalItem, tps: e.target.value })}
-                    className="w-full p-2.5 border border-gray-300 rounded-xl"
+                    className="w-full p-2.5 border border-gray-300 rounded-xl font-mono font-bold text-blue-600"
                   />
                 </div>
                 <div>
@@ -720,7 +747,7 @@ export const RelawanListPage: React.FC<RelawanListPageProps> = ({
                     onChange={(e) =>
                       setEditModalItem({ ...editModalItem, status_relawan: e.target.value as StatusRelawan })
                     }
-                    className="w-full p-2.5 border border-gray-300 rounded-xl font-semibold"
+                    className="w-full p-2.5 border border-gray-300 rounded-xl font-semibold bg-white"
                   >
                     <option value="Aktif">Aktif</option>
                     <option value="Tidak Aktif">Tidak Aktif</option>
@@ -731,31 +758,14 @@ export const RelawanListPage: React.FC<RelawanListPageProps> = ({
                   <label className="block font-semibold text-gray-700 mb-1">Koordinator</label>
                   <input
                     type="text"
-                    value={editModalItem.koordinator}
+                    value={editModalItem.koordinator || ''}
                     onChange={(e) => setEditModalItem({ ...editModalItem, koordinator: e.target.value })}
                     className="w-full p-2.5 border border-gray-300 rounded-xl"
-                  />
-                </div>
-                <div>
-                  <label className="block font-semibold text-gray-700 mb-1">Kelurahan</label>
-                  <input
-                    type="text"
-                    value={editModalItem.kelurahan}
-                    onChange={(e) => setEditModalItem({ ...editModalItem, kelurahan: e.target.value })}
-                    className="w-full p-2.5 border border-gray-300 rounded-xl"
-                  />
-                </div>
-                <div>
-                  <label className="block font-semibold text-gray-700 mb-1">Kecamatan</label>
-                  <input
-                    type="text"
-                    value={editModalItem.kecamatan}
-                    onChange={(e) => setEditModalItem({ ...editModalItem, kecamatan: e.target.value })}
-                    className="w-full p-2.5 border border-gray-300 rounded-xl"
+                    placeholder="Nama Koordinator Lapangan"
                   />
                 </div>
                 <div className="sm:col-span-2">
-                  <label className="block font-semibold text-gray-700 mb-1">Alamat</label>
+                  <label className="block font-semibold text-gray-700 mb-1">Alamat KTP Lengkap</label>
                   <input
                     type="text"
                     value={editModalItem.alamat}
@@ -763,13 +773,54 @@ export const RelawanListPage: React.FC<RelawanListPageProps> = ({
                     className="w-full p-2.5 border border-gray-300 rounded-xl"
                   />
                 </div>
+                <div>
+                  <label className="block font-semibold text-gray-700 mb-1">Tempat Lahir</label>
+                  <input
+                    type="text"
+                    value={editModalItem.tempat_lahir || ''}
+                    onChange={(e) => setEditModalItem({ ...editModalItem, tempat_lahir: e.target.value.toUpperCase() })}
+                    className="w-full p-2.5 border border-gray-300 rounded-xl"
+                  />
+                </div>
+                <div>
+                  <label className="block font-semibold text-gray-700 mb-1">Tanggal Lahir</label>
+                  <input
+                    type="text"
+                    placeholder="DD-MM-YYYY"
+                    value={editModalItem.tanggal_lahir || ''}
+                    onChange={(e) => setEditModalItem({ ...editModalItem, tanggal_lahir: e.target.value })}
+                    className="w-full p-2.5 border border-gray-300 rounded-xl"
+                  />
+                </div>
+                <div>
+                  <label className="block font-semibold text-gray-700 mb-1">Jenis Kelamin</label>
+                  <select
+                    value={editModalItem.jenis_kelamin || ''}
+                    onChange={(e) => setEditModalItem({ ...editModalItem, jenis_kelamin: e.target.value })}
+                    className="w-full p-2.5 border border-gray-300 rounded-xl bg-white"
+                  >
+                    <option value="">Pilih</option>
+                    <option value="LAKI-LAKI">LAKI-LAKI</option>
+                    <option value="PEREMPUAN">PEREMPUAN</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block font-semibold text-gray-700 mb-1">Pekerjaan</label>
+                  <input
+                    type="text"
+                    value={editModalItem.pekerjaan || ''}
+                    onChange={(e) => setEditModalItem({ ...editModalItem, pekerjaan: e.target.value.toUpperCase() })}
+                    className="w-full p-2.5 border border-gray-300 rounded-xl"
+                  />
+                </div>
                 <div className="sm:col-span-2">
-                  <label className="block font-semibold text-gray-700 mb-1">Keterangan</label>
+                  <label className="block font-semibold text-gray-700 mb-1">Keterangan Tambahan</label>
                   <textarea
                     rows={2}
-                    value={editModalItem.keterangan}
+                    value={editModalItem.keterangan || ''}
                     onChange={(e) => setEditModalItem({ ...editModalItem, keterangan: e.target.value })}
                     className="w-full p-2.5 border border-gray-300 rounded-xl"
+                    placeholder="Catatan relawan / catatan TPS"
                   />
                 </div>
               </div>
@@ -778,13 +829,13 @@ export const RelawanListPage: React.FC<RelawanListPageProps> = ({
                 <button
                   type="button"
                   onClick={() => setEditModalItem(null)}
-                  className="px-4 py-2 border border-gray-300 text-gray-700 rounded-xl font-semibold"
+                  className="px-4 py-2 border border-gray-300 text-gray-700 rounded-xl font-semibold hover:bg-gray-50 cursor-pointer"
                 >
                   Batal
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold cursor-pointer"
+                  className="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold shadow-xs cursor-pointer"
                 >
                   Simpan Perubahan
                 </button>
@@ -806,14 +857,14 @@ export const RelawanListPage: React.FC<RelawanListPageProps> = ({
               <p className="text-xs text-gray-600 mt-1 leading-relaxed">
                 Apakah Anda yakin ingin menghapus data relawan{' '}
                 <span className="font-bold text-gray-900">{deleteConfirmItem.nama}</span> (NIK: {deleteConfirmItem.nik})?
-                Tindakan ini akan dicatat dalam Audit Log sistem dan tidak dapat dibatalkan.
+                Data akan dipindahkan ke status terhapus (soft-delete) dan dicatat dalam audit log sistem.
               </p>
             </div>
             <div className="flex items-center justify-end gap-2 pt-2">
               <button
                 type="button"
                 onClick={() => setDeleteConfirmItem(null)}
-                className="px-4 py-2 border border-gray-300 rounded-xl text-xs font-semibold text-gray-700 hover:bg-gray-50"
+                className="px-4 py-2 border border-gray-300 rounded-xl text-xs font-semibold text-gray-700 hover:bg-gray-50 cursor-pointer"
               >
                 Batal
               </button>
@@ -828,6 +879,16 @@ export const RelawanListPage: React.FC<RelawanListPageProps> = ({
           </div>
         </div>
       )}
+
+      {/* MODAL 4: IMPORT EXCEL WIZARD */}
+      <ImportExcelModal
+        isOpen={isImportModalOpen}
+        onClose={() => setIsImportModalOpen(false)}
+        onSuccess={() => {
+          loadData();
+        }}
+        addToast={addToast}
+      />
     </div>
   );
 };

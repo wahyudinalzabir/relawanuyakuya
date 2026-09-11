@@ -224,6 +224,48 @@ async function startServer() {
     return res.json({ exists: false });
   });
 
+  // Bulk check NIKs for Excel Import Preview
+  app.post('/api/relawan/check-bulk-nik', (req: Request, res: Response) => {
+    try {
+      const { niks } = req.body as { niks: string[] };
+      if (!Array.isArray(niks)) {
+        return res.status(400).json({ error: 'Data niks harus berupa array.' });
+      }
+      const existingMap: Record<string, { id: string; nama: string; id_relawan: string }> = {};
+      for (const nik of niks) {
+        if (!nik) continue;
+        const cleanNik = String(nik).trim().replace(/\D/g, '');
+        const found = db.checkNikExists(cleanNik);
+        if (found) {
+          existingMap[cleanNik] = { id: found.id, nama: found.nama, id_relawan: found.id_relawan };
+        }
+      }
+      res.json({ success: true, existingMap });
+    } catch (err: any) {
+      res.status(500).json({ error: err.message });
+    }
+  });
+
+  // Bulk Import Relawan from Excel
+  app.post('/api/relawan/bulk-import', (req: Request, res: Response) => {
+    const currentUser = requireAuthUser(req, res);
+    if (!currentUser) return;
+    try {
+      const { items } = req.body as { items: any[] };
+      if (!Array.isArray(items) || items.length === 0) {
+        return res.status(400).json({ error: 'Tidak ada baris data untuk diimpor.' });
+      }
+
+      const result = db.bulkImportRelawan(items, currentUser);
+      res.json({
+        success: true,
+        ...result,
+      });
+    } catch (err: any) {
+      res.status(400).json({ error: err.message });
+    }
+  });
+
   // Wilayah Hierarchy
   app.get('/api/wilayah/hierarchy', (_req: Request, res: Response) => {
     const hierarchy = db.getWilayahHierarchy();
@@ -338,6 +380,18 @@ async function startServer() {
       res.json({ success: true, message: 'Relawan berhasil dihapus.' });
     } catch (err: any) {
       res.status(403).json({ error: err.message });
+    }
+  });
+
+  // Relawan: Restore (Soft Delete Recovery)
+  app.post('/api/relawan/:id/restore', (req: Request, res: Response) => {
+    const currentUser = requireAuthUser(req, res);
+    if (!currentUser) return;
+    try {
+      db.restoreRelawan(req.params.id, currentUser);
+      res.json({ success: true, message: 'Data relawan berhasil dipulihkan.' });
+    } catch (err: any) {
+      res.status(400).json({ error: err.message });
     }
   });
 
