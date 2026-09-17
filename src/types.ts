@@ -91,21 +91,147 @@ export interface AuditLog {
   user_id: string;
   user_name: string;
   user_role: string;
-  action: 'UPLOAD_KTP' | 'CREATE_RELAWAN' | 'UPDATE_RELAWAN' | 'DELETE_RELAWAN' | 'EXPORT_DATA' | 'IMPORT_DATA' | 'RESTORE_RELAWAN' | 'LOGIN' | 'LOGOUT' | 'UPDATE_USER' | 'CHECKIN_EVENT';
+  action:
+    | 'UPLOAD_KTP'
+    | 'CREATE_RELAWAN'
+    | 'UPDATE_RELAWAN'
+    | 'DELETE_RELAWAN'
+    | 'EXPORT_DATA'
+    | 'IMPORT_DATA'
+    | 'RESTORE_RELAWAN'
+    | 'LOGIN'
+    | 'LOGOUT'
+    | 'UPDATE_USER'
+    | 'CHECKIN_EVENT'
+    | 'CREATE_EVENT'
+    | 'UPDATE_EVENT'
+    | 'DELETE_EVENT'
+    | 'UPDATE_ROLE'
+    | 'REGISTER_EVENT';
   details: string;
   timestamp: string;
   target_id?: string;
 }
 
+export type ParticipantRole = 'PESERTA' | 'KORCAM' | 'KORKEL' | 'KorWe' | 'KORWE' | 'KORTPS';
+
+export interface ParticipantRoleRecord {
+  id: string;
+  nik: string;
+  nama: string;
+  role: ParticipantRole;
+  phone?: string;
+  kelurahan?: string;
+  rw?: string;
+  assigned_by?: string;
+  updated_at: string;
+}
+
+export type FormFieldType =
+  | 'short_answer'
+  | 'paragraph'
+  | 'multiple_choice'
+  | 'checkboxes'
+  | 'dropdown'
+  | 'date'
+  | 'time'
+  | 'number'
+  | 'email'
+  | 'phone'
+  | 'file_upload'
+  | 'section';
+
+export interface FormField {
+  id: string;
+  title: string;
+  description?: string;
+  type: FormFieldType;
+  required: boolean;
+  options?: string[];
+  placeholder?: string;
+  validationRule?: string;
+  mappedTo?:
+    | 'nik'
+    | 'nama'
+    | 'tempat_lahir'
+    | 'tanggal_lahir'
+    | 'jenis_kelamin'
+    | 'alamat'
+    | 'rt'
+    | 'rw'
+    | 'kelurahan'
+    | 'kecamatan'
+    | 'agama'
+    | 'status_perkawinan'
+    | 'pekerjaan'
+    | 'kewarganegaraan'
+    | 'no_hp'
+    | 'email';
+}
+
+export interface EventFormSettings {
+  nik_validation_enabled: boolean;
+  is_accepting_responses: boolean;
+  max_participants?: number;
+  registration_deadline?: string;
+  confirmation_message?: string;
+  allow_manual_input: boolean;
+  allow_ktp_scan: boolean;
+}
+
+export type StatusEvent = 'Akan Datang' | 'Berlangsung' | 'Selesai' | 'AKTIF' | 'DRAFT' | 'SELESAI';
+export type StatusPendaftaran = 'Belum Dibuka' | 'Dibuka' | 'Ditutup' | 'Kuota Penuh';
+
 export interface EventItem {
   id: string;
   nama: string;
-  tanggal: string;
-  tanggal_display: string;
-  lokasi?: string;
   deskripsi?: string;
-  status: 'Akan Datang' | 'Berlangsung' | 'Selesai';
+  kategori?: string;
+  poster_url?: string;
+  tanggal: string;
+  tanggal_display?: string;
+  jam?: string;
+  waktu_mulai?: string;
+  waktu_selesai?: string;
+  lokasi?: string;
+  alamat?: string;
+  kuota: number;
+  status: StatusEvent;
+  status_pendaftaran?: StatusPendaftaran;
+  informasi_tambahan?: string;
+  form_schema?: FormField[];
+  form_settings?: EventFormSettings;
   created_at: string;
+  updated_at?: string;
+}
+
+export type RegistrationSource = 'SCAN_KTP' | 'MANUAL';
+export type RegistrationStatus = 'VALID' | 'DITOLAK' | 'MENUNGGU_VERIFIKASI' | 'DIBATALKAN';
+
+export interface EventRegistration {
+  id: string;
+  event_id: string;
+  nik: string;
+  nama: string;
+  nomor_hp?: string;
+  role_snapshot: ParticipantRole;
+  source_input: RegistrationSource;
+  data_form: Record<string, any>;
+  registration_time: string;
+  status: RegistrationStatus;
+  rejection_reason?: string;
+  ktp_image_url?: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface EventDetailStats {
+  kuota: number;
+  totalPendaftar: number;
+  pesertaValid: number;
+  pesertaDitolak: number;
+  sisaKuota: number;
+  pendaftarHariIni: number;
 }
 
 export type StatusKehadiran = 'HADIR' | 'PESERTA TAMU';

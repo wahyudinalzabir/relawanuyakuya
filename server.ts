@@ -492,24 +492,194 @@ async function startServer() {
 
   // --- Events & Attendance API Routes ---
 
-  // Get all events with summary stats
-  app.get('/api/events', (_req: Request, res: Response) => {
+  // Get all events with summary & detail stats
+  app.get('/api/events', (req: Request, res: Response) => {
     try {
-      const events = db.getEvents();
+      const { status, search } = req.query as Record<string, string>;
+      const events = db.getEventsWithDetailStats(status, search);
       res.json({ success: true, events });
     } catch (err: any) {
       res.status(500).json({ error: err.message });
     }
   });
 
-  // Get event by ID
+  // Create new event (Admin only)
+  app.post('/api/events', (req: Request, res: Response) => {
+    const user = requireAuthUser(req, res);
+    if (!user) return;
+    try {
+      const { nama, tanggal, kuota } = req.body;
+      if (!nama || !tanggal) {
+        return res.status(400).json({ error: 'Nama event dan tanggal wajib diisi.' });
+      }
+      const newEvent = db.createEvent(req.body, user);
+      res.status(201).json({ success: true, event: newEvent });
+    } catch (err: any) {
+      res.status(500).json({ error: err.message });
+    }
+  });
+
+  // Get event by ID (Public / Admin)
   app.get('/api/events/:id', (req: Request, res: Response) => {
     try {
       const event = db.getEventById(req.params.id);
       if (!event) return res.status(404).json({ error: 'Event tidak ditemukan.' });
-      res.json({ success: true, event });
+      const stats = db.getEventDetailStats(req.params.id);
+      res.json({ success: true, event: { ...event, stats } });
     } catch (err: any) {
       res.status(500).json({ error: err.message });
+    }
+  });
+
+  // Update event metadata (Admin only)
+  app.put('/api/events/:id', (req: Request, res: Response) => {
+    const user = requireAuthUser(req, res);
+    if (!user) return;
+    try {
+      const updated = db.updateEvent(req.params.id, req.body, user);
+      if (!updated) return res.status(404).json({ error: 'Event tidak ditemukan.' });
+      res.json({ success: true, event: updated });
+    } catch (err: any) {
+      res.status(500).json({ error: err.message });
+    }
+  });
+
+  // Delete event (Admin only)
+  app.delete('/api/events/:id', (req: Request, res: Response) => {
+    const user = requireAuthUser(req, res);
+    if (!user) return;
+    try {
+      const success = db.deleteEvent(req.params.id, user);
+      if (!success) return res.status(404).json({ error: 'Event tidak ditemukan.' });
+      res.json({ success: true, message: 'Event berhasil dihapus.' });
+    } catch (err: any) {
+      res.status(500).json({ error: err.message });
+    }
+  });
+
+  // Update event form schema and settings (Google Forms-like builder)
+  app.put('/api/events/:id/form', (req: Request, res: Response) => {
+    const user = requireAuthUser(req, res);
+    if (!user) return;
+    try {
+      const { form_schema, form_settings } = req.body;
+      if (!Array.isArray(form_schema)) {
+        return res.status(400).json({ error: 'form_schema harus berupa array pertanyaan.' });
+      }
+      const updated = db.updateEventForm(req.params.id, form_schema, form_settings, user);
+      if (!updated) return res.status(404).json({ error: 'Event tidak ditemukan.' });
+      res.json({ success: true, event: updated });
+    } catch (err: any) {
+      res.status(500).json({ error: err.message });
+    }
+  });
+
+  // CHECK 1: Real-time NIK Validation for public registration
+  app.get('/api/events/:id/validate-nik', (req: Request, res: Response) => {
+    try {
+      const { nik } = req.query as Record<string, string>;
+      if (!nik) {
+        return res.status(400).json({ eligible: false, message: 'NIK harus diisi.' });
+      }
+      const result = db.checkNikEligibilityForRegistration(req.params.id, nik);
+      res.json(result);
+    } catch (err: any) {
+      res.status(500).json({ error: err.message });
+    }
+  });
+
+  // CHECK 2: Submit Public Event Registration (enforces anti-duplicate & quota)
+  app.post('/api/events/:id/register', (req: Request, res: Response) => {
+    try {
+      const { nik, nama, nomor_hp, source_input, data_form, ktp_image_url } = req.body;
+      if (!nik || !nama) {
+        return res.status(400).json({ success: false, error: 'NIK dan Nama Lengkap wajib diisi.' });
+      }
+
+      const result = db.submitEventRegistration(req.params.id, {
+        nik,
+        nama,
+        nomor_hp,
+        source_input: source_input || 'MANUAL',
+        data_form: data_form || {},
+        ktp_image_url,
+      });
+
+      if (!result.success) {
+        return res.status(400).json({
+          success: false,
+          error: result.error,
+          isDuplicate: result.isDuplicate,
+        });
+      }
+
+      res.status(201).json({ success: true, registration: result.data });
+    } catch (err: any) {
+      res.status(500).json({ error: err.message });
+    }
+  });
+
+  // Get Registrations list for an Event (Admin only)
+  app.get('/api/events/:id/registrations', (req: Request, res: Response) => {
+    const user = requireAuthUser(req, res);
+    if (!user) return;
+    try {
+      const { search, status, role, source, page, limit } = req.query as Record<string, string>;
+      const result = db.getEventRegistrations(req.params.id, {
+        search,
+        status,
+        role,
+        source,
+        page: page ? parseInt(page, 10) : 1,
+        limit: limit ? parseInt(limit, 10) : 50,
+      });
+      res.json({ success: true, ...result });
+    } catch (err: any) {
+      res.status(500).json({ error: err.message });
+    }
+  });
+
+  // Update registration status (Admin only: VALID / DITOLAK / etc)
+  app.put('/api/registrations/:id/status', (req: Request, res: Response) => {
+    const user = requireAuthUser(req, res);
+    if (!user) return;
+    try {
+      const { status, rejection_reason } = req.body;
+      if (!status) return res.status(400).json({ error: 'Status wajib diisi.' });
+
+      const updated = db.updateRegistrationStatus(req.params.id, status, user, rejection_reason);
+      if (!updated) return res.status(404).json({ error: 'Data pendaftaran tidak ditemukan.' });
+      res.json({ success: true, registration: updated });
+    } catch (err: any) {
+      res.status(500).json({ error: err.message });
+    }
+  });
+
+  // Participant Roles Management (Admin only)
+  app.get('/api/participant-roles', (req: Request, res: Response) => {
+    const user = requireAuthUser(req, res);
+    if (!user) return;
+    try {
+      const { search } = req.query as Record<string, string>;
+      const roles = db.getParticipantRoles(search);
+      res.json({ success: true, roles });
+    } catch (err: any) {
+      res.status(500).json({ error: err.message });
+    }
+  });
+
+  app.post('/api/participant-roles', (req: Request, res: Response) => {
+    const user = requireAuthUser(req, res);
+    if (!user) return;
+    try {
+      const { nik, nama, role, phone, kelurahan, rw } = req.body;
+      if (!nik || !role) {
+        return res.status(400).json({ error: 'NIK dan Role wajib diisi.' });
+      }
+      const record = db.setParticipantRole(nik, nama, role, user, { phone, kelurahan, rw });
+      res.json({ success: true, roleRecord: record });
+    } catch (err: any) {
+      res.status(400).json({ error: err.message });
     }
   });
 

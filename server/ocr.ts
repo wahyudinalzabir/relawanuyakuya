@@ -85,14 +85,12 @@ export async function processKtpWithGemini(
 
   try {
     const ai = getAiClient();
-    const prompt = `Anda adalah sistem OCR KTP (Kartu Tanda Penduduk) Republik Indonesia berakurasi tinggi.
+    const prompt = `Anda adalah sistem OCR KTP (Kartu Tanda Penduduk) Republik Indonesia.
 Tugas Anda:
-1. Baca dengan sangat teliti setiap bagian teks pada foto KTP yang diunggah.
-2. Jangan pernah mengarang data (NO HALLUCINATION).
-3. Jika sebuah kolom tidak terlihat, buram, tertutup, atau tidak terbaca dengan jelas, isi dengan string kosong ("") atau null, dan tambahkan nama kolom tersebut ke dalam array 'lowConfidenceFields'.
-4. Jangan menebak NIK, Nama, Tanggal Lahir, atau alamat.
-5. Bersihkan karakter aneh pada NIK (harus angka murni).
-6. Kembalikan HANYA JSON terstruktur sesuai format skema.`;
+1. Baca teks pada foto KTP semaksimal mungkin, meskipun pencahayaan kurang sempurna, sedikit miring, atau sedikit blur. Usahakan membaca NIK 16 digit dan Nama.
+2. Jangan mengarang data. Jika suatu kolom benar-benar tidak terbaca atau terpotong, isi dengan string kosong ("") dan masukkan nama field ke 'lowConfidenceFields'.
+3. Ekstrak teks NIK (16 digit angka), Nama lengkap, Tempat Lahir, Tanggal Lahir, dsb.
+4. Kembalikan format JSON terstruktur sesuai skema yang disediakan.`;
 
     const response = await ai.models.generateContent({
       model: 'gemini-3.8-flash',
@@ -142,9 +140,8 @@ Tugas Anda:
     return result;
   } catch (error: any) {
     console.error('Error calling Gemini OCR:', error);
-    // If rate limited or network issue, fail gracefully with friendly message
     throw new Error(
-      'Data KTP belum dapat dibaca oleh AI Gemini. Pastikan foto tidak buram, tidak miring, dan seluruh bagian KTP terlihat jelas.'
+      'Data KTP belum berhasil terbaca. Silakan coba foto ulang dengan pencahayaan yang cukup dan posisi KTP lebih lurus, atau gunakan Input Manual.'
     );
   }
 }

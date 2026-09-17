@@ -16,6 +16,9 @@ import { AuditLogPage } from './pages/AuditLogPage';
 import { SettingsPage } from './pages/SettingsPage';
 import { LoginPage } from './pages/LoginPage';
 import { EventCheckInPage } from './pages/EventCheckInPage';
+import { EventManagementPage } from './pages/EventManagementPage';
+import { EventDetailPage } from './pages/EventDetailPage';
+import { PublicEventRegisterPage } from './pages/PublicEventRegisterPage';
 import { Relawan } from './types';
 import { PanLogo } from './components/PanLogo';
 
@@ -25,6 +28,18 @@ function AppContent() {
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
   const [selectedRelawanForDetail, setSelectedRelawanForDetail] = useState<Relawan | null>(null);
+
+  // Event Management states
+  const [selectedEventIdForDetail, setSelectedEventIdForDetail] = useState<string | null>(null);
+  const [selectedCheckInEventId, setSelectedCheckInEventId] = useState<string | undefined>(undefined);
+  const [publicRegisterEventId, setPublicRegisterEventId] = useState<string | null>(() => {
+    // Check URL path or query
+    const path = window.location.pathname;
+    const match = path.match(/^\/events\/([^\/]+)\/register/);
+    if (match) return match[1];
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get('register_event') || null;
+  });
 
   const addToast = (type: 'success' | 'warning' | 'error' | 'info', title: string, message: string) => {
     const id = Math.random().toString(36).substring(2, 9);
@@ -57,6 +72,31 @@ function AppContent() {
     setCurrentPage('relawan');
   };
 
+  // If public registration URL or view is active, render PublicEventRegisterPage directly
+  if (publicRegisterEventId) {
+    return (
+      <div className="relative">
+        {currentUser && (
+          <div className="bg-slate-900 border-b border-slate-800 py-2.5 px-4 flex items-center justify-between text-xs">
+            <span className="text-slate-400">
+              Pratinjau Mode Formulir Publik (Event ID: <strong className="text-white">{publicRegisterEventId}</strong>)
+            </span>
+            <button
+              onClick={() => setPublicRegisterEventId(null)}
+              className="px-3 py-1 bg-blue-600 hover:bg-blue-500 text-white rounded-md text-xs font-semibold"
+            >
+              Kembali ke Dashboard Admin
+            </button>
+          </div>
+        )}
+        <PublicEventRegisterPage
+          eventId={publicRegisterEventId}
+          onBackToApp={() => setPublicRegisterEventId(null)}
+        />
+      </div>
+    );
+  }
+
   if (loading) {
     return (
       <div className="min-h-screen bg-slate-900 flex flex-col items-center justify-center p-4">
@@ -87,7 +127,12 @@ function AppContent() {
       {/* Sidebar */}
       <Sidebar
         currentPage={currentPage}
-        onSelectPage={setCurrentPage}
+        onSelectPage={(page) => {
+          if (page === 'event-management') {
+            setSelectedEventIdForDetail(null);
+          }
+          setCurrentPage(page);
+        }}
         isOpen={sidebarOpen}
         onClose={() => setSidebarOpen(false)}
       />
@@ -104,12 +149,45 @@ function AppContent() {
               onNavigateToRelawanWithFilter={(kecamatan) => {
                 setCurrentPage('relawan');
               }}
-              onNavigateToCheckIn={() => setCurrentPage('checkin-event')}
+              onNavigateToCheckIn={() => {
+                setSelectedCheckInEventId(undefined);
+                setCurrentPage('checkin-event');
+              }}
             />
           )}
 
+          {currentPage === 'event-management' && (
+            selectedEventIdForDetail ? (
+              <EventDetailPage
+                eventId={selectedEventIdForDetail}
+                onBack={() => setSelectedEventIdForDetail(null)}
+                onNavigateToCheckIn={(evtId) => {
+                  setSelectedCheckInEventId(evtId);
+                  setCurrentPage('checkin-event');
+                }}
+                onNavigateToPublicRegister={(evtId) => {
+                  setPublicRegisterEventId(evtId);
+                }}
+              />
+            ) : (
+              <EventManagementPage
+                onNavigateToDetail={(evtId) => setSelectedEventIdForDetail(evtId)}
+                onNavigateToCheckIn={(evtId) => {
+                  setSelectedCheckInEventId(evtId);
+                  setCurrentPage('checkin-event');
+                }}
+                onNavigateToPublicRegister={(evtId) => {
+                  setPublicRegisterEventId(evtId);
+                }}
+              />
+            )
+          )}
+
           {currentPage === 'checkin-event' && (
-            <EventCheckInPage addToast={addToast} />
+            <EventCheckInPage
+              addToast={addToast}
+              initialEventId={selectedCheckInEventId}
+            />
           )}
 
           {currentPage === 'scan-ktp' && (

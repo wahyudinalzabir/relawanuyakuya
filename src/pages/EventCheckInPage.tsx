@@ -22,11 +22,12 @@ import { EventScannerModal } from '../components/EventScannerModal';
 
 interface EventCheckInPageProps {
   addToast: (type: 'success' | 'warning' | 'error' | 'info', title: string, message: string) => void;
+  initialEventId?: string;
 }
 
-export const EventCheckInPage: React.FC<EventCheckInPageProps> = ({ addToast }) => {
+export const EventCheckInPage: React.FC<EventCheckInPageProps> = ({ addToast, initialEventId }) => {
   const [events, setEvents] = useState<(EventItem & { stats: EventStats })[]>([]);
-  const [selectedEventId, setSelectedEventId] = useState<string>('EVT-BPJS-2026');
+  const [selectedEventId, setSelectedEventId] = useState<string>(initialEventId || 'EVT-BPJS-2026');
   const [loading, setLoading] = useState<boolean>(true);
   const [refreshing, setRefreshing] = useState<boolean>(false);
 

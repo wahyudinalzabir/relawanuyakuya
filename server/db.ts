@@ -10,10 +10,21 @@ import {
   KehadiranEvent,
   EventStats,
   StatusKehadiran,
+  ParticipantRole,
+  ParticipantRoleRecord,
+  FormField,
+  EventFormSettings,
+  EventRegistration,
+  RegistrationSource,
+  RegistrationStatus,
+  EventDetailStats,
+  StatusEvent,
+  StatusPendaftaran,
 } from '../src/types';
 
 const DATA_DIR = path.join(process.cwd(), 'data');
 const DB_FILE = path.join(DATA_DIR, 'database.json');
+const BACKUP_FILE = path.join(DATA_DIR, 'database.backup.json');
 
 interface DatabaseSchema {
   users: User[];
@@ -22,6 +33,8 @@ interface DatabaseSchema {
   audit_logs: AuditLog[];
   events?: EventItem[];
   kehadiran?: KehadiranEvent[];
+  event_registrations?: EventRegistration[];
+  participant_roles?: ParticipantRoleRecord[];
 }
 
 function ensureDataDirectory() {
@@ -133,6 +146,83 @@ function getInitialData(): DatabaseSchema {
   };
 }
 
+export function getDefaultEventFormSchema(): FormField[] {
+  return [
+    {
+      id: 'q_nama',
+      title: 'Nama Lengkap (Sesuai KTP)',
+      description: 'Isi nama lengkap Anda sesuai kartu identitas.',
+      type: 'short_answer',
+      required: true,
+      placeholder: 'Contoh: BUDI SANTOSO',
+      mappedTo: 'nama',
+    },
+    {
+      id: 'q_nik',
+      title: 'Nomor Induk Kependudukan (NIK)',
+      description: '16 digit angka KTP.',
+      type: 'short_answer',
+      required: true,
+      placeholder: '3174xxxxxxxxxxxx',
+      mappedTo: 'nik',
+    },
+    {
+      id: 'q_phone',
+      title: 'Nomor Handphone / WhatsApp',
+      description: 'Nomor aktif yang dapat dihubungi.',
+      type: 'phone',
+      required: true,
+      placeholder: '0812xxxxxxxx',
+      mappedTo: 'no_hp',
+    },
+    {
+      id: 'q_alamat',
+      title: 'Alamat Tempat Tinggal',
+      description: 'Alamat jalan, nomor rumah, atau patokan.',
+      type: 'paragraph',
+      required: true,
+      placeholder: 'Alamat lengkap...',
+      mappedTo: 'alamat',
+    },
+    {
+      id: 'q_kelurahan',
+      title: 'Kelurahan',
+      description: 'Pilih kelurahan domisili Anda di Kecamatan Jagakarsa.',
+      type: 'dropdown',
+      required: true,
+      options: ['Jagakarsa', 'Cipedak', 'Lenteng Agung', 'Ciganjur', 'Srengseng Sawah', 'Tanjung Barat'],
+      mappedTo: 'kelurahan',
+    },
+    {
+      id: 'q_rw',
+      title: 'Nomor RW',
+      description: 'Contoh: 001, 002, dst.',
+      type: 'short_answer',
+      required: true,
+      placeholder: '001',
+      mappedTo: 'rw',
+    },
+    {
+      id: 'q_rt',
+      title: 'Nomor RT',
+      description: 'Contoh: 001, 002, dst.',
+      type: 'short_answer',
+      required: true,
+      placeholder: '001',
+      mappedTo: 'rt',
+    },
+    {
+      id: 'q_pekerjaan',
+      title: 'Pekerjaan',
+      description: 'Pekerjaan atau profesi saat ini.',
+      type: 'short_answer',
+      required: false,
+      placeholder: 'Wiraswasta, Karyawan Swasta, dll',
+      mappedTo: 'pekerjaan',
+    },
+  ];
+}
+
 class Database {
   private data: DatabaseSchema;
 
@@ -161,11 +251,35 @@ class Database {
               lokasi: 'Kecamatan Jagakarsa, Kota Jakarta Selatan',
               deskripsi: 'Sosialisasi Program Jaminan Kesehatan Nasional BPJS bersama Relawan Jagakarsa',
               status: 'Berlangsung',
+              status_pendaftaran: 'Dibuka',
+              kuota: 500,
               created_at: new Date('2026-09-01T08:00:00Z').toISOString(),
             },
           ];
         }
         if (!parsed.kehadiran) parsed.kehadiran = [];
+        if (!parsed.event_registrations) parsed.event_registrations = [];
+        if (!parsed.participant_roles) parsed.participant_roles = [];
+
+        // Upgrade events with schema & settings if not present
+        for (const ev of parsed.events) {
+          if (!ev.kuota) ev.kuota = 500;
+          if (!ev.status) ev.status = 'Berlangsung';
+          if (!ev.status_pendaftaran) ev.status_pendaftaran = 'Dibuka';
+          if (!ev.form_schema || ev.form_schema.length === 0) {
+            ev.form_schema = getDefaultEventFormSchema();
+          }
+          if (!ev.form_settings) {
+            ev.form_settings = {
+              nik_validation_enabled: true,
+              is_accepting_responses: true,
+              max_participants: ev.kuota || 500,
+              confirmation_message: 'Terima kasih! Formulir pendaftaran Anda telah berhasil dikirim.',
+              allow_manual_input: true,
+              allow_ktp_scan: true,
+            };
+          }
+        }
 
         // Check if wilayah is the official Jagakarsa 54 RW structure (54 RW, 6 Kelurahan)
         const distinctRW = new Set((parsed.wilayah || []).map((w: WilayahItem) => `${w.kelurahan}-${w.rw}`));
@@ -189,8 +303,16 @@ class Database {
     try {
       ensureDataDirectory();
       const tmpFile = `${DB_FILE}.tmp`;
-      fs.writeFileSync(tmpFile, JSON.stringify(dataToSave, null, 2), 'utf-8');
+      const jsonStr = JSON.stringify(dataToSave, null, 2);
+      fs.writeFileSync(tmpFile, jsonStr, 'utf-8');
       fs.renameSync(tmpFile, DB_FILE);
+
+      // Safe auto-backup
+      try {
+        fs.writeFileSync(BACKUP_FILE, jsonStr, 'utf-8');
+      } catch (backupErr) {
+        // Non-blocking
+      }
     } catch (err) {
       console.error('Error writing to database:', err);
     }
@@ -1115,6 +1237,634 @@ class Database {
       data: newAttendance,
       isDuplicate: false,
     };
+  }
+
+  // --- NEW EVENT MANAGEMENT MODULE ---
+
+  public getEventsWithDetailStats(statusFilter?: string, search?: string): (EventItem & { stats: EventDetailStats })[] {
+    let events = [...(this.data.events || [])];
+
+    if (statusFilter && statusFilter !== 'Semua') {
+      events = events.filter((e) => e.status === statusFilter);
+    }
+
+    if (search && search.trim()) {
+      const q = search.trim().toLowerCase();
+      events = events.filter(
+        (e) =>
+          e.nama.toLowerCase().includes(q) ||
+          (e.deskripsi && e.deskripsi.toLowerCase().includes(q)) ||
+          (e.lokasi && e.lokasi.toLowerCase().includes(q))
+      );
+    }
+
+    return events.map((ev) => {
+      const stats = this.getEventDetailStats(ev.id);
+      return {
+        ...ev,
+        stats,
+      };
+    });
+  }
+
+  public getEventDetailStats(eventId: string): EventDetailStats {
+    const event = (this.data.events || []).find((e) => e.id === eventId);
+    const kuota = event?.kuota || 500;
+    const registrations = (this.data.event_registrations || []).filter((r) => r.event_id === eventId);
+    const totalPendaftar = registrations.length;
+    const pesertaValid = registrations.filter((r) => r.status === 'VALID').length;
+    const pesertaDitolak = registrations.filter((r) => r.status === 'DITOLAK').length;
+    const sisaKuota = Math.max(0, kuota - pesertaValid);
+
+    const todayStr = new Date().toISOString().slice(0, 10);
+    const pendaftarHariIni = registrations.filter(
+      (r) => r.created_at && r.created_at.slice(0, 10) === todayStr
+    ).length;
+
+    return {
+      kuota,
+      totalPendaftar,
+      pesertaValid,
+      pesertaDitolak,
+      sisaKuota,
+      pendaftarHariIni,
+    };
+  }
+
+  public createEvent(data: Partial<EventItem>, actor: User): EventItem {
+    if (!this.data.events) this.data.events = [];
+
+    const kuota = typeof data.kuota === 'number' ? data.kuota : 500;
+    const now = new Date();
+    const id = `EVT-${Date.now().toString(36).toUpperCase()}`;
+
+    // Format display date
+    const dateObj = data.tanggal ? new Date(data.tanggal) : now;
+    const options: Intl.DateTimeFormatOptions = {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    };
+    const tanggal_display =
+      data.tanggal_display || dateObj.toLocaleDateString('id-ID', options);
+
+    const newEvent: EventItem = {
+      id,
+      nama: data.nama ? data.nama.trim() : 'Event Baru',
+      deskripsi: data.deskripsi || '',
+      kategori: data.kategori || 'Sosialisasi',
+      poster_url: data.poster_url || '',
+      tanggal: data.tanggal || now.toISOString().slice(0, 10),
+      tanggal_display,
+      waktu_mulai: data.waktu_mulai || '08:00 WIB',
+      waktu_selesai: data.waktu_selesai || '12:00 WIB',
+      lokasi: data.lokasi || 'Kecamatan Jagakarsa',
+      alamat: data.alamat || '',
+      kuota,
+      status: (data.status as StatusEvent) || 'Akan Datang',
+      status_pendaftaran: (data.status_pendaftaran as StatusPendaftaran) || 'Dibuka',
+      informasi_tambahan: data.informasi_tambahan || '',
+      form_schema: data.form_schema && data.form_schema.length > 0 ? data.form_schema : getDefaultEventFormSchema(),
+      form_settings: data.form_settings || {
+        nik_validation_enabled: true,
+        is_accepting_responses: true,
+        max_participants: kuota,
+        confirmation_message: 'Terima kasih, pendaftaran Anda telah berhasil dicatat.',
+        allow_manual_input: true,
+        allow_ktp_scan: true,
+      },
+      created_at: now.toISOString(),
+      updated_at: now.toISOString(),
+    };
+
+    this.data.events.unshift(newEvent);
+    this.saveData();
+
+    this.addAuditLog(
+      'CREATE_EVENT',
+      `Membuat event baru: '${newEvent.nama}' (${newEvent.tanggal_display}) kuota: ${newEvent.kuota}.`,
+      actor,
+      newEvent.id
+    );
+
+    return newEvent;
+  }
+
+  public updateEvent(id: string, data: Partial<EventItem>, actor: User): EventItem | null {
+    if (!this.data.events) return null;
+    const idx = this.data.events.findIndex((e) => e.id === id);
+    if (idx === -1) return null;
+
+    const current = this.data.events[idx];
+    const updated: EventItem = {
+      ...current,
+      ...data,
+      id: current.id, // Immutable ID
+      updated_at: new Date().toISOString(),
+    };
+
+    this.data.events[idx] = updated;
+    this.saveData();
+
+    this.addAuditLog(
+      'UPDATE_EVENT',
+      `Memperbarui informasi event '${updated.nama}'.`,
+      actor,
+      id
+    );
+
+    return updated;
+  }
+
+  public deleteEvent(id: string, actor: User): boolean {
+    if (!this.data.events) return false;
+    const idx = this.data.events.findIndex((e) => e.id === id);
+    if (idx === -1) return false;
+
+    const deleted = this.data.events.splice(idx, 1)[0];
+    this.saveData();
+
+    this.addAuditLog('DELETE_EVENT', `Menghapus event '${deleted.nama}'.`, actor, id);
+    return true;
+  }
+
+  public updateEventForm(
+    id: string,
+    form_schema: FormField[],
+    form_settings: EventFormSettings,
+    actor: User
+  ): EventItem | null {
+    if (!this.data.events) return null;
+    const idx = this.data.events.findIndex((e) => e.id === id);
+    if (idx === -1) return null;
+
+    this.data.events[idx].form_schema = form_schema;
+    this.data.events[idx].form_settings = form_settings;
+    this.data.events[idx].updated_at = new Date().toISOString();
+
+    this.saveData();
+
+    this.addAuditLog(
+      'UPDATE_EVENT',
+      `Memperbarui skema Form Pendaftaran & Pengaturan event '${this.data.events[idx].nama}' (${form_schema.length} pertanyaan).`,
+      actor,
+      id
+    );
+
+    return this.data.events[idx];
+  }
+
+  // --- PARTICIPANT ROLE MANAGEMENT ---
+
+  public getParticipantRoles(search?: string): ParticipantRoleRecord[] {
+    if (!this.data.participant_roles) this.data.participant_roles = [];
+    let list = [...this.data.participant_roles];
+
+    if (search && search.trim()) {
+      const q = search.trim().toLowerCase();
+      const digits = search.replace(/\D/g, '');
+      list = list.filter(
+        (p) =>
+          p.nama.toLowerCase().includes(q) ||
+          p.nik.includes(digits || q) ||
+          (p.phone && p.phone.includes(q)) ||
+          p.role.toLowerCase().includes(q)
+      );
+    }
+
+    return list.sort((a, b) => new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime());
+  }
+
+  public getParticipantRoleByNik(nik: string): ParticipantRole {
+    const cleanNik = (nik || '').trim().replace(/\D/g, '');
+    if (!cleanNik) return 'PESERTA';
+
+    // 1. Check explicit participant_roles table
+    if (this.data.participant_roles) {
+      const found = this.data.participant_roles.find((p) => p.nik.replace(/\D/g, '') === cleanNik);
+      if (found && found.role) {
+        // Standardize role casing
+        const upper = found.role.toUpperCase();
+        if (['KORCAM', 'KORKEL', 'KORWE', 'KORTPS', 'PESERTA'].includes(upper)) {
+          return upper as ParticipantRole;
+        }
+      }
+    }
+
+    // 2. Default fallback is always PESERTA
+    return 'PESERTA';
+  }
+
+  public setParticipantRole(
+    nik: string,
+    nama: string,
+    role: ParticipantRole,
+    actor: User,
+    meta?: { phone?: string; kelurahan?: string; rw?: string }
+  ): ParticipantRoleRecord {
+    if (!this.data.participant_roles) this.data.participant_roles = [];
+    const cleanNik = (nik || '').trim().replace(/\D/g, '');
+    if (!cleanNik || cleanNik.length < 16) {
+      throw new Error('NIK wajib 16 digit angka kependudukan.');
+    }
+
+    const validRoles: ParticipantRole[] = ['PESERTA', 'KORCAM', 'KORKEL', 'KORWE', 'KORTPS'];
+    const standardRole = role.toUpperCase() as ParticipantRole;
+    if (!validRoles.includes(standardRole)) {
+      throw new Error(`Role '${role}' tidak valid. Pilihan: PESERTA, KORCAM, KORKEL, KORWE, KORTPS.`);
+    }
+
+    const idx = this.data.participant_roles.findIndex((p) => p.nik.replace(/\D/g, '') === cleanNik);
+    const now = new Date().toISOString();
+
+    let record: ParticipantRoleRecord;
+
+    if (idx !== -1) {
+      this.data.participant_roles[idx] = {
+        ...this.data.participant_roles[idx],
+        nama: nama ? nama.trim().toUpperCase() : this.data.participant_roles[idx].nama,
+        role: standardRole,
+        phone: meta?.phone ?? this.data.participant_roles[idx].phone,
+        kelurahan: meta?.kelurahan ?? this.data.participant_roles[idx].kelurahan,
+        rw: meta?.rw ?? this.data.participant_roles[idx].rw,
+        assigned_by: actor.name,
+        updated_at: now,
+      };
+      record = this.data.participant_roles[idx];
+    } else {
+      record = {
+        id: `PR-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
+        nik: cleanNik,
+        nama: nama ? nama.trim().toUpperCase() : 'WARGA',
+        role: standardRole,
+        phone: meta?.phone,
+        kelurahan: meta?.kelurahan,
+        rw: meta?.rw,
+        assigned_by: actor.name,
+        updated_at: now,
+      };
+      this.data.participant_roles.push(record);
+    }
+
+    this.saveData();
+
+    this.addAuditLog(
+      'UPDATE_ROLE',
+      `Admin ${actor.name} mengubah role internal NIK ${cleanNik.slice(0, 4)}************ (${record.nama}) menjadi '${record.role}'.`,
+      actor,
+      record.id
+    );
+
+    return record;
+  }
+
+  // --- TWO-PASS NIK VALIDATION & REGISTRATION ENGINE ---
+
+  /**
+   * CHECK 1: Realtime lookup when participant enters or scans NIK.
+   * Returns eligibility status, participant role, and clean informative message.
+   */
+  public checkNikEligibilityForRegistration(
+    eventId: string,
+    nik: string
+  ): {
+    eligible: boolean;
+    role: ParticipantRole;
+    message?: string;
+    isDuplicate?: boolean;
+    isQuotaFull?: boolean;
+    existingRelawan?: { nama: string; kelurahan?: string; rw?: string; rt?: string };
+  } {
+    const event = this.getEventById(eventId);
+    if (!event) {
+      return { eligible: false, role: 'PESERTA', message: 'Event tidak ditemukan.' };
+    }
+
+    // 1. Check Event registration availability
+    if (event.status_pendaftaran === 'Ditutup' || event.status === 'Selesai') {
+      return { eligible: false, role: 'PESERTA', message: 'Pendaftaran untuk event ini sudah ditutup.' };
+    }
+
+    if (event.form_settings && event.form_settings.is_accepting_responses === false) {
+      return { eligible: false, role: 'PESERTA', message: 'Formulir event ini sedang tidak menerima respons pendaftaran.' };
+    }
+
+    // 2. Check Quota
+    const stats = this.getEventDetailStats(eventId);
+    if (stats.sisaKuota <= 0) {
+      return {
+        eligible: false,
+        role: 'PESERTA',
+        isQuotaFull: true,
+        message: 'Maaf, kuota pendaftaran untuk event ini sudah penuh.',
+      };
+    }
+
+    const cleanNik = (nik || '').trim().replace(/\D/g, '');
+    if (!cleanNik || cleanNik.length < 16) {
+      return { eligible: false, role: 'PESERTA', message: 'NIK harus terdiri dari 16 digit angka.' };
+    }
+
+    // 3. Query Role directly from internal Database (never client-provided!)
+    const role = this.getParticipantRoleByNik(cleanNik);
+
+    // 4. If Role is KORCAM / KORKEL / KORWE / KORTPS -> Bypass Anti-Duplicate across events
+    if (['KORCAM', 'KORKEL', 'KORWE', 'KORTPS'].includes(role)) {
+      return {
+        eligible: true,
+        role,
+        message: `NIK terverifikasi sebagai ${role}. Anda dapat melanjutkan pendaftaran.`,
+      };
+    }
+
+    // 5. If Role is PESERTA -> Strict Anti-Duplicate against ALL history & existing database
+    // A. Check if already registered in ANY event with VALID status
+    const previousRegistration = (this.data.event_registrations || []).find(
+      (r) => r.nik.replace(/\D/g, '') === cleanNik && r.status === 'VALID'
+    );
+    if (previousRegistration) {
+      return {
+        eligible: false,
+        isDuplicate: true,
+        role: 'PESERTA',
+        message: 'Maaf, NIK Anda sudah pernah terdaftar pada kegiatan sebelumnya dan belum dapat digunakan untuk pendaftaran ini.',
+      };
+    }
+
+    // B. Check if already registered in existing Relawan database
+    const existingRelawan = this.checkNikExists(cleanNik);
+    if (existingRelawan) {
+      return {
+        eligible: false,
+        isDuplicate: true,
+        role: 'PESERTA',
+        existingRelawan: {
+          nama: existingRelawan.nama,
+          kelurahan: existingRelawan.kelurahan,
+          rw: existingRelawan.rw,
+          rt: existingRelawan.rt,
+        },
+        message: 'Maaf, NIK Anda sudah pernah terdaftar pada kegiatan sebelumnya dan belum dapat digunakan untuk pendaftaran ini.',
+      };
+    }
+
+    // C. Check if in attendance records
+    const previousAttendance = (this.data.kehadiran || []).find(
+      (k) => k.nik.replace(/\D/g, '') === cleanNik
+    );
+    if (previousAttendance) {
+      return {
+        eligible: false,
+        isDuplicate: true,
+        role: 'PESERTA',
+        message: 'Maaf, NIK Anda sudah pernah terdaftar pada kegiatan sebelumnya dan belum dapat digunakan untuk pendaftaran ini.',
+      };
+    }
+
+    // Fresh eligible participant
+    return {
+      eligible: true,
+      role: 'PESERTA',
+      message: 'NIK valid dan belum pernah terdaftar. Silakan lanjutkan pengisian formulir.',
+    };
+  }
+
+  /**
+   * CHECK 2: Atomic backend validation on final SUBMIT.
+   * Validates quota, re-checks role from DB, enforces anti-duplicate rules, and creates registration.
+   */
+  public submitEventRegistration(
+    eventId: string,
+    payload: {
+      nik: string;
+      nama: string;
+      nomor_hp?: string;
+      source_input: RegistrationSource;
+      data_form: Record<string, any>;
+      ktp_image_url?: string;
+    }
+  ): { success: boolean; data?: EventRegistration; error?: string; isDuplicate?: boolean } {
+    const event = this.getEventById(eventId);
+    if (!event) {
+      return { success: false, error: 'Event tidak ditemukan.' };
+    }
+
+    if (event.status_pendaftaran === 'Ditutup' || event.status === 'Selesai') {
+      return { success: false, error: 'Pendaftaran untuk event ini sudah ditutup.' };
+    }
+
+    if (event.form_settings && event.form_settings.is_accepting_responses === false) {
+      return { success: false, error: 'Pendaftaran untuk event ini sedang tidak menerima respons.' };
+    }
+
+    const cleanNik = (payload.nik || '').trim().replace(/\D/g, '');
+    if (!cleanNik || cleanNik.length < 16) {
+      return { success: false, error: 'NIK wajib 16 digit angka kependudukan.' };
+    }
+
+    if (!payload.nama || !payload.nama.trim()) {
+      return { success: false, error: 'Nama lengkap wajib diisi.' };
+    }
+
+    if (!this.data.event_registrations) {
+      this.data.event_registrations = [];
+    }
+
+    // CRITICAL: Final Quota Verification right before writing
+    const currentValidCount = this.data.event_registrations.filter(
+      (r) => r.event_id === eventId && r.status === 'VALID'
+    ).length;
+
+    if (currentValidCount >= event.kuota) {
+      event.status_pendaftaran = 'Kuota Penuh';
+      this.saveData();
+      return { success: false, error: 'Maaf, kuota pendaftaran untuk event ini sudah penuh.' };
+    }
+
+    // CRITICAL SECURITY: Fetch role from internal DATABASE, NEVER trust client
+    const internalRole = this.getParticipantRoleByNik(cleanNik);
+
+    // ANTI-DUPLICATE RULE:
+    // If Role is PESERTA:
+    if (internalRole === 'PESERTA') {
+      // 1. Check if registered in ANY prior event with VALID status
+      const existsInRegistrations = this.data.event_registrations.find(
+        (r) => r.nik === cleanNik && r.status === 'VALID'
+      );
+      if (existsInRegistrations) {
+        return {
+          success: false,
+          isDuplicate: true,
+          error: 'Maaf, NIK Anda sudah pernah terdaftar pada kegiatan sebelumnya dan belum dapat digunakan untuk pendaftaran ini.',
+        };
+      }
+
+      // 2. Check existing relawan database
+      const existsInRelawan = this.checkNikExists(cleanNik);
+      if (existsInRelawan) {
+        return {
+          success: false,
+          isDuplicate: true,
+          error: 'Maaf, NIK Anda sudah pernah terdaftar pada kegiatan sebelumnya dan belum dapat digunakan untuk pendaftaran ini.',
+        };
+      }
+
+      // 3. Check existing kehadiran database
+      const existsInKehadiran = (this.data.kehadiran || []).find(
+        (k) => k.nik.replace(/\D/g, '') === cleanNik
+      );
+      if (existsInKehadiran) {
+        return {
+          success: false,
+          isDuplicate: true,
+          error: 'Maaf, NIK Anda sudah pernah terdaftar pada kegiatan sebelumnya dan belum dapat digunakan untuk pendaftaran ini.',
+        };
+      }
+    }
+
+    // If role is KORCAM / KORKEL / KORWE / KORTPS:
+    // Still prevent duplicate registration within the EXACT SAME event if desired:
+    const duplicateInSameEvent = this.data.event_registrations.find(
+      (r) => r.event_id === eventId && r.nik === cleanNik && r.status === 'VALID'
+    );
+    if (duplicateInSameEvent) {
+      return {
+        success: false,
+        isDuplicate: true,
+        error: `Anda (${duplicateInSameEvent.nama}) sudah terdaftar pada kegiatan ini sebelumnya.`,
+      };
+    }
+
+    const now = new Date();
+    const newReg: EventRegistration = {
+      id: `REG-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
+      event_id: eventId,
+      nik: cleanNik,
+      nama: payload.nama.trim().toUpperCase(),
+      nomor_hp: payload.nomor_hp || '',
+      role_snapshot: internalRole,
+      source_input: payload.source_input || 'MANUAL',
+      data_form: payload.data_form || {},
+      registration_time: now.toISOString(),
+      status: 'VALID',
+      ktp_image_url: payload.ktp_image_url,
+      created_at: now.toISOString(),
+      updated_at: now.toISOString(),
+    };
+
+    this.data.event_registrations.unshift(newReg);
+
+    // Update quota status if reached
+    if (currentValidCount + 1 >= event.kuota) {
+      event.status_pendaftaran = 'Kuota Penuh';
+    }
+
+    this.saveData();
+
+    // Add Audit Log
+    const dummyActor: User = {
+      id: 'USR-PUBLIC-FORM',
+      username: 'pendaftar',
+      name: newReg.nama,
+      role: 'Operator',
+      kecamatan_assigned: 'Jagakarsa',
+      created_at: now.toISOString(),
+    };
+    this.addAuditLog(
+      'REGISTER_EVENT',
+      `Pendaftaran event '${event.nama}' berhasil: ${newReg.nama} (NIK: ${newReg.nik.slice(0, 4)}************) [Role: ${newReg.role_snapshot}] via ${newReg.source_input}.`,
+      dummyActor,
+      newReg.id
+    );
+
+    return {
+      success: true,
+      data: newReg,
+    };
+  }
+
+  public getEventRegistrations(
+    eventId: string,
+    options: {
+      search?: string;
+      status?: string;
+      role?: string;
+      source?: string;
+      page?: number;
+      limit?: number;
+    } = {}
+  ): { items: EventRegistration[]; total: number; stats: EventDetailStats } {
+    const stats = this.getEventDetailStats(eventId);
+    const all = (this.data.event_registrations || []).filter((r) => r.event_id === eventId);
+
+    let filtered = [...all];
+
+    if (options.status && options.status !== 'Semua') {
+      filtered = filtered.filter((r) => r.status === options.status);
+    }
+
+    if (options.role && options.role !== 'Semua') {
+      filtered = filtered.filter((r) => r.role_snapshot === options.role);
+    }
+
+    if (options.source && options.source !== 'Semua') {
+      filtered = filtered.filter((r) => r.source_input === options.source);
+    }
+
+    if (options.search && options.search.trim()) {
+      const q = options.search.trim().toLowerCase();
+      const digits = options.search.replace(/\D/g, '');
+      filtered = filtered.filter(
+        (r) =>
+          r.nama.toLowerCase().includes(q) ||
+          r.nik.includes(digits || q) ||
+          (r.nomor_hp && r.nomor_hp.includes(q))
+      );
+    }
+
+    // Sort latest registration first
+    filtered.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+
+    const total = filtered.length;
+    const page = options.page || 1;
+    const limit = options.limit || 50;
+    const start = (page - 1) * limit;
+    const paginated = filtered.slice(start, start + limit);
+
+    return {
+      items: paginated,
+      total,
+      stats,
+    };
+  }
+
+  public updateRegistrationStatus(
+    registrationId: string,
+    status: RegistrationStatus,
+    actor: User,
+    rejection_reason?: string
+  ): EventRegistration | null {
+    if (!this.data.event_registrations) return null;
+    const idx = this.data.event_registrations.findIndex((r) => r.id === registrationId);
+    if (idx === -1) return null;
+
+    this.data.event_registrations[idx].status = status;
+    if (rejection_reason) {
+      this.data.event_registrations[idx].rejection_reason = rejection_reason;
+    }
+    this.data.event_registrations[idx].updated_at = new Date().toISOString();
+
+    this.saveData();
+
+    this.addAuditLog(
+      'UPDATE_EVENT',
+      `Mengubah status pendaftaran '${this.data.event_registrations[idx].nama}' menjadi ${status}.`,
+      actor,
+      registrationId
+    );
+
+    return this.data.event_registrations[idx];
   }
 }
 

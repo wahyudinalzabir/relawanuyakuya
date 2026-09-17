@@ -19,6 +19,7 @@ import { PanLogo } from './PanLogo';
 
 export type PageId =
   | 'dashboard'
+  | 'event-management'
   | 'checkin-event'
   | 'relawan'
   | 'scan-ktp'
@@ -43,10 +44,15 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentPage, onSelectPage, isO
   const navItems: { id: PageId; label: string; icon: React.ReactNode; requiresAdmin?: boolean; badge?: string }[] = [
     { id: 'dashboard', label: 'Dashboard', icon: <LayoutDashboard className="w-5 h-5" /> },
     {
-      id: 'checkin-event',
-      label: 'Check-in Event',
+      id: 'event-management',
+      label: 'Event Management',
       icon: <CalendarCheck className="w-5 h-5" />,
-      badge: 'BPJS 12 Sep',
+      badge: 'Baru',
+    },
+    {
+      id: 'checkin-event',
+      label: 'Check-in Presensi',
+      icon: <UserCheck className="w-5 h-5" />,
     },
     { id: 'relawan', label: 'Data Relawan', icon: <Users className="w-5 h-5" /> },
     { id: 'scan-ktp', label: 'Scan KTP (AI)', icon: <ScanLine className="w-5 h-5" /> },

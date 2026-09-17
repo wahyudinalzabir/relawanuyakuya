@@ -1,4 +1,19 @@
-import { Relawan, User, DashboardStats, AuditLog, KtpOcrData, EventItem, KehadiranEvent, EventStats } from '../types';
+import {
+  Relawan,
+  User,
+  DashboardStats,
+  AuditLog,
+  KtpOcrData,
+  EventItem,
+  KehadiranEvent,
+  EventStats,
+  EventDetailStats,
+  FormField,
+  EventFormSettings,
+  EventRegistration,
+  ParticipantRole,
+  ParticipantRoleRecord,
+} from '../types';
 
 let currentAuthToken = localStorage.getItem('auth_token') || '';
 
@@ -225,12 +240,129 @@ export const api = {
   },
 
   // Events & Kehadiran
-  async getEvents() {
-    return request<{ success: boolean; events: (EventItem & { stats: EventStats })[] }>('/api/events');
+  async getEvents(params: { status?: string; search?: string } = {}) {
+    const q = new URLSearchParams();
+    if (params.status) q.append('status', params.status);
+    if (params.search) q.append('search', params.search);
+    const query = q.toString() ? `?${q.toString()}` : '';
+    return request<{ success: boolean; events: (EventItem & { stats: EventDetailStats })[] }>(`/api/events${query}`);
+  },
+
+  async createEvent(data: Partial<EventItem>) {
+    return request<{ success: boolean; event: EventItem }>('/api/events', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    });
   },
 
   async getEventById(id: string) {
-    return request<{ success: boolean; event: EventItem }>(`/api/events/${id}`);
+    return request<{ success: boolean; event: EventItem & { stats: EventDetailStats } }>(`/api/events/${id}`);
+  },
+
+  async updateEvent(id: string, data: Partial<EventItem>) {
+    return request<{ success: boolean; event: EventItem }>(`/api/events/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(data),
+    });
+  },
+
+  async deleteEvent(id: string) {
+    return request<{ success: boolean; message: string }>(`/api/events/${id}`, {
+      method: 'DELETE',
+    });
+  },
+
+  async updateEventForm(id: string, form_schema: FormField[], form_settings: EventFormSettings) {
+    return request<{ success: boolean; event: EventItem }>(`/api/events/${id}/form`, {
+      method: 'PUT',
+      body: JSON.stringify({ form_schema, form_settings }),
+    });
+  },
+
+  // CHECK 1: Realtime lookup for NIK
+  async validateNikForEvent(eventId: string, nik: string) {
+    return request<{
+      eligible: boolean;
+      role: ParticipantRole;
+      message?: string;
+      isDuplicate?: boolean;
+      isQuotaFull?: boolean;
+      existingRelawan?: { nama: string; kelurahan?: string; rw?: string; rt?: string };
+    }>(`/api/events/${eventId}/validate-nik?nik=${encodeURIComponent(nik)}`);
+  },
+
+  // CHECK 2: Submit Registration
+  async registerEvent(
+    eventId: string,
+    data: {
+      nik: string;
+      nama: string;
+      nomor_hp?: string;
+      source_input?: string;
+      data_form: Record<string, any>;
+      ktp_image_url?: string;
+    }
+  ) {
+    return request<{
+      success: boolean;
+      registration: EventRegistration;
+      error?: string;
+      isDuplicate?: boolean;
+    }>(`/api/events/${eventId}/register`, {
+      method: 'POST',
+      body: JSON.stringify(data),
+    });
+  },
+
+  // Get Registrations for an Event
+  async getEventRegistrations(
+    eventId: string,
+    params: {
+      search?: string;
+      status?: string;
+      role?: string;
+      source?: string;
+      page?: number;
+      limit?: number;
+    } = {}
+  ) {
+    const q = new URLSearchParams();
+    Object.entries(params).forEach(([k, v]) => {
+      if (v !== undefined && v !== null && v !== '') q.append(k, String(v));
+    });
+    return request<{
+      success: boolean;
+      items: EventRegistration[];
+      total: number;
+      stats: EventDetailStats;
+    }>(`/api/events/${eventId}/registrations?${q.toString()}`);
+  },
+
+  async updateRegistrationStatus(registrationId: string, status: string, rejection_reason?: string) {
+    return request<{ success: boolean; registration: EventRegistration }>(`/api/registrations/${registrationId}/status`, {
+      method: 'PUT',
+      body: JSON.stringify({ status, rejection_reason }),
+    });
+  },
+
+  // Participant Roles Management
+  async getParticipantRoles(search?: string) {
+    const q = search ? `?search=${encodeURIComponent(search)}` : '';
+    return request<{ success: boolean; roles: ParticipantRoleRecord[] }>(`/api/participant-roles${q}`);
+  },
+
+  async setParticipantRole(data: {
+    nik: string;
+    nama: string;
+    role: string;
+    phone?: string;
+    kelurahan?: string;
+    rw?: string;
+  }) {
+    return request<{ success: boolean; roleRecord: ParticipantRoleRecord }>('/api/participant-roles', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    });
   },
 
   async getEventKehadiran(eventId: string, params: Record<string, string | undefined> = {}) {
