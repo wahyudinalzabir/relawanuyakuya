@@ -31,6 +31,7 @@ function AppContent() {
 
   // Event Management states
   const [selectedEventIdForDetail, setSelectedEventIdForDetail] = useState<string | null>(null);
+  const [eventDetailTab, setEventDetailTab] = useState<'overview' | 'form' | 'registrations'>('overview');
   const [selectedCheckInEventId, setSelectedCheckInEventId] = useState<string | undefined>(undefined);
   const [publicRegisterEventId, setPublicRegisterEventId] = useState<string | null>(() => {
     // Check URL path or query
@@ -160,7 +161,11 @@ function AppContent() {
             selectedEventIdForDetail ? (
               <EventDetailPage
                 eventId={selectedEventIdForDetail}
-                onBack={() => setSelectedEventIdForDetail(null)}
+                initialTab={eventDetailTab}
+                onBack={() => {
+                  setSelectedEventIdForDetail(null);
+                  setEventDetailTab('overview');
+                }}
                 onNavigateToCheckIn={(evtId) => {
                   setSelectedCheckInEventId(evtId);
                   setCurrentPage('checkin-event');
@@ -171,7 +176,10 @@ function AppContent() {
               />
             ) : (
               <EventManagementPage
-                onNavigateToDetail={(evtId) => setSelectedEventIdForDetail(evtId)}
+                onNavigateToDetail={(evtId, tab = 'overview') => {
+                  setSelectedEventIdForDetail(evtId);
+                  setEventDetailTab(tab);
+                }}
                 onNavigateToCheckIn={(evtId) => {
                   setSelectedCheckInEventId(evtId);
                   setCurrentPage('checkin-event');

@@ -1317,18 +1317,19 @@ class Database {
       poster_url: data.poster_url || '',
       tanggal: data.tanggal || now.toISOString().slice(0, 10),
       tanggal_display,
+      jam: data.jam || '09:00',
       waktu_mulai: data.waktu_mulai || '08:00 WIB',
       waktu_selesai: data.waktu_selesai || '12:00 WIB',
       lokasi: data.lokasi || 'Kecamatan Jagakarsa',
       alamat: data.alamat || '',
       kuota,
-      status: (data.status as StatusEvent) || 'Akan Datang',
-      status_pendaftaran: (data.status_pendaftaran as StatusPendaftaran) || 'Dibuka',
+      status: (data.status as StatusEvent) || 'DRAFT',
+      status_pendaftaran: 'Belum Dibuat',
       informasi_tambahan: data.informasi_tambahan || '',
-      form_schema: data.form_schema && data.form_schema.length > 0 ? data.form_schema : getDefaultEventFormSchema(),
+      form_schema: data.form_schema && data.form_schema.length > 0 ? data.form_schema : [],
       form_settings: data.form_settings || {
         nik_validation_enabled: true,
-        is_accepting_responses: true,
+        is_accepting_responses: false,
         max_participants: kuota,
         confirmation_message: 'Terima kasih, pendaftaran Anda telah berhasil dicatat.',
         allow_manual_input: true,
@@ -1393,7 +1394,8 @@ class Database {
     id: string,
     form_schema: FormField[],
     form_settings: EventFormSettings,
-    actor: User
+    actor: User,
+    publishStatus?: StatusPendaftaran
   ): EventItem | null {
     if (!this.data.events) return null;
     const idx = this.data.events.findIndex((e) => e.id === id);
@@ -1401,13 +1403,28 @@ class Database {
 
     this.data.events[idx].form_schema = form_schema;
     this.data.events[idx].form_settings = form_settings;
+
+    if (publishStatus) {
+      this.data.events[idx].status_pendaftaran = publishStatus;
+      if (publishStatus === 'Dibuka') {
+        this.data.events[idx].form_settings.is_accepting_responses = true;
+        this.data.events[idx].status = 'AKTIF';
+      } else if (publishStatus === 'Ditutup' || publishStatus === 'Belum Dibuat') {
+        this.data.events[idx].form_settings.is_accepting_responses = false;
+      }
+    } else if (form_schema.length > 0 && form_settings.is_accepting_responses) {
+      this.data.events[idx].status_pendaftaran = 'Dibuka';
+    } else if (form_schema.length === 0) {
+      this.data.events[idx].status_pendaftaran = 'Belum Dibuat';
+    }
+
     this.data.events[idx].updated_at = new Date().toISOString();
 
     this.saveData();
 
     this.addAuditLog(
       'UPDATE_EVENT',
-      `Memperbarui skema Form Pendaftaran & Pengaturan event '${this.data.events[idx].nama}' (${form_schema.length} pertanyaan).`,
+      `Memperbarui skema Form Pendaftaran event '${this.data.events[idx].nama}' (${form_schema.length} pertanyaan, status: ${this.data.events[idx].status_pendaftaran}).`,
       actor,
       id
     );
@@ -1542,6 +1559,18 @@ class Database {
     }
 
     // 1. Check Event registration availability
+    if (
+      event.status_pendaftaran === 'Belum Dibuat' ||
+      !event.form_schema ||
+      event.form_schema.length === 0
+    ) {
+      return {
+        eligible: false,
+        role: 'PESERTA',
+        message: 'Formulir pendaftaran untuk kegiatan ini belum dibuat atau belum diterbitkan oleh panitia.',
+      };
+    }
+
     if (event.status_pendaftaran === 'Ditutup' || event.status === 'Selesai') {
       return { eligible: false, role: 'PESERTA', message: 'Pendaftaran untuk event ini sudah ditutup.' };
     }
@@ -1648,6 +1677,14 @@ class Database {
     const event = this.getEventById(eventId);
     if (!event) {
       return { success: false, error: 'Event tidak ditemukan.' };
+    }
+
+    if (
+      event.status_pendaftaran === 'Belum Dibuat' ||
+      !event.form_schema ||
+      event.form_schema.length === 0
+    ) {
+      return { success: false, error: 'Formulir pendaftaran untuk kegiatan ini belum dibuat atau belum diterbitkan oleh panitia.' };
     }
 
     if (event.status_pendaftaran === 'Ditutup' || event.status === 'Selesai') {

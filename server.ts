@@ -562,11 +562,11 @@ async function startServer() {
     const user = requireAuthUser(req, res);
     if (!user) return;
     try {
-      const { form_schema, form_settings } = req.body;
+      const { form_schema, form_settings, publish_status } = req.body;
       if (!Array.isArray(form_schema)) {
         return res.status(400).json({ error: 'form_schema harus berupa array pertanyaan.' });
       }
-      const updated = db.updateEventForm(req.params.id, form_schema, form_settings, user);
+      const updated = db.updateEventForm(req.params.id, form_schema, form_settings, user, publish_status);
       if (!updated) return res.status(404).json({ error: 'Event tidak ditemukan.' });
       res.json({ success: true, event: updated });
     } catch (err: any) {

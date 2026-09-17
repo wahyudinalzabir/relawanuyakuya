@@ -5,6 +5,7 @@ import { ParticipantRoleModal } from '../components/ParticipantRoleModal';
 import {
   Calendar,
   Plus,
+  PlusCircle,
   Search,
   Users,
   CheckCircle,
@@ -13,6 +14,7 @@ import {
   ExternalLink,
   Copy,
   Check,
+  Edit,
   Edit2,
   Trash2,
   Settings,
@@ -27,7 +29,7 @@ import {
 } from 'lucide-react';
 
 interface EventManagementPageProps {
-  onNavigateToDetail: (eventId: string) => void;
+  onNavigateToDetail: (eventId: string, initialTab?: 'overview' | 'form' | 'registrations') => void;
   onNavigateToCheckIn: (eventId?: string) => void;
   onNavigateToPublicRegister: (eventId: string) => void;
 }
@@ -108,8 +110,8 @@ export const EventManagementPage: React.FC<EventManagementPageProps> = ({
         setNewDeskripsi('');
         setNewKuota(500);
         await fetchEvents();
-        // Redirect to detail / form builder
-        onNavigateToDetail(res.event.id);
+        // Redirect immediately to form builder tab so user can pick/create questions!
+        onNavigateToDetail(res.event.id, 'form');
       }
     } catch (err: any) {
       setCreateError(err.message || 'Gagal membuat event.');
@@ -132,6 +134,19 @@ export const EventManagementPage: React.FC<EventManagementPageProps> = ({
   };
 
   const handleCopyPublicLink = (eventId: string) => {
+    const targetEvent = events.find((e) => e.id === eventId);
+    const isReady =
+      targetEvent?.status_pendaftaran === 'Dibuka' &&
+      targetEvent?.form_settings?.is_accepting_responses &&
+      (targetEvent?.form_schema?.length || 0) > 0;
+
+    if (!isReady) {
+      alert(
+        'Formulir pendaftaran untuk kegiatan ini belum diterbitkan (masih Draft / Belum Dibuat). Silakan buka "Buat Form Pendaftaran" terlebih dahulu untuk memilih atau membuat pertanyaan bagi peserta.'
+      );
+      return;
+    }
+
     const url = `${window.location.origin}/events/${eventId}/register`;
     navigator.clipboard.writeText(url);
     setCopiedId(eventId);
@@ -299,6 +314,11 @@ export const EventManagementPage: React.FC<EventManagementPageProps> = ({
                 ? Math.min(100, Math.round((stats.total_registrations / event.kuota) * 100))
                 : 0;
 
+            const isFormReady =
+              event.status_pendaftaran === 'Dibuka' &&
+              event.form_settings?.is_accepting_responses &&
+              (event.form_schema?.length || 0) > 0;
+
             return (
               <div
                 key={event.id}
@@ -321,6 +341,16 @@ export const EventManagementPage: React.FC<EventManagementPageProps> = ({
                           {event.status}
                         </span>
 
+                        <span
+                          className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                            isFormReady
+                              ? 'bg-emerald-950/80 border border-emerald-800 text-emerald-300'
+                              : 'bg-amber-950/80 border border-amber-800 text-amber-300'
+                          }`}
+                        >
+                          {isFormReady ? 'Form Terbit' : 'Form Belum Dibuat'}
+                        </span>
+
                         <span className="text-[11px] text-slate-400 flex items-center gap-1">
                           <Clock className="w-3 h-3 text-slate-500" />
                           {event.jam || '09:00'} WIB
@@ -334,15 +364,15 @@ export const EventManagementPage: React.FC<EventManagementPageProps> = ({
 
                     <div className="flex items-center gap-1 shrink-0">
                       <button
-                        onClick={() => onNavigateToDetail(event.id)}
-                        className="p-1.5 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors"
+                        onClick={() => onNavigateToDetail(event.id, 'form')}
+                        className="p-1.5 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors cursor-pointer"
                         title="Form Builder & Detail"
                       >
                         <Settings className="w-4 h-4" />
                       </button>
                       <button
                         onClick={() => handleDeleteEvent(event.id, event.nama)}
-                        className="p-1.5 text-slate-400 hover:text-red-400 hover:bg-slate-800 rounded-lg transition-colors"
+                        className="p-1.5 text-slate-400 hover:text-red-400 hover:bg-slate-800 rounded-lg transition-colors cursor-pointer"
                         title="Hapus Event"
                       >
                         <Trash2 className="w-4 h-4" />
@@ -410,51 +440,75 @@ export const EventManagementPage: React.FC<EventManagementPageProps> = ({
 
                 {/* Card Action Buttons */}
                 <div className="pt-3 border-t border-slate-800 flex flex-wrap items-center justify-between gap-2">
-                  <div className="flex items-center gap-1.5">
-                    <button
-                      onClick={() => handleCopyPublicLink(event.id)}
-                      className="px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-xs font-semibold flex items-center gap-1 transition-colors"
-                      title="Salin Link Form Pendaftaran Publik"
-                    >
-                      {copiedId === event.id ? (
-                        <>
-                          <Check className="w-3.5 h-3.5 text-emerald-400" />
-                          <span className="text-emerald-400">Tersalin!</span>
-                        </>
-                      ) : (
-                        <>
-                          <Copy className="w-3.5 h-3.5" />
-                          <span>Salin Link</span>
-                        </>
-                      )}
-                    </button>
+                  {isFormReady ? (
+                    <div className="flex items-center gap-1.5">
+                      <button
+                        onClick={() => handleCopyPublicLink(event.id)}
+                        className="px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-xs font-semibold flex items-center gap-1 transition-colors cursor-pointer"
+                        title="Salin Link Form Pendaftaran Publik"
+                      >
+                        {copiedId === event.id ? (
+                          <>
+                            <Check className="w-3.5 h-3.5 text-emerald-400" />
+                            <span className="text-emerald-400">Tersalin!</span>
+                          </>
+                        ) : (
+                          <>
+                            <Copy className="w-3.5 h-3.5" />
+                            <span>Salin Link</span>
+                          </>
+                        )}
+                      </button>
+
+                      <button
+                        onClick={() => onNavigateToPublicRegister(event.id)}
+                        className="px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-xs font-semibold flex items-center gap-1 transition-colors cursor-pointer"
+                        title="Buka Formulir Pendaftaran Publik"
+                      >
+                        <ExternalLink className="w-3.5 h-3.5" />
+                        <span>Form Publik</span>
+                      </button>
+
+                      <button
+                        onClick={() => onNavigateToCheckIn(event.id)}
+                        className="px-2.5 py-1.5 bg-teal-950 hover:bg-teal-900 border border-teal-800/60 text-teal-300 rounded-lg text-xs font-semibold flex items-center gap-1 transition-colors cursor-pointer"
+                        title="Buka Check-In Scanner Kehadiran"
+                      >
+                        <CheckCircle className="w-3.5 h-3.5" />
+                        <span>Scan Check-In</span>
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="flex items-center gap-2">
+                      <span className="text-[11px] text-amber-400 font-medium flex items-center gap-1">
+                        <AlertCircle className="w-3.5 h-3.5" /> Link pendaftaran belum aktif
+                      </span>
+                    </div>
+                  )}
+
+                  <div className="flex items-center gap-2">
+                    {!isFormReady && (
+                      <button
+                        onClick={() => onNavigateToDetail(event.id, 'form')}
+                        className="px-3.5 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-bold flex items-center gap-1.5 shadow-sm transition-colors cursor-pointer"
+                      >
+                        <PlusCircle className="w-3.5 h-3.5" />
+                        <span>Buat Form Pendaftaran</span>
+                      </button>
+                    )}
 
                     <button
-                      onClick={() => onNavigateToPublicRegister(event.id)}
-                      className="px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-xs font-semibold flex items-center gap-1 transition-colors"
-                      title="Buka Formulir Pendaftaran Publik"
+                      onClick={() => onNavigateToDetail(event.id, 'overview')}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1 transition-colors cursor-pointer ${
+                        isFormReady
+                          ? 'bg-blue-600 hover:bg-blue-500 text-white'
+                          : 'bg-slate-800 hover:bg-slate-700 text-slate-300'
+                      }`}
                     >
-                      <ExternalLink className="w-3.5 h-3.5" />
-                      <span>Form Publik</span>
-                    </button>
-
-                    <button
-                      onClick={() => onNavigateToCheckIn(event.id)}
-                      className="px-2.5 py-1.5 bg-teal-950 hover:bg-teal-900 border border-teal-800/60 text-teal-300 rounded-lg text-xs font-semibold flex items-center gap-1 transition-colors"
-                      title="Buka Check-In Scanner Kehadiran"
-                    >
-                      <CheckCircle className="w-3.5 h-3.5" />
-                      <span>Scan Check-In</span>
+                      <span>{isFormReady ? 'Detail & Form' : 'Detail'}</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
                     </button>
                   </div>
-
-                  <button
-                    onClick={() => onNavigateToDetail(event.id)}
-                    className="px-3.5 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-bold flex items-center gap-1 transition-colors"
-                  >
-                    <span>Detail & Form</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </button>
                 </div>
               </div>
             );
@@ -569,20 +623,27 @@ export const EventManagementPage: React.FC<EventManagementPageProps> = ({
                 />
               </div>
 
+              <div className="p-3 bg-blue-950/40 border border-blue-800/60 rounded-xl text-xs text-blue-300 flex items-start gap-2">
+                <Sparkles className="w-4 h-4 text-blue-400 shrink-0 mt-0.5" />
+                <p>
+                  <strong>Langkah Berikutnya:</strong> Setelah klik tombol di bawah, Anda akan langsung membuka fitur <strong>Buat Form Pendaftaran</strong> untuk memilih pertanyaan standar atau membuat pertanyaan khusus sebelum form dapat diakses publik.
+                </p>
+              </div>
+
               <div className="pt-4 border-t border-slate-800 flex items-center justify-end gap-2">
                 <button
                   type="button"
                   onClick={() => setShowCreateModal(false)}
-                  className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-xs font-semibold"
+                  className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-xs font-semibold cursor-pointer"
                 >
                   Batal
                 </button>
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="px-5 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-bold flex items-center gap-1.5 disabled:opacity-50"
+                  className="px-5 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-bold flex items-center gap-1.5 disabled:opacity-50 cursor-pointer shadow-md"
                 >
-                  {isSubmitting ? 'Membuat...' : 'Buat Event & Atur Form'}
+                  {isSubmitting ? 'Membuat...' : 'Lanjut ke Buat Form Pendaftaran →'}
                 </button>
               </div>
             </form>

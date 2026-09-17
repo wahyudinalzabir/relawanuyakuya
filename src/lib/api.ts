@@ -10,6 +10,7 @@ import {
   EventDetailStats,
   FormField,
   EventFormSettings,
+  StatusPendaftaran,
   EventRegistration,
   ParticipantRole,
   ParticipantRoleRecord,
@@ -272,10 +273,15 @@ export const api = {
     });
   },
 
-  async updateEventForm(id: string, form_schema: FormField[], form_settings: EventFormSettings) {
+  async updateEventForm(
+    id: string,
+    form_schema: FormField[],
+    form_settings: EventFormSettings,
+    publish_status?: StatusPendaftaran
+  ) {
     return request<{ success: boolean; event: EventItem }>(`/api/events/${id}/form`, {
       method: 'PUT',
-      body: JSON.stringify({ form_schema, form_settings }),
+      body: JSON.stringify({ form_schema, form_settings, publish_status }),
     });
   },
 

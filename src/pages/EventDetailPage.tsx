@@ -5,6 +5,7 @@ import {
   FormField,
   EventFormSettings,
   EventRegistration,
+  StatusPendaftaran,
 } from '../types';
 import { api } from '../lib/api';
 import { EventFormBuilder } from '../components/EventFormBuilder';
@@ -30,6 +31,7 @@ import {
   CheckCircle2,
   XCircle,
   AlertCircle,
+  AlertTriangle,
   QrCode,
   Sparkles,
   Shield,
@@ -39,6 +41,7 @@ import {
 
 interface EventDetailPageProps {
   eventId: string;
+  initialTab?: 'overview' | 'form' | 'registrations';
   onBack: () => void;
   onNavigateToCheckIn: (eventId: string) => void;
   onNavigateToPublicRegister: (eventId: string) => void;
@@ -46,13 +49,14 @@ interface EventDetailPageProps {
 
 export const EventDetailPage: React.FC<EventDetailPageProps> = ({
   eventId,
+  initialTab = 'overview',
   onBack,
   onNavigateToCheckIn,
   onNavigateToPublicRegister,
 }) => {
   const [event, setEvent] = useState<(EventItem & { stats?: EventDetailStats }) | null>(null);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<'overview' | 'form' | 'registrations'>('overview');
+  const [activeTab, setActiveTab] = useState<'overview' | 'form' | 'registrations'>(initialTab);
   const [copied, setCopied] = useState(false);
 
   // Form Builder state
@@ -144,15 +148,29 @@ export const EventDetailPage: React.FC<EventDetailPageProps> = ({
     }
   }, [activeTab, regSearch, regStatus, regRole]);
 
-  const handleSaveForm = async () => {
+  const handleSaveForm = async (publishStatus?: StatusPendaftaran) => {
     try {
       setIsSavingForm(true);
       setFormSaveSuccess(false);
-      const res = await api.updateEventForm(eventId, formFields, formSettings);
+      const targetPublish = publishStatus || event?.status_pendaftaran;
+      const res = await api.updateEventForm(
+        eventId,
+        formFields,
+        {
+          ...formSettings,
+          is_accepting_responses: targetPublish === 'Dibuka',
+        },
+        targetPublish
+      );
       if (res.success) {
         setFormSaveSuccess(true);
         setTimeout(() => setFormSaveSuccess(false), 3000);
-        fetchEventData();
+        await fetchEventData();
+        if (publishStatus === 'Dibuka') {
+          alert('Formulir pendaftaran berhasil diterbitkan! Link pendaftaran publik sekarang telah aktif dan siap dibagikan.');
+        } else if (publishStatus === 'Ditutup') {
+          alert('Pendaftaran formulir untuk acara ini telah ditutup.');
+        }
       }
     } catch (err: any) {
       alert(err.message || 'Gagal menyimpan perubahan form.');
@@ -183,6 +201,16 @@ export const EventDetailPage: React.FC<EventDetailPageProps> = ({
   };
 
   const handleCopyPublicLink = () => {
+    const isPublished =
+      event?.status_pendaftaran === 'Dibuka' &&
+      event?.form_settings?.is_accepting_responses &&
+      (event?.form_schema?.length || 0) > 0;
+
+    if (!isPublished) {
+      alert('Formulir pendaftaran untuk kegiatan ini belum diterbitkan. Silakan masuk ke tab "Form Builder" dan klik tombol "Terbitkan Form Pendaftaran" terlebih dahulu.');
+      return;
+    }
+
     const url = `${window.location.origin}/events/${eventId}/register`;
     navigator.clipboard.writeText(url);
     setCopied(true);
@@ -256,6 +284,11 @@ export const EventDetailPage: React.FC<EventDetailPageProps> = ({
     attendance_percentage: 0,
   };
 
+  const isFormPublished =
+    event.status_pendaftaran === 'Dibuka' &&
+    event.form_settings?.is_accepting_responses &&
+    (event.form_schema?.length || 0) > 0;
+
   const quotaPercent =
     event.kuota && event.kuota > 0
       ? Math.min(100, Math.round((stats.total_registrations / event.kuota) * 100))
@@ -287,6 +320,17 @@ export const EventDetailPage: React.FC<EventDetailPageProps> = ({
                 >
                   {event.status}
                 </span>
+
+                <span
+                  className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold ${
+                    isFormPublished
+                      ? 'bg-emerald-950/80 border border-emerald-700 text-emerald-300'
+                      : 'bg-amber-950/80 border border-amber-700 text-amber-300'
+                  }`}
+                >
+                  {isFormPublished ? 'Form Terbit (Aktif)' : 'Form Belum Diterbitkan'}
+                </span>
+
                 <span className="text-xs text-slate-400">ID: {event.id}</span>
               </div>
               <h1 className="text-xl font-black text-white mt-1">{event.nama}</h1>
@@ -295,25 +339,37 @@ export const EventDetailPage: React.FC<EventDetailPageProps> = ({
 
           {/* Top Quick Actions */}
           <div className="flex flex-wrap items-center gap-2">
-            <button
-              onClick={handleCopyPublicLink}
-              className="px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-colors"
-            >
-              {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-              {copied ? 'Tersalin' : 'Salin Link Form'}
-            </button>
+            {isFormPublished ? (
+              <>
+                <button
+                  onClick={handleCopyPublicLink}
+                  className="px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer"
+                >
+                  {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                  {copied ? 'Tersalin' : 'Salin Link Form'}
+                </button>
 
-            <button
-              onClick={() => onNavigateToPublicRegister(event.id)}
-              className="px-3 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 transition-colors shadow-xs"
-            >
-              <ExternalLink className="w-3.5 h-3.5" />
-              Buka Form Publik
-            </button>
+                <button
+                  onClick={() => onNavigateToPublicRegister(event.id)}
+                  className="px-3 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 transition-colors shadow-xs cursor-pointer"
+                >
+                  <ExternalLink className="w-3.5 h-3.5" />
+                  Buka Form Publik
+                </button>
+              </>
+            ) : (
+              <button
+                onClick={() => setActiveTab('form')}
+                className="px-3.5 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-black flex items-center gap-1.5 transition-colors shadow-md cursor-pointer"
+              >
+                <Edit className="w-3.5 h-3.5" />
+                Pilih Pertanyaan & Terbitkan Form
+              </button>
+            )}
 
             <button
               onClick={() => onNavigateToCheckIn(event.id)}
-              className="px-3.5 py-2 bg-teal-600 hover:bg-teal-500 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 transition-colors shadow-xs"
+              className="px-3.5 py-2 bg-teal-600 hover:bg-teal-500 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 transition-colors shadow-xs cursor-pointer"
             >
               <CheckCircle className="w-3.5 h-3.5" />
               Scan Check-In
@@ -321,13 +377,32 @@ export const EventDetailPage: React.FC<EventDetailPageProps> = ({
 
             <button
               onClick={() => setIsEditingMetadata(true)}
-              className="p-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl transition-colors"
+              className="p-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl transition-colors cursor-pointer"
               title="Edit Data Event"
             >
               <Edit className="w-4 h-4" />
             </button>
           </div>
         </div>
+
+        {/* Notice banner if form is not published yet */}
+        {!isFormPublished && (
+          <div className="p-4 bg-amber-950/40 border border-amber-800/80 rounded-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
+            <div className="flex items-center gap-2.5 text-amber-300">
+              <AlertTriangle className="w-4 h-4 shrink-0 text-amber-400" />
+              <span>
+                <strong>Formulir pendaftaran belum diterbitkan:</strong> Link pendaftaran publik belum aktif sehingga peserta belum dapat mendaftar.
+              </span>
+            </div>
+
+            <button
+              onClick={() => setActiveTab('form')}
+              className="px-3 py-1.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black rounded-lg text-xs shrink-0 cursor-pointer shadow-xs transition-colors"
+            >
+              Buat / Susun Pertanyaan Sekarang →
+            </button>
+          </div>
+        )}
 
         {/* Meta details bar */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 pt-3 border-t border-slate-800 text-xs text-slate-300">
@@ -468,23 +543,36 @@ export const EventDetailPage: React.FC<EventDetailPageProps> = ({
                   <h3 className="text-sm font-bold text-white">Tautan Pendaftaran Peserta (Form Publik)</h3>
                 </div>
                 <p className="text-xs text-slate-400">
-                  Bagikan tautan ini kepada calon peserta atau buat QR Code untuk dicetak pada poster / flyer.
+                  {isFormPublished
+                    ? 'Bagikan tautan ini kepada calon peserta atau buat QR Code untuk dicetak pada poster / flyer.'
+                    : 'Tautan pendaftaran saat ini belum aktif karena formulir masih berstatus Draft / Belum Diterbitkan.'}
                 </p>
-                <div className="mt-2 flex items-center gap-2">
-                  <input
-                    type="text"
-                    readOnly
-                    value={`${window.location.origin}/events/${eventId}/register`}
-                    className="w-full md:w-96 bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-300 font-mono select-all"
-                  />
-                  <button
-                    onClick={handleCopyPublicLink}
-                    className="px-3 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-bold flex items-center gap-1 shrink-0"
-                  >
-                    {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-                    {copied ? 'Tersalin' : 'Salin'}
-                  </button>
-                </div>
+                {isFormPublished ? (
+                  <div className="mt-2 flex items-center gap-2">
+                    <input
+                      type="text"
+                      readOnly
+                      value={`${window.location.origin}/events/${eventId}/register`}
+                      className="w-full md:w-96 bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-300 font-mono select-all"
+                    />
+                    <button
+                      onClick={handleCopyPublicLink}
+                      className="px-3 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-bold flex items-center gap-1 shrink-0 cursor-pointer"
+                    >
+                      {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+                      {copied ? 'Tersalin' : 'Salin'}
+                    </button>
+                  </div>
+                ) : (
+                  <div className="mt-2">
+                    <button
+                      onClick={() => setActiveTab('form')}
+                      className="px-3.5 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 cursor-pointer shadow-xs"
+                    >
+                      <Edit className="w-3.5 h-3.5" /> Buka Form Builder untuk Memilih Pertanyaan & Menerbitkan
+                    </button>
+                  </div>
+                )}
               </div>
 
               <div className="flex items-center gap-3">
@@ -507,18 +595,21 @@ export const EventDetailPage: React.FC<EventDetailPageProps> = ({
           {formSaveSuccess && (
             <div className="p-3 bg-emerald-950/60 border border-emerald-800 rounded-xl text-xs font-semibold text-emerald-300 flex items-center gap-2">
               <CheckCircle2 className="w-4 h-4" />
-              <span>Konfigurasi pertanyaan formulir berhasil disimpan!</span>
+              <span>Konfigurasi formulir pendaftaran berhasil disimpan!</span>
             </div>
           )}
 
           <EventFormBuilder
             fields={formFields}
             settings={formSettings}
+            statusPendaftaran={event.status_pendaftaran}
+            eventId={eventId}
             onChange={(updatedFields, updatedSettings) => {
               setFormFields(updatedFields);
               setFormSettings(updatedSettings);
             }}
             onSave={handleSaveForm}
+            onNavigateToPublicRegister={() => onNavigateToPublicRegister(event.id)}
             isSaving={isSavingForm}
           />
         </div>

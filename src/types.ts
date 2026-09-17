@@ -180,7 +180,7 @@ export interface EventFormSettings {
 }
 
 export type StatusEvent = 'Akan Datang' | 'Berlangsung' | 'Selesai' | 'AKTIF' | 'DRAFT' | 'SELESAI';
-export type StatusPendaftaran = 'Belum Dibuka' | 'Dibuka' | 'Ditutup' | 'Kuota Penuh';
+export type StatusPendaftaran = 'Belum Dibuat' | 'Draft' | 'Belum Dibuka' | 'Dibuka' | 'Ditutup' | 'Kuota Penuh';
 
 export interface EventItem {
   id: string;

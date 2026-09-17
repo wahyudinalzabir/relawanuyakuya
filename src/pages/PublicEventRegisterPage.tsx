@@ -251,9 +251,42 @@ export const PublicEventRegisterPage: React.FC<PublicEventRegisterPageProps> = (
     );
   }
 
+  // Check if event form is not yet published / draft
+  const isNotPublished =
+    event.status_pendaftaran === 'Belum Dibuat' ||
+    event.status_pendaftaran === 'Draft' ||
+    !event.form_schema ||
+    event.form_schema.length === 0;
+
+  if (isNotPublished) {
+    return (
+      <div className="min-h-screen bg-slate-950 flex items-center justify-center p-4">
+        <div className="max-w-md w-full bg-slate-900 border border-slate-800 rounded-2xl p-8 text-center space-y-4 shadow-2xl">
+          <div className="w-12 h-12 rounded-full bg-amber-900/30 text-amber-400 flex items-center justify-center mx-auto">
+            <Lock className="w-6 h-6" />
+          </div>
+          <h2 className="text-lg font-black text-white">{event.nama}</h2>
+          <p className="text-xs text-amber-300 font-semibold">Formulir Pendaftaran Belum Diterbitkan</p>
+          <p className="text-xs text-slate-400">
+            Penyelenggara kegiatan masih menyusun pertanyaan pada formulir pendaftaran ini. Tautan belum dibuka untuk pendaftaran umum.
+          </p>
+          {onBackToApp && (
+            <button
+              onClick={onBackToApp}
+              className="mt-2 px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold rounded-lg cursor-pointer"
+            >
+              Kembali ke Dashboard
+            </button>
+          )}
+        </div>
+      </div>
+    );
+  }
+
   // Check if event is closed for responses
   const isClosed =
     event.status === 'SELESAI' ||
+    event.status_pendaftaran === 'Ditutup' ||
     (event.form_settings && event.form_settings.is_accepting_responses === false);
 
   if (isClosed) {
