@@ -37,6 +37,7 @@ import {
   Shield,
   Layers,
   FileText,
+  RefreshCw,
 } from 'lucide-react';
 
 interface EventDetailPageProps {
@@ -258,6 +259,39 @@ export const EventDetailPage: React.FC<EventDetailPageProps> = ({
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+  };
+
+  const [syncingSheets, setSyncingSheets] = useState(false);
+  const [syncNotice, setSyncNotice] = useState<string | null>(null);
+
+  const handleSyncToGoogleSheets = async () => {
+    const webhookUrl = event?.form_settings?.google_sheet_webhook_url;
+    if (!webhookUrl) {
+      if (
+        confirm(
+          'URL Webhook Google Sheets belum diatur untuk event ini.\n\nApakah Anda ingin membuka tab Form Builder untuk mengaturnya sekarang?'
+        )
+      ) {
+        setActiveTab('form');
+      }
+      return;
+    }
+
+    try {
+      setSyncingSheets(true);
+      setSyncNotice(null);
+      const res = await api.syncEventToGoogleSheets(eventId, webhookUrl);
+      if (res.success) {
+        setSyncNotice(res.message || `Berhasil mengirim ${res.syncedCount || 0} data peserta ke Google Sheets!`);
+        setTimeout(() => setSyncNotice(null), 6000);
+      } else {
+        alert(res.error || 'Gagal melakukan sinkronisasi ke Google Sheets.');
+      }
+    } catch (err: any) {
+      alert(err.message || 'Terjadi kesalahan saat menghubungi Google Sheets.');
+    } finally {
+      setSyncingSheets(false);
+    }
   };
 
   if (loading) {
@@ -658,16 +692,56 @@ export const EventDetailPage: React.FC<EventDetailPageProps> = ({
               </select>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex flex-wrap items-center gap-2">
+              {event.form_settings?.google_sheet_url ? (
+                <a
+                  href={event.form_settings.google_sheet_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3 py-1.5 bg-emerald-900/60 hover:bg-emerald-900 border border-emerald-700/60 text-emerald-300 rounded-lg text-xs font-bold flex items-center gap-1.5 shadow-xs transition-colors cursor-pointer"
+                  title="Buka dokumen Google Sheets langsung"
+                >
+                  <ExternalLink className="w-3.5 h-3.5" />
+                  <span>Buka di Google Sheets</span>
+                </a>
+              ) : (
+                <button
+                  onClick={() => setActiveTab('form')}
+                  className="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer"
+                  title="Hubungkan event ini ke Google Sheets"
+                >
+                  <FileSpreadsheet className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>Hubungkan Google Sheets</span>
+                </button>
+              )}
+
+              <button
+                onClick={handleSyncToGoogleSheets}
+                disabled={syncingSheets}
+                className="px-3 py-1.5 bg-emerald-800 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold flex items-center gap-1.5 shadow-xs transition-colors disabled:opacity-50 cursor-pointer"
+                title="Sinkronkan seluruh data peserta ke Google Sheets"
+              >
+                <RefreshCw className={`w-3.5 h-3.5 ${syncingSheets ? 'animate-spin' : ''}`} />
+                <span>{syncingSheets ? 'Menyinkronkan...' : 'Sync ke Google Sheets'}</span>
+              </button>
+
               <button
                 onClick={handleExportCsv}
-                className="px-3 py-1.5 bg-emerald-700 hover:bg-emerald-600 text-white rounded-lg text-xs font-bold flex items-center gap-1.5 shadow-xs transition-colors"
+                className="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 rounded-lg text-xs font-bold flex items-center gap-1.5 shadow-xs transition-colors cursor-pointer"
               >
                 <Download className="w-3.5 h-3.5" />
-                Export Data Peserta (CSV)
+                Export CSV
               </button>
             </div>
           </div>
+
+          {/* Sync Notice Alert */}
+          {syncNotice && (
+            <div className="p-3.5 bg-emerald-950/70 border border-emerald-800 text-emerald-300 rounded-xl text-xs font-semibold flex items-center gap-2 shadow-md">
+              <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+              <span>{syncNotice}</span>
+            </div>
+          )}
 
           {/* Table */}
           {regLoading ? (

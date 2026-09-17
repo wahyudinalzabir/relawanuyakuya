@@ -589,9 +589,22 @@ async function startServer() {
   });
 
   // CHECK 2: Submit Public Event Registration (enforces anti-duplicate & quota)
-  app.post('/api/events/:id/register', (req: Request, res: Response) => {
+  app.post('/api/events/:id/register', async (req: Request, res: Response) => {
     try {
-      const { nik, nama, nomor_hp, source_input, data_form, ktp_image_url } = req.body;
+      const {
+        nik,
+        nama,
+        nomor_hp,
+        alamat,
+        rt,
+        rw,
+        kelurahan,
+        kecamatan,
+        source_input,
+        data_form,
+        ktp_image_url,
+      } = req.body;
+
       if (!nik || !nama) {
         return res.status(400).json({ success: false, error: 'NIK dan Nama Lengkap wajib diisi.' });
       }
@@ -600,6 +613,11 @@ async function startServer() {
         nik,
         nama,
         nomor_hp,
+        alamat,
+        rt,
+        rw,
+        kelurahan,
+        kecamatan,
         source_input: source_input || 'MANUAL',
         data_form: data_form || {},
         ktp_image_url,
@@ -613,9 +631,166 @@ async function startServer() {
         });
       }
 
+      // Background Sync to Google Sheets Webhook if configured for this event
+      const event = db.getEventById(req.params.id);
+      if (event?.form_settings?.google_sheet_webhook_url && result.data) {
+        const webhookUrl = event.form_settings.google_sheet_webhook_url;
+        const reg = result.data;
+        // Asynchronous non-blocking fire-and-forget to Google Sheets Webhook
+        fetch(webhookUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            timestamp: new Date().toISOString(),
+            event_id: event.id,
+            event_name: event.nama,
+            registration_id: reg.id,
+            nik: `'${reg.nik}`,
+            nama: reg.nama,
+            nomor_hp: reg.nomor_hp || '',
+            alamat: reg.alamat || '',
+            rt: reg.rt || '',
+            rw: reg.rw || '',
+            kelurahan: reg.kelurahan || '',
+            kecamatan: reg.kecamatan || 'Jagakarsa',
+            role: reg.role_snapshot,
+            status: reg.status,
+            source: reg.source_input,
+            data_form: reg.data_form,
+          }),
+        }).catch((err) => {
+          console.error('[GoogleSheetWebhook] Failed to auto-send row to Google Sheets:', err.message);
+        });
+      }
+
       res.status(201).json({ success: true, registration: result.data });
     } catch (err: any) {
       res.status(500).json({ error: err.message });
+    }
+  });
+
+  // Google Sheets Feed / Live CSV Export (Usable directly with =IMPORTDATA in Google Sheets)
+  app.get('/api/events/:id/export.csv', (req: Request, res: Response) => {
+    try {
+      const event = db.getEventById(req.params.id);
+      if (!event) return res.status(404).send('Event not found');
+
+      const { items } = db.getEventRegistrations(req.params.id, { limit: 10000 });
+
+      const headers = [
+        'Timestamp',
+        'ID Registrasi',
+        'Nama Lengkap',
+        'NIK',
+        'Alamat',
+        'RT',
+        'RW',
+        'Kelurahan',
+        'Kecamatan',
+        'Nomor WhatsApp / HP',
+        'Role Peserta',
+        'Status Pendaftaran',
+        'Metode Pendaftaran',
+      ];
+
+      const csvRows = items.map((r) => [
+        `"${new Date(r.registration_time || r.created_at).toLocaleString('id-ID')}"`,
+        `"${r.id}"`,
+        `"${(r.nama || '').replace(/"/g, '""')}"`,
+        `"'${r.nik}"`,
+        `"${(r.alamat || r.data_form?.alamat || '').replace(/"/g, '""')}"`,
+        `"${r.rt || r.data_form?.rt || ''}"`,
+        `"${r.rw || r.data_form?.rw || ''}"`,
+        `"${(r.kelurahan || r.data_form?.kelurahan || '').replace(/"/g, '""')}"`,
+        `"${(r.kecamatan || r.data_form?.kecamatan || 'Jagakarsa').replace(/"/g, '""')}"`,
+        `"${r.nomor_hp || ''}"`,
+        `"${r.role_snapshot || 'PESERTA'}"`,
+        `"${r.status}"`,
+        `"${r.source_input}"`,
+      ]);
+
+      const csvContent = '\uFEFF' + [headers.join(','), ...csvRows.map((row) => row.join(','))].join('\r\n');
+
+      res.setHeader('Content-Type', 'text/csv; charset=utf-8');
+      res.setHeader(
+        'Content-Disposition',
+        `inline; filename="tanggapan_${event.nama.replace(/[^a-zA-Z0-9]/g, '_')}.csv"`
+      );
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.send(csvContent);
+    } catch (err: any) {
+      res.status(500).send(err.message);
+    }
+  });
+
+  // Manual Trigger / Test Sync to Google Sheets
+  app.post('/api/events/:id/sync-sheets', async (req: Request, res: Response) => {
+    const user = requireAuthUser(req, res);
+    if (!user) return;
+
+    try {
+      const event = db.getEventById(req.params.id);
+      if (!event) return res.status(404).json({ error: 'Event tidak ditemukan.' });
+
+      const webhookUrl = req.body.webhook_url || event.form_settings?.google_sheet_webhook_url;
+      if (!webhookUrl) {
+        return res.status(400).json({ error: 'URL Webhook Google Apps Script belum diisi.' });
+      }
+
+      const { items } = db.getEventRegistrations(req.params.id, { limit: 10000 });
+      if (items.length === 0) {
+        return res.json({
+          success: true,
+          syncedCount: 0,
+          message: 'Belum ada data pendaftar untuk disinkronkan ke Google Sheet.',
+        });
+      }
+
+      // Send payload to Webhook
+      const payload = {
+        action: 'BATCH_SYNC',
+        event_id: event.id,
+        event_name: event.nama,
+        timestamp: new Date().toISOString(),
+        total_rows: items.length,
+        rows: items.map((r) => ({
+          timestamp: new Date(r.registration_time || r.created_at).toLocaleString('id-ID'),
+          registration_id: r.id,
+          nik: `'${r.nik}`,
+          nama: r.nama,
+          nomor_hp: r.nomor_hp || '',
+          alamat: r.alamat || r.data_form?.alamat || '',
+          rt: r.rt || r.data_form?.rt || '',
+          rw: r.rw || r.data_form?.rw || '',
+          kelurahan: r.kelurahan || r.data_form?.kelurahan || '',
+          kecamatan: r.kecamatan || r.data_form?.kecamatan || 'Jagakarsa',
+          role: r.role_snapshot,
+          status: r.status,
+          source: r.source_input,
+        })),
+      };
+
+      const response = await fetch(webhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      db.addAuditLog(
+        'EXPORT_DATA',
+        `Sinkronisasi ${items.length} data pendaftar event '${event.nama}' ke Google Sheet via Webhook.`,
+        user,
+        event.id
+      );
+
+      res.json({
+        success: true,
+        syncedCount: items.length,
+        message: `Berhasil mengirim ${items.length} baris data pendaftar ke Google Sheet!`,
+        webhookResponseStatus: response.status,
+      });
+    } catch (err: any) {
+      res.status(500).json({ error: `Gagal sinkronisasi ke Google Sheet: ${err.message}` });
     }
   });
 

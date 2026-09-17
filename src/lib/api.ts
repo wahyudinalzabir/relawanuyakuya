@@ -304,8 +304,13 @@ export const api = {
       nik: string;
       nama: string;
       nomor_hp?: string;
+      alamat?: string;
+      rt?: string;
+      rw?: string;
+      kelurahan?: string;
+      kecamatan?: string;
       source_input?: string;
-      data_form: Record<string, any>;
+      data_form?: Record<string, any>;
       ktp_image_url?: string;
     }
   ) {
@@ -317,6 +322,20 @@ export const api = {
     }>(`/api/events/${eventId}/register`, {
       method: 'POST',
       body: JSON.stringify(data),
+    });
+  },
+
+  // Sync / Test Sync Registrations to Google Sheets Webhook
+  async syncEventToGoogleSheets(eventId: string, webhook_url?: string) {
+    return request<{
+      success: boolean;
+      syncedCount?: number;
+      message?: string;
+      error?: string;
+      webhookResponseStatus?: number;
+    }>(`/api/events/${eventId}/sync-sheets`, {
+      method: 'POST',
+      body: JSON.stringify({ webhook_url }),
     });
   },
 

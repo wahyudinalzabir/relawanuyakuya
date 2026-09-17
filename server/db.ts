@@ -1669,6 +1669,11 @@ class Database {
       nik: string;
       nama: string;
       nomor_hp?: string;
+      alamat?: string;
+      rt?: string;
+      rw?: string;
+      kelurahan?: string;
+      kecamatan?: string;
       source_input: RegistrationSource;
       data_form: Record<string, any>;
       ktp_image_url?: string;
@@ -1780,9 +1785,21 @@ class Database {
       nik: cleanNik,
       nama: payload.nama.trim().toUpperCase(),
       nomor_hp: payload.nomor_hp || '',
+      alamat: payload.alamat || payload.data_form?.alamat || '',
+      rt: payload.rt || payload.data_form?.rt || '',
+      rw: payload.rw || payload.data_form?.rw || '',
+      kelurahan: payload.kelurahan || payload.data_form?.kelurahan || '',
+      kecamatan: payload.kecamatan || payload.data_form?.kecamatan || 'Jagakarsa',
       role_snapshot: internalRole,
       source_input: payload.source_input || 'MANUAL',
-      data_form: payload.data_form || {},
+      data_form: {
+        ...payload.data_form,
+        alamat: payload.alamat || payload.data_form?.alamat || '',
+        rt: payload.rt || payload.data_form?.rt || '',
+        rw: payload.rw || payload.data_form?.rw || '',
+        kelurahan: payload.kelurahan || payload.data_form?.kelurahan || '',
+        kecamatan: payload.kecamatan || payload.data_form?.kecamatan || 'Jagakarsa',
+      },
       registration_time: now.toISOString(),
       status: 'VALID',
       ktp_image_url: payload.ktp_image_url,

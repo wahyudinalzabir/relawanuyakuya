@@ -37,7 +37,12 @@ import {
   ExternalLink,
   Search,
   BookOpen,
+  FileSpreadsheet,
+  Download,
+  RefreshCw,
+  Table,
 } from 'lucide-react';
+import { api } from '../lib/api';
 
 interface EventFormBuilderProps {
   fields: FormField[];
@@ -304,14 +309,42 @@ export const EventFormBuilder: React.FC<EventFormBuilderProps> = ({
   onNavigateToPublicRegister,
   isSaving = false,
 }) => {
-  const [activeTab, setActiveTab] = useState<'builder' | 'library' | 'settings' | 'preview'>('builder');
+  const [activeTab, setActiveTab] = useState<'builder' | 'library' | 'settings' | 'sheets' | 'preview'>('builder');
   const [selectedFieldId, setSelectedFieldId] = useState<string | null>(fields[0]?.id || null);
   const [showLibraryModal, setShowLibraryModal] = useState(false);
   const [libraryFilterCategory, setLibraryFilterCategory] = useState<string>('Semua');
   const [librarySearch, setLibrarySearch] = useState<string>('');
   const [copiedLink, setCopiedLink] = useState(false);
+  const [copiedFormula, setCopiedFormula] = useState(false);
+  const [copiedScript, setCopiedScript] = useState(false);
+  const [syncingSheets, setSyncingSheets] = useState(false);
+  const [syncSuccessMessage, setSyncSuccessMessage] = useState<string | null>(null);
+  const [syncErrorMessage, setSyncErrorMessage] = useState<string | null>(null);
 
   const isPublished = statusPendaftaran === 'Dibuka' && settings.is_accepting_responses;
+
+  const handleSyncSheetsNow = async () => {
+    const webhookUrl = settings.google_sheet_webhook_url;
+    if (!webhookUrl) {
+      alert('Mohon masukkan URL Webhook Google Apps Script terlebih dahulu pada kolom pengaturan.');
+      return;
+    }
+    try {
+      setSyncingSheets(true);
+      setSyncSuccessMessage(null);
+      setSyncErrorMessage(null);
+      const res = await api.syncEventToGoogleSheets(eventId, webhookUrl);
+      if (res.success) {
+        setSyncSuccessMessage(res.message || `Berhasil mengirim ${res.syncedCount || 0} data ke Google Sheet!`);
+      } else {
+        setSyncErrorMessage(res.error || 'Gagal melakukan sinkronisasi ke Google Sheet.');
+      }
+    } catch (err: any) {
+      setSyncErrorMessage(err.message || 'Terjadi kesalahan saat menghubungi Webhook Google Sheet.');
+    } finally {
+      setSyncingSheets(false);
+    }
+  };
 
   // Add individual custom field
   const handleAddField = (type: FormFieldType = 'short_answer') => {
@@ -655,6 +688,22 @@ export const EventFormBuilder: React.FC<EventFormBuilderProps> = ({
           >
             <Settings className="w-4 h-4" />
             <span>Pengaturan Form</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setActiveTab('sheets')}
+            className={`px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition-colors ${
+              activeTab === 'sheets'
+                ? 'bg-emerald-600 text-white shadow-md'
+                : 'bg-slate-900 text-slate-400 hover:text-white border border-slate-800'
+            }`}
+          >
+            <FileSpreadsheet className="w-4 h-4 text-emerald-400" />
+            <span>Integrasi Google Sheets</span>
+            {(settings.google_sheet_url || settings.google_sheet_webhook_url) && (
+              <span className="w-2 h-2 rounded-full bg-emerald-400" />
+            )}
           </button>
 
           <button
@@ -1045,11 +1094,286 @@ export const EventFormBuilder: React.FC<EventFormBuilderProps> = ({
                 className="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-xs text-white focus:outline-hidden focus:border-blue-500"
               />
             </div>
+
+            {/* Quick Link to Google Sheets Integration */}
+            <div className="p-4 bg-emerald-950/30 border border-emerald-800/60 rounded-xl flex items-center justify-between gap-3">
+              <div className="flex items-center gap-3">
+                <FileSpreadsheet className="w-5 h-5 text-emerald-400 shrink-0" />
+                <div>
+                  <h4 className="text-xs font-bold text-white">Integrasi Google Sheets (Seperti Google Form)</h4>
+                  <p className="text-[11px] text-slate-400">
+                    Kirim data pendaftar otomatis ke Google Sheet atau buka spreadsheet secara langsung.
+                  </p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setActiveTab('sheets')}
+                className="px-3.5 py-1.5 bg-emerald-700 hover:bg-emerald-600 text-white rounded-lg text-xs font-bold shrink-0 transition-colors"
+              >
+                Buka Tab Google Sheets
+              </button>
+            </div>
           </div>
         </div>
       )}
 
-      {/* TAB 3: LIVE PREVIEW */}
+      {/* TAB 3: GOOGLE SHEETS INTEGRATION (SEPERTI GOOGLE FORM) */}
+      {activeTab === 'sheets' && (
+        <div className="space-y-6">
+          {/* Header Banner */}
+          <div className="bg-gradient-to-r from-emerald-950/80 via-slate-900 to-slate-900 border border-emerald-800/60 rounded-2xl p-6 shadow-xl space-y-3">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+              <div className="space-y-1">
+                <div className="flex items-center gap-2">
+                  <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-[11px] font-extrabold uppercase tracking-wider border border-emerald-500/30 flex items-center gap-1.5">
+                    <FileSpreadsheet className="w-3.5 h-3.5" />
+                    Google Sheets Live Sync
+                  </span>
+                  <span className="text-xs text-slate-400">• Seperti Fitur Spreadsheet di Google Forms</span>
+                </div>
+                <h3 className="text-lg font-black text-white">Hubungkan Pendaftaran ke Google Sheets</h3>
+                <p className="text-xs text-slate-300 max-w-2xl leading-relaxed">
+                  Data pendaftar (Nama Lengkap, NIK, Alamat, RT, RW, Kelurahan, Kecamatan, No HP/WA, Waktu Daftar, Status)
+                  dapat langsung masuk ke baris spreadsheet Google Anda secara otomatis dan dapat dibuka kapan saja.
+                </p>
+              </div>
+
+              {settings.google_sheet_url ? (
+                <a
+                  href={settings.google_sheet_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-extrabold flex items-center gap-2 shadow-lg transition-all shrink-0 cursor-pointer"
+                >
+                  <ExternalLink className="w-4 h-4" />
+                  <span>Buka Spreadsheet Google</span>
+                </a>
+              ) : (
+                <a
+                  href="https://sheets.new"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 rounded-xl text-xs font-bold flex items-center gap-2 transition-all shrink-0 cursor-pointer"
+                >
+                  <Plus className="w-4 h-4 text-emerald-400" />
+                  <span>Buat Spreadsheet Baru (sheets.new)</span>
+                </a>
+              )}
+            </div>
+          </div>
+
+          {/* Feedback Alerts */}
+          {syncSuccessMessage && (
+            <div className="p-4 bg-emerald-950/70 border border-emerald-800 rounded-xl text-xs font-semibold text-emerald-300 flex items-center gap-2 shadow-lg">
+              <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-400" />
+              <span>{syncSuccessMessage}</span>
+            </div>
+          )}
+
+          {syncErrorMessage && (
+            <div className="p-4 bg-red-950/70 border border-red-800 rounded-xl text-xs font-semibold text-red-300 flex items-center gap-2 shadow-lg">
+              <AlertTriangle className="w-4 h-4 shrink-0 text-red-400" />
+              <span>{syncErrorMessage}</span>
+            </div>
+          )}
+
+          {/* 2 Integration Options: Method 1 (Formula Live Import) & Method 2 (Webhook Realtime Push) */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+            {/* METODE 1: Formula Google Sheet Live (Paling Cepat & Mudah) */}
+            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl flex flex-col justify-between space-y-4">
+              <div className="space-y-3">
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-xl bg-blue-600/20 text-blue-400 flex items-center justify-center font-black text-sm">
+                    1
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-bold text-white">Metode Praktis: Formula =IMPORTDATA</h4>
+                    <span className="text-[11px] text-emerald-400 font-medium">Tanpa Koding & Tanpa Script Apapun</span>
+                  </div>
+                </div>
+
+                <p className="text-xs text-slate-400 leading-relaxed">
+                  Cukup buat Google Sheet kosong, klik di sel <strong>A1</strong>, lalu tempel formula di bawah ini.
+                  Google Sheet akan otomatis menarik seluruh data pendaftar (Nama, NIK, Alamat, RT/RW, dsb) secara langsung.
+                </p>
+
+                <div className="space-y-1.5 pt-1">
+                  <label className="block text-[11px] font-bold text-slate-300">
+                    Formula Google Sheet (Salin & Tempel di Sel A1):
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="text"
+                      readOnly
+                      value={`=IMPORTDATA("${window.location.origin}/api/events/${eventId}/export.csv")`}
+                      className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-emerald-400 font-mono select-all focus:outline-hidden"
+                    />
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap items-center gap-2 pt-1">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const formula = `=IMPORTDATA("${window.location.origin}/api/events/${eventId}/export.csv")`;
+                      navigator.clipboard.writeText(formula);
+                      setCopiedFormula(true);
+                      setTimeout(() => setCopiedFormula(false), 2500);
+                    }}
+                    className="px-3.5 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-sm transition-colors cursor-pointer"
+                  >
+                    {copiedFormula ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+                    <span>{copiedFormula ? 'Formula Tersalin!' : 'Salin Formula Google Sheet'}</span>
+                  </button>
+
+                  <a
+                    href={`${window.location.origin}/api/events/${eventId}/export.csv`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs font-semibold flex items-center gap-1.5 border border-slate-700 transition-colors"
+                  >
+                    <Download className="w-3.5 h-3.5" />
+                    <span>Download CSV Langsung</span>
+                  </a>
+                </div>
+
+                <div className="bg-slate-950/70 p-3 rounded-xl border border-slate-800/80 space-y-1.5 text-[11px] text-slate-400">
+                  <p className="font-bold text-slate-300">Langkah 3 Detik:</p>
+                  <ol className="list-decimal list-inside space-y-1 pl-1">
+                    <li>Buka Google Sheets (<a href="https://sheets.new" target="_blank" rel="noopener noreferrer" className="text-blue-400 underline">sheets.new</a>)</li>
+                    <li>Klik sel paling atas sebelah kiri <strong>A1</strong></li>
+                    <li>Tekan <strong>Ctrl + V</strong> (Paste formula). Selesai! Data langsung muncul rapi dalam tabel.</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+
+            {/* METODE 2: Webhook Otomatis Real-time (Auto Push Row Saat Submit) */}
+            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl flex flex-col justify-between space-y-4">
+              <div className="space-y-3">
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-xl bg-emerald-600/20 text-emerald-400 flex items-center justify-center font-black text-sm">
+                    2
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-bold text-white">Metode Otomatis: Webhook Google Apps Script</h4>
+                    <span className="text-[11px] text-blue-400 font-medium">Baris Baru Otomatis Ditambahkan Seketika</span>
+                  </div>
+                </div>
+
+                <p className="text-xs text-slate-400 leading-relaxed">
+                  Setiap kali calon peserta mengirimkan formulir di web, server akan mengirimkan data pendaftar baru ke Webhook Google Apps Script Anda.
+                </p>
+
+                {/* Input 1: Link Spreadsheet */}
+                <div className="space-y-1">
+                  <label className="block text-[11px] font-bold text-slate-300">
+                    Tautan Google Spreadsheet Anda (Untuk Tombol Buka):
+                  </label>
+                  <input
+                    type="url"
+                    value={settings.google_sheet_url || ''}
+                    onChange={(e) => onChange(fields, { ...settings, google_sheet_url: e.target.value })}
+                    placeholder="Contoh: https://docs.google.com/spreadsheets/d/1abc.../edit"
+                    className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-hidden focus:border-emerald-500"
+                  />
+                  <p className="text-[10px] text-slate-500">
+                    Paste link dokumen spreadsheet Anda di sini agar Anda dan tim dapat membukanya dengan 1 klik.
+                  </p>
+                </div>
+
+                {/* Input 2: Webhook URL */}
+                <div className="space-y-1">
+                  <label className="block text-[11px] font-bold text-slate-300">
+                    URL Webhook Google Apps Script (Web App URL):
+                  </label>
+                  <input
+                    type="url"
+                    value={settings.google_sheet_webhook_url || ''}
+                    onChange={(e) => onChange(fields, { ...settings, google_sheet_webhook_url: e.target.value })}
+                    placeholder="https://script.google.com/macros/s/.../exec"
+                    className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-xs text-emerald-400 font-mono focus:outline-hidden focus:border-emerald-500"
+                  />
+                </div>
+
+                {/* Action Buttons for Webhook */}
+                <div className="flex flex-wrap items-center gap-2 pt-1">
+                  <button
+                    type="button"
+                    onClick={handleSyncSheetsNow}
+                    disabled={syncingSheets || !settings.google_sheet_webhook_url}
+                    className="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-sm transition-colors disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                  >
+                    <RefreshCw className={`w-3.5 h-3.5 ${syncingSheets ? 'animate-spin' : ''}`} />
+                    <span>{syncingSheets ? 'Mengirim Data...' : 'Kirim / Sinkronkan Data Sekarang'}</span>
+                  </button>
+
+                  {settings.google_sheet_url && (
+                    <a
+                      href={settings.google_sheet_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-3 py-2 bg-slate-800 hover:bg-slate-700 text-emerald-300 rounded-xl text-xs font-semibold flex items-center gap-1.5 border border-slate-700 transition-colors"
+                    >
+                      <ExternalLink className="w-3.5 h-3.5" />
+                      <span>Buka Sheet</span>
+                    </a>
+                  )}
+                </div>
+
+                {/* Apps Script Guide Accordion */}
+                <div className="bg-slate-950/70 p-3.5 rounded-xl border border-slate-800/80 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-bold text-slate-300 flex items-center gap-1.5">
+                      <Sparkles className="w-3.5 h-3.5 text-blue-400" />
+                      Kode Google Apps Script (Siap Pakai):
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const scriptCode = `function doPost(e) {
+  try {
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    var data = JSON.parse(e.postData.contents);
+    if (sheet.getLastRow() === 0) {
+      sheet.appendRow(["Waktu", "ID", "Nama Lengkap", "NIK", "Alamat", "RT", "RW", "Kelurahan", "Kecamatan", "No HP/WA", "Role", "Status", "Metode"]);
+      sheet.getRange("A1:M1").setFontWeight("bold").setBackground("#1e293b").setFontColor("#ffffff");
+    }
+    if (data.action === "BATCH_SYNC" && data.rows) {
+      data.rows.forEach(function(r) {
+        sheet.appendRow([r.timestamp, r.registration_id, r.nama, "'" + r.nik, r.alamat, r.rt, r.rw, r.kelurahan, r.kecamatan, r.nomor_hp, r.role, r.status, r.source]);
+      });
+    } else if (data.row) {
+      var r = data.row;
+      sheet.appendRow([r.timestamp, r.registration_id, r.nama, "'" + r.nik, r.alamat, r.rt, r.rw, r.kelurahan, r.kecamatan, r.nomor_hp, r.role, r.status, r.source]);
+    }
+    return ContentService.createTextOutput(JSON.stringify({ status: "success" })).setMimeType(ContentService.MimeType.JSON);
+  } catch (error) {
+    return ContentService.createTextOutput(JSON.stringify({ status: "error", message: error.toString() })).setMimeType(ContentService.MimeType.JSON);
+  }
+}`;
+                        navigator.clipboard.writeText(scriptCode);
+                        setCopiedScript(true);
+                        setTimeout(() => setCopiedScript(false), 2500);
+                      }}
+                      className="text-[11px] font-bold text-blue-400 hover:text-blue-300 flex items-center gap-1 cursor-pointer"
+                    >
+                      {copiedScript ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3" />}
+                      <span>{copiedScript ? 'Kode Tersalin!' : 'Salin Kode Script'}</span>
+                    </button>
+                  </div>
+                  <p className="text-[10px] text-slate-400">
+                    Di Google Sheet Anda: Buka <strong>Ekstensi &gt; Apps Script</strong>, tempel kode di atas, lalu klik <strong>Deploy &gt; New Deployment &gt; Web app (Who has access: Anyone)</strong>. Salin Web App URL ke kolom di atas.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* TAB 4: LIVE PREVIEW */}
       {activeTab === 'preview' && (
         <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-5">
           <div className="flex items-center justify-between border-b border-slate-800 pb-3">

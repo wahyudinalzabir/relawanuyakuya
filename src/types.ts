@@ -177,6 +177,9 @@ export interface EventFormSettings {
   confirmation_message?: string;
   allow_manual_input: boolean;
   allow_ktp_scan: boolean;
+  google_sheet_url?: string;
+  google_sheet_webhook_url?: string;
+  google_sheet_name?: string;
 }
 
 export type StatusEvent = 'Akan Datang' | 'Berlangsung' | 'Selesai' | 'AKTIF' | 'DRAFT' | 'SELESAI';
@@ -214,6 +217,11 @@ export interface EventRegistration {
   nik: string;
   nama: string;
   nomor_hp?: string;
+  alamat?: string;
+  rt?: string;
+  rw?: string;
+  kelurahan?: string;
+  kecamatan?: string;
   role_snapshot: ParticipantRole;
   source_input: RegistrationSource;
   data_form: Record<string, any>;
